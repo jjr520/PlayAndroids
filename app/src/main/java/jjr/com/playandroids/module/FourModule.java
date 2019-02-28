@@ -1,7 +1,7 @@
 package jjr.com.playandroids.module;
 
 import jjr.com.playandroids.base.model.BaseModel;
-import jjr.com.playandroids.entityclass.NaviListBean;
+import jjr.com.playandroids.beans.fourlistbean.NaviListBean;
 import jjr.com.playandroids.http.BaseObserver;
 import jjr.com.playandroids.http.HttpManager;
 import jjr.com.playandroids.http.MyServer;

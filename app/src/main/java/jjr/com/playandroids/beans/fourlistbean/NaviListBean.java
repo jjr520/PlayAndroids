@@ -1,4 +1,4 @@
-package jjr.com.playandroids.entityclass;
+package jjr.com.playandroids.beans.fourlistbean;
 
 import java.util.List;
 

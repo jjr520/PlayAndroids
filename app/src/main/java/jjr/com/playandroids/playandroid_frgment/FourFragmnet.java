@@ -4,7 +4,7 @@ import android.util.Log;
 
 import jjr.com.playandroids.R;
 import jjr.com.playandroids.base.fragment.BaseFragment;
-import jjr.com.playandroids.entityclass.NaviListBean;
+import jjr.com.playandroids.beans.fourlistbean.NaviListBean;
 import jjr.com.playandroids.only.OnlyFour;
 import jjr.com.playandroids.persenter.FourPresenter;
 import jjr.com.playandroids.view.FourView;

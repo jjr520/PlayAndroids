@@ -1,9 +1,8 @@
 package jjr.com.playandroids.http;
 
 import io.reactivex.Observable;
-import jjr.com.playandroids.beans.WeChatTabBean;
 import jjr.com.playandroids.beans.fivelistbean.TreeListBean;
-import jjr.com.playandroids.entityclass.NaviListBean;
+import jjr.com.playandroids.beans.fourlistbean.NaviListBean;
 import retrofit2.http.GET;
 
 /**
