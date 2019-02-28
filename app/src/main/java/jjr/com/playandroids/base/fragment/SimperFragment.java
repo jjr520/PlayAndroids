@@ -21,7 +21,6 @@ public abstract class SimperFragment extends Fragment {
     public Context context;
     public Activity mActivity;
     private Unbinder unbinder;
-    public View mView;
 
     @Override
     public void onAttach(Context context) {
@@ -33,9 +32,9 @@ public abstract class SimperFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mView = inflater.inflate(createLayoutId(), null);
-        viewCreate(mView);
-        return mView;
+        View view = inflater.inflate(createLayoutId(), null);
+        viewCreate(view);
+        return view;
     }
 
     public void viewCreate(View view) {
@@ -48,14 +47,15 @@ public abstract class SimperFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-       unbinder = ButterKnife.bind(this, view);
+      //  unbinder = ButterKnife.bind(this, view);
         initData();
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
         if (getUserVisibleHint()) {
-           load();
+            load();
         }
     }
 
@@ -71,8 +71,8 @@ public abstract class SimperFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (unbinder != null) {
+       /* if (unbinder != null) {
             unbinder.unbind();
-        }
+        }*/
     }
 }

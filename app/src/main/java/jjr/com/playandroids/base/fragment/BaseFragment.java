@@ -5,7 +5,6 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import jjr.com.playandroids.R;
-import jjr.com.playandroids.base.presenter.BasePresenter;
 import jjr.com.playandroids.base.presenter.IBasePresenter;
 import jjr.com.playandroids.base.view.BaseView;
 
@@ -14,7 +13,7 @@ import jjr.com.playandroids.base.view.BaseView;
  * Created by jjr on 2019/2/27.
  */
 
-public abstract class BaseFragment<V, P extends BasePresenter<V>>
+public abstract class BaseFragment<V, P extends IBasePresenter<V>>
         extends SimperFragment implements BaseView {
 
     public P presenter;
@@ -25,12 +24,9 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
         super.viewCreate(view);
         View view1 = View.inflate(mActivity, R.layout.progressbar_layout, (ViewGroup) view);
         progressBar = view1.findViewById(R.id.progressBar);
-        if (presenter == null) {
-            presenter = createPresenter();
-            if (presenter != null) {
-                //将对应的P层和V层进行绑定
-                presenter.attchView((V) this);
-            }
+        presenter = createPresenter();
+        if (presenter != null) {
+            presenter.attchView((V) this);
         }
     }
 
@@ -49,11 +45,9 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
     @Override
     public void load() {
         super.load();
-        if(presenter==null){
-            presenter=createPresenter();
-            if (presenter != null) {
-                presenter.attchView((V) this);
-            }
+        if (presenter == null) {
+            presenter = createPresenter();
+            presenter.attchView((V) this);
         }
     }
 
