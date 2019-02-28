@@ -17,7 +17,7 @@ import jjr.com.playandroids.playandroid_frgment.FiveFragmnet;
 import jjr.com.playandroids.playandroid_frgment.FourFragmnet;
 import jjr.com.playandroids.playandroid_frgment.OneFragmnet;
 import jjr.com.playandroids.playandroid_frgment.ThereFragmnet;
-import jjr.com.playandroids.playandroid_frgment.TwoFragmnet;
+
 
 /**
  * Created by Administrator on 2019/2/27.

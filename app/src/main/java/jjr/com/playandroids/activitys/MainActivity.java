@@ -25,7 +25,8 @@ import jjr.com.playandroids.playandroid_frgment.FiveFragmnet;
 import jjr.com.playandroids.playandroid_frgment.FourFragmnet;
 import jjr.com.playandroids.playandroid_frgment.OneFragmnet;
 import jjr.com.playandroids.playandroid_frgment.ThereFragmnet;
-import jjr.com.playandroids.playandroid_frgment.TwoFragmnet;
+import jjr.com.playandroids.playandroid_frgment.TwoFragment;
+
 import jjr.com.playandroids.sideslip_menu.AboutFragment;
 import jjr.com.playandroids.sideslip_menu.CollectFragment;
 import jjr.com.playandroids.sideslip_menu.PlayAndroidFragment;
@@ -179,7 +180,7 @@ public class MainActivity extends AppCompatActivity
 
                         break;
                     case R.id.tab_knowledge_hierarchy:
-                        fragmentTransaction.replace(R.id.fram, new TwoFragmnet());
+                        fragmentTransaction.replace(R.id.fram, new TwoFragment());
                         break;
                     case R.id.tab_wx_article:
                         fragmentTransaction.replace(R.id.fram, new ThereFragmnet());
