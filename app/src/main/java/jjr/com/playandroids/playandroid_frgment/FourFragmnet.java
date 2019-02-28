@@ -2,30 +2,27 @@ package jjr.com.playandroids.playandroid_frgment;
 
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-
 import jjr.com.playandroids.R;
 import jjr.com.playandroids.base.fragment.BaseFragment;
 import jjr.com.playandroids.entityclass.NaviListBean;
-import jjr.com.playandroids.only.OnlyOne;
-import jjr.com.playandroids.persenter.MyPersenter;
-import jjr.com.playandroids.view.MyView;
+import jjr.com.playandroids.only.OnlyFour;
+import jjr.com.playandroids.persenter.FourPresenter;
+import jjr.com.playandroids.view.FourView;
 
 /**
  * Created by Administrator on 2019/2/27.
  */
 
-public class FourFragmnet extends BaseFragment<MyView,MyPersenter<MyView>> implements MyView {
+public class FourFragmnet extends BaseFragment<FourView,FourPresenter<FourView>> implements FourView {
     @Override
     public void showError(String error) {
 
     }
 
     @Override
-    public void showData(Object object, String onlyOne) {
+    public void showDataFour(Object object, String onlyOne) {
         switch (onlyOne){
-            case OnlyOne.NAVI:
+            case OnlyFour.NAVI:
                 NaviListBean naviListBean = (NaviListBean) object;
                 Log.e("导航数据", naviListBean.getData().toString());
                 break;
@@ -33,8 +30,8 @@ public class FourFragmnet extends BaseFragment<MyView,MyPersenter<MyView>> imple
     }
 
     @Override
-    protected MyPersenter<MyView> createPresenter() {
-        return new MyPersenter<>();
+    protected FourPresenter<FourView> createPresenter() {
+        return new FourPresenter<>();
     }
 
     @Override
@@ -44,6 +41,6 @@ public class FourFragmnet extends BaseFragment<MyView,MyPersenter<MyView>> imple
 
     @Override
     protected void initData() {
-        presenter.getDataP(OnlyOne.NAVI,null);
+        presenter.getDataFourP(OnlyFour.NAVI,null);
     }
 }
