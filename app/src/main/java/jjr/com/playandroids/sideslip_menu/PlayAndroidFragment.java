@@ -69,9 +69,5 @@ public class PlayAndroidFragment extends SimperFragment {
 
 
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
+
 }
