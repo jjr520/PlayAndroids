@@ -13,7 +13,7 @@ public class MyPersenter<V extends MyView> extends IBasePresenter<V> implements 
    private MyMoudle mMyMoudle =  new MyMoudle();
 
    public void getDataP(String onlyOne,Object object){
-       mMyMoudle.getNaviList(this,onlyOne,object);
+       mMyMoudle.getDataM(this,onlyOne,object);
 
    }
 
