@@ -51,7 +51,12 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
     @Override
     public void load() {
         super.load();
-
+        if(presenter==null){
+            presenter=createPresenter();
+            if (presenter != null) {
+                presenter.attchView((V) this);
+            }
+        }
     }
 
     @Override
