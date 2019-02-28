@@ -1,7 +1,6 @@
 package jjr.com.playandroids.sideslip_menu;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -11,8 +10,11 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import jjr.com.playandroids.R;
-import jjr.com.playandroids.VPAdapter;
+import jjr.com.playandroids.VpAdapter;
 import jjr.com.playandroids.base.fragment.SimperFragment;
 import jjr.com.playandroids.playandroid_frgment.FiveFragmnet;
 import jjr.com.playandroids.playandroid_frgment.FourFragmnet;
@@ -25,9 +27,12 @@ import jjr.com.playandroids.playandroid_frgment.TwoFragmnet;
  */
 
 public class PlayAndroidFragment extends SimperFragment {
-    private View view;
-    private ViewPager mVp;
-    private TabLayout mTab;
+    @BindView(R.id.vp)
+    ViewPager mVp;
+    @BindView(R.id.tab)
+    TabLayout mTab;
+    Unbinder unbinder;
+
 
     @Override
     public int createLayoutId() {
@@ -36,14 +41,11 @@ public class PlayAndroidFragment extends SimperFragment {
 
     @Override
     protected void initData() {
-        initView(view);
-
+        initView(mView);
     }
 
 
     public void initView(View view) {
-        mVp = (ViewPager) view.findViewById(R.id.vp);
-        mTab = (TabLayout) view.findViewById(R.id.tab);
         ArrayList<Fragment> fragments = new ArrayList<>();
         ArrayList<String> title = new ArrayList<>();
         title.add("安卓");
@@ -57,11 +59,19 @@ public class PlayAndroidFragment extends SimperFragment {
         fragments.add(new FourFragmnet());
         fragments.add(new FiveFragmnet());
 
-        VPAdapter adapter = new VPAdapter(getChildFragmentManager(), fragments,title);
+        VpAdapter adapter = new VpAdapter(getChildFragmentManager(), fragments, title);
         mVp.setAdapter(adapter);
 
         mTab.setupWithViewPager(mVp);
 
 
+    }
+
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

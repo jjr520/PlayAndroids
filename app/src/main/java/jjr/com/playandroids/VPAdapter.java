@@ -11,11 +11,11 @@ import java.util.ArrayList;
  * Created by Administrator on 2019/2/27.
  */
 
-public class VPAdapter extends FragmentPagerAdapter {
+public class VpAdapter extends FragmentPagerAdapter {
     ArrayList<Fragment> fragments;
     ArrayList<String> title;
 
-    public VPAdapter(FragmentManager fm, ArrayList<Fragment> fragments, ArrayList<String> title) {
+    public VpAdapter(FragmentManager fm, ArrayList<Fragment> fragments, ArrayList<String> title) {
         super(fm);
         this.fragments = fragments;
         this.title = title;

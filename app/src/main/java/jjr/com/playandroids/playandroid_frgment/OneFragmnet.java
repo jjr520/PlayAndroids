@@ -23,7 +23,7 @@ public class OneFragmnet extends BaseFragment<MyView,MyPersenter<MyView>> implem
 
     @Override
     protected MyPersenter<MyView> createPresenter() {
-        return null;
+        return new MyPersenter<>();
     }
 
     @Override
@@ -35,4 +35,6 @@ public class OneFragmnet extends BaseFragment<MyView,MyPersenter<MyView>> implem
     protected void initData() {
 
     }
+
+
 }
