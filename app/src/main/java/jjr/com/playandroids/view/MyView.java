@@ -10,6 +10,6 @@ import jjr.com.playandroids.only.OnlyOne;
  */
 
 public interface MyView<T> extends BaseView {
-    void showData(T t, OnlyOne onlyOne);
+    void showData(T t, String onlyOne);
 
 }

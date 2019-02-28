@@ -17,7 +17,7 @@ public class ThereFragmnet extends BaseFragment<MyView,MyPersenter<MyView>> impl
     }
 
     @Override
-    public void showData(Object object, OnlyOne onlyOne) {
+    public void showData(Object object, String onlyOne) {
 
     }
 

@@ -17,7 +17,7 @@ public class FiveFragmnet extends BaseFragment<MyView,MyPersenter<MyView>> imple
     }
 
     @Override
-    public void showData(Object object, OnlyOne onlyOne) {
+    public void showData(Object object, String onlyOne) {
 
     }
 

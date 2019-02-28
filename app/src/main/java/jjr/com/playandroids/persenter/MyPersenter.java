@@ -12,8 +12,8 @@ import jjr.com.playandroids.view.MyView;
 public class MyPersenter<V extends MyView> extends IBasePresenter<V> implements MyMoudle.CallBack {
    private MyMoudle mMyMoudle =  new MyMoudle();
 
-   public void getDataP(OnlyOne onlyOne,Object object){
-       mMyMoudle.getDataM(this,onlyOne,object);
+   public void getDataP(String onlyOne,Object object){
+       mMyMoudle.getNaviList(this,onlyOne,object);
 
    }
 
@@ -33,7 +33,7 @@ public class MyPersenter<V extends MyView> extends IBasePresenter<V> implements 
     }
 
     @Override
-    public void setData(Object object, OnlyOne onlyOne) {
-        view.showData(object,onlyOne);
+    public void setData(Object o, String onlyOne) {
+        view.showData(o,onlyOne);
     }
 }
