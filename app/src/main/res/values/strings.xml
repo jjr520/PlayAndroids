@@ -10,4 +10,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="scale_down_show_behavior">json.chao.com.wanandroid.widget.behavior.ScaleDownShowBehavior</string>
+
+
+    <!--知识体系-->
+    <string name="share_view">shareView</string>
 </resources>
