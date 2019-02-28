@@ -7,4 +7,8 @@ package jjr.com.playandroids.only;
 public class OnlyOne {
     private static final String s = "1";
     public static final String wechattab = "tabout";
+
+    //体系数据
+    public static final String KonwData = "";
+    public static final String KnowDetails = "";
 }

@@ -10,7 +10,19 @@ import jjr.com.playandroids.view.MyView;
  * Created by Administrator on 2019/2/27.
  */
 
-public class TwoFragmnet extends BaseFragment<MyView,MyPersenter<MyView>> implements MyView {
+public class KnowLedgeFragmnet extends BaseFragment<MyView, MyPersenter<MyView>> implements MyView {
+
+
+    @Override
+    public int createLayoutId() {
+        return R.layout.two_fragment;
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
     @Override
     public void showError(String error) {
 
@@ -26,13 +38,4 @@ public class TwoFragmnet extends BaseFragment<MyView,MyPersenter<MyView>> implem
         return null;
     }
 
-    @Override
-    public int createLayoutId() {
-        return R.layout.two_fragment;
-    }
-
-    @Override
-    protected void initData() {
-
-    }
 }

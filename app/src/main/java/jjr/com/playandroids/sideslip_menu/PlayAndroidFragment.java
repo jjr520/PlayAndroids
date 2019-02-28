@@ -17,7 +17,7 @@ import jjr.com.playandroids.playandroid_frgment.FiveFragmnet;
 import jjr.com.playandroids.playandroid_frgment.FourFragmnet;
 import jjr.com.playandroids.playandroid_frgment.OneFragmnet;
 import jjr.com.playandroids.playandroid_frgment.ThereFragmnet;
-import jjr.com.playandroids.playandroid_frgment.TwoFragmnet;
+import jjr.com.playandroids.playandroid_frgment.KnowLedgeFragmnet;
 
 /**
  * Created by Administrator on 2019/2/27.
@@ -38,11 +38,11 @@ public class PlayAndroidFragment extends SimperFragment {
 
     @Override
     protected void initData() {
-        initView(mView);
+        initView();
     }
 
 
-    public void initView(View view) {
+    public void initView() {
         ArrayList<Fragment> fragments = new ArrayList<>();
         ArrayList<String> title = new ArrayList<>();
         title.add("安卓");
@@ -51,7 +51,7 @@ public class PlayAndroidFragment extends SimperFragment {
         title.add("安卓");
         title.add("安卓");
         fragments.add(new OneFragmnet());
-        fragments.add(new TwoFragmnet());
+        fragments.add(new KnowLedgeFragmnet());
         fragments.add(new ThereFragmnet());
         fragments.add(new FourFragmnet());
         fragments.add(new FiveFragmnet());
