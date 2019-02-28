@@ -467,6 +467,16 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup/javawriter/2.1.1/5b31387d839a5cdaf5b6de3990da01f7f2b963c5/javawriter-2.1.1-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Gradle: com.zhy:flowlayout-lib-1.0.3">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/flowlayout-lib-1.0.3.aar/4ec73e2966cf4f076c5d7259fd09111d/jars/classes.jar!/" />
+        <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/flowlayout-lib-1.0.3.aar/4ec73e2966cf4f076c5d7259fd09111d/res" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.zhy/flowlayout-lib/1.0.3/8fefedbe10bd7d0f703d1b714f20350e30e847e8/flowlayout-lib-1.0.3-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Gradle: io.reactivex.rxjava2:rxandroid-2.0.1">
       <CLASSES>
         <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/rxandroid-2.0.1.aar/bd8175c0a2e90e69d22754df64c92d2a/res" />
@@ -547,6 +557,26 @@
       <JAVADOC />
       <SOURCES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.reactivestreams/reactive-streams/1.0.0/5be7bd3f38e43c8fc83699bbb5328c62adb95bbf/reactive-streams-1.0.0-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: q.rorbin:badgeview-1.1.2">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/badgeview-1.1.2.aar/d47293f5f52d21ae0b07be8f61ba94f5/jars/classes.jar!/" />
+        <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/badgeview-1.1.2.aar/d47293f5f52d21ae0b07be8f61ba94f5/res" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/q.rorbin/badgeview/1.1.2/84d66b800858c9a3698308d82ab7d47cfc4c7bc4/badgeview-1.1.2-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: q.rorbin:VerticalTabLayout-1.2.5">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/VerticalTabLayout-1.2.5.aar/8ca80db560cfbcca21784c9886ca9f6c/jars/classes.jar!/" />
+        <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/VerticalTabLayout-1.2.5.aar/8ca80db560cfbcca21784c9886ca9f6c/res" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/q.rorbin/VerticalTabLayout/1.2.5/38fb8740eba8f375174c1b58fdb6559612e0ad3c/VerticalTabLayout-1.2.5-sources.jar!/" />
       </SOURCES>
     </library>
   </component>
