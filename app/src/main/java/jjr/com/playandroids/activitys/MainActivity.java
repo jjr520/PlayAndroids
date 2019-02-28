@@ -1,4 +1,4 @@
-package jjr.com.playandroids;
+package jjr.com.playandroids.activitys;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import jjr.com.playandroids.R;
 import jjr.com.playandroids.sideslip_menu.AboutFragment;
 import jjr.com.playandroids.sideslip_menu.CollectFragment;
 import jjr.com.playandroids.sideslip_menu.PlayAndroidFragment;
