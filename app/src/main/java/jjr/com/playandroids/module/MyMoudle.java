@@ -18,10 +18,10 @@ import static jjr.com.playandroids.only.OnlyOne.wechattab;
 
 public class MyMoudle {
     public interface CallBack<T> extends BaseModel{
-        void setData(T t, OnlyOne onlyOne);
+        void setData(T t, String onlyOne);
     }
     public void getDataM(CallBack callBack,String onlyOne,Object object){
-        switch (onlyOne.toString()){
+        switch (onlyOne){
             //微信公众号外部tab
             case wechattab:
                 List<WeChatTabBean.DataBean> weChatTabData = HttpManager.getInstance().getRetrofit(MyServer.HOST)
