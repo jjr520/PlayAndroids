@@ -9,9 +9,7 @@ public class OneModule {
     }
     public void getDataOne(final OneCallBack oneCallBack, final String onlyOne, Object object){
         switch (onlyOne){
-            case OnlyOne.ONE:
 
-                break;
         }
     }
 }

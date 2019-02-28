@@ -3,8 +3,8 @@ package jjr.com.playandroids.module;
 import java.util.List;
 
 import jjr.com.playandroids.base.model.BaseModel;
-import jjr.com.playandroids.beans.WeChatTabBean;
-import jjr.com.playandroids.entityclass.NaviListBean;
+
+import jjr.com.playandroids.beans.fourlistbean.NaviListBean;
 import jjr.com.playandroids.http.BaseObserver;
 import jjr.com.playandroids.http.HttpManager;
 import jjr.com.playandroids.http.MyServer;
@@ -27,10 +27,10 @@ public class MyMoudle {
         switch (onlyOne){
             //微信公众号外部tab
             case wechattab:
-                List<WeChatTabBean.DataBean> weChatTabData = HttpManager.getInstance().getRetrofit(MyServer.HOST)
+               /* List<WeChatTabBean.DataBean> weChatTabData = HttpManager.getInstance().getRetrofit(MyServer.HOST)
                         .create(WeChatTabBean.class)
                         .getData();
-                callBack.setData(weChatTabData,onlyOne);
+                callBack.setData(weChatTabData,onlyOne);*/
                 break;
             case NAVI:
                 HttpManager.getInstance().getServer(MyServer.HOST,MyServer.class).getNaviList().compose(RxUtils.<NaviListBean>rxScheduleThread()).subscribe(new BaseObserver<NaviListBean>(callBack) {
