@@ -175,8 +175,10 @@ public class MainActivity extends AppCompatActivity
                 mTopTitle.setText(item.getTitle());
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                boolean bo = true;
                 switch (item.getItemId()) {
                     case R.id.tab_main_pager:
+
                         fragmentTransaction.replace(R.id.fram, mOneFragmnet);
 
                         break;
