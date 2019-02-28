@@ -4,24 +4,79 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="jjr.com.playandroids.activitys.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:elevation="@dimen/dp_0"
         android:theme="@style/AppTheme.AppBarOverlay">
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
 
+    >
         <android.support.v7.widget.Toolbar
+            android:background="@drawable/blue_gradient_bg"
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:layout_height="@dimen/dp_54"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:layout_scrollFlags="scroll|enterAlways"
+            />
+    <TextView
+        android:id="@+id/top_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_16"
+        tools:text="开发环境"
+        />
+    <ImageView
+        android:layout_width="@dimen/dp_24"
+        android:layout_height="@dimen/dp_24"
+        android:src="@drawable/ic_usage"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/dp_275"
+        />
+    <ImageView
+        android:layout_width="@dimen/dp_33"
+        android:layout_height="@dimen/dp_33"
+        android:src="@drawable/ic_action_action_search"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/dp_320"
+        />
+</FrameLayout>
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_main" />
+    <FrameLayout
+        android:id="@+id/fram"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/main_floating_action_btn"
+        style="@style/style_float_btn"
+        android:layout_marginBottom="@dimen/dp_60"
+        android:src="@mipmap/icon_up_arrow"
+
+        android:layout_marginRight="@dimen/dp_16" />
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/colorCard"
+        app:elevation="@dimen/dp_16"
+        app:itemIconTint="@drawable/nav_item_color_state"
+        app:itemTextColor="@drawable/nav_item_color_state"
+
+        app:menu="@menu/bottom_navigation_main" />
 
 
 </android.support.design.widget.CoordinatorLayout>

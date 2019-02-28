@@ -17,18 +17,13 @@ import jjr.com.playandroids.playandroid_frgment.FiveFragmnet;
 import jjr.com.playandroids.playandroid_frgment.FourFragmnet;
 import jjr.com.playandroids.playandroid_frgment.OneFragmnet;
 import jjr.com.playandroids.playandroid_frgment.ThereFragmnet;
-import jjr.com.playandroids.playandroid_frgment.TwoFragment;
+import jjr.com.playandroids.playandroid_frgment.TwoFragmnet;
 
 /**
  * Created by Administrator on 2019/2/27.
  */
 
 public class PlayAndroidFragment extends SimperFragment {
-    @BindView(R.id.vp)
-    ViewPager mVp;
-    @BindView(R.id.tab)
-    TabLayout mTab;
-    Unbinder unbinder;
 
 
     @Override
@@ -38,40 +33,11 @@ public class PlayAndroidFragment extends SimperFragment {
 
     @Override
     protected void initData() {
-        initView();
-    }
-
-
-    public void initView() {
-        ArrayList<Fragment> fragments = new ArrayList<>();
-        ArrayList<String> title = new ArrayList<>();
-        title.add("安卓");
-        title.add("安卓");
-        title.add("安卓");
-        title.add("安卓");
-        title.add("安卓");
-        fragments.add(new OneFragmnet());
-        fragments.add(new TwoFragment());
-        fragments.add(new ThereFragmnet());
-        fragments.add(new FourFragmnet());
-        fragments.add(new FiveFragmnet());
-
-        VpAdapter adapter = new VpAdapter(getChildFragmentManager(), fragments, title);
-        mVp.setAdapter(adapter);
-
-        mTab.setupWithViewPager(mVp);
-
-        mVp.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return true;
-            }
-        });
-
 
     }
-
-
-
-
 }
+
+
+
+
+
