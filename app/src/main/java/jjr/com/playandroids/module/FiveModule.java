@@ -1,6 +1,9 @@
 package jjr.com.playandroids.module;
 
+import android.util.Log;
+
 import jjr.com.playandroids.base.model.BaseModel;
+import jjr.com.playandroids.beans.fivelistbean.ProjectListBean;
 import jjr.com.playandroids.beans.fivelistbean.TreeListBean;
 import jjr.com.playandroids.http.BaseObserver;
 import jjr.com.playandroids.http.HttpManager;
@@ -21,6 +24,16 @@ public class FiveModule {
                     fiveCallBack.setData(value,onlyOne);
                 }
             });
+                break;
+            case OnlyFive.LIST:
+                String s = (String) object;
+                HttpManager.getInstance().getServer(MyServer.HOST,MyServer.class).getProjectListBean(s).compose(RxUtils.<ProjectListBean>rxScheduleThread()).subscribe(new BaseObserver<ProjectListBean>(fiveCallBack) {
+                    @Override
+                    public void onNext(ProjectListBean value) {
+                        fiveCallBack.setData(value,onlyOne);
+                    }
+
+                });
                 break;
         }
     }
