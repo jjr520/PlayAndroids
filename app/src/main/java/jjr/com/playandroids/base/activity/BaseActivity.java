@@ -50,6 +50,4 @@ public abstract class BaseActivity<V, P extends IBasePresenter<V>> extends Simpe
             presenter = null;
         }
     }
-
-
 }
