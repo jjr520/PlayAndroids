@@ -2,27 +2,21 @@ package jjr.com.playandroids.playandroid_frgment;
 
 import jjr.com.playandroids.R;
 import jjr.com.playandroids.base.fragment.BaseFragment;
-import jjr.com.playandroids.only.OnlyOne;
-import jjr.com.playandroids.persenter.MyPersenter;
-import jjr.com.playandroids.view.MyView;
+import jjr.com.playandroids.persenter.TherePresenter;
+import jjr.com.playandroids.view.ThereView;
 
 /**
  * Created by Administrator on 2019/2/27.
  */
 
-public class ThereFragmnet extends BaseFragment<MyView,MyPersenter<MyView>> implements MyView {
+public class ThereFragmnet extends BaseFragment<ThereView,TherePresenter<ThereView>> implements ThereView {
     @Override
     public void showError(String error) {
 
     }
 
     @Override
-    public void showData(Object object, String onlyOne) {
-
-    }
-
-    @Override
-    protected MyPersenter<MyView> createPresenter() {
+    protected TherePresenter<ThereView> createPresenter() {
         return null;
     }
 
@@ -33,6 +27,11 @@ public class ThereFragmnet extends BaseFragment<MyView,MyPersenter<MyView>> impl
 
     @Override
     protected void initData() {
+        //presenter.getDataThereP();
+    }
+
+    @Override
+    public void showDataThere(Object o, String onlyOne) {
 
     }
 }
