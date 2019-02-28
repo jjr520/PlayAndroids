@@ -2,13 +2,13 @@ package jjr.com.playandroids.playandroid_frgment;
 
 import jjr.com.playandroids.R;
 import jjr.com.playandroids.base.fragment.BaseFragment;
-import jjr.com.playandroids.persenter.MyPersenter;
-import jjr.com.playandroids.view.MyView;
+import jjr.com.playandroids.persenter.TwoPresenter;
+import jjr.com.playandroids.view.TwoView;
 
-public class TwoFragment extends BaseFragment<MyView,MyPersenter<MyView>> implements MyView{
+public class TwoFragment extends BaseFragment<TwoView,TwoPresenter<TwoView>> implements TwoView{
     @Override
-    protected MyPersenter<MyView> createPresenter() {
-        return new MyPersenter<>();
+    protected TwoPresenter<TwoView> createPresenter() {
+        return new TwoPresenter<>();
     }
 
     @Override
@@ -18,16 +18,16 @@ public class TwoFragment extends BaseFragment<MyView,MyPersenter<MyView>> implem
 
     @Override
     protected void initData() {
-
-    }
-
-    @Override
-    public void showData(Object o, String onlyOne) {
-
+        //presenter.getDataTwoP();
     }
 
     @Override
     public void showError(String error) {
+
+    }
+
+    @Override
+    public void showDataTwo(Object o, String onlyOne) {
 
     }
 }

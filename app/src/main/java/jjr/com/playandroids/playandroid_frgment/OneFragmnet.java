@@ -2,28 +2,22 @@ package jjr.com.playandroids.playandroid_frgment;
 
 import jjr.com.playandroids.R;
 import jjr.com.playandroids.base.fragment.BaseFragment;
-import jjr.com.playandroids.only.OnlyOne;
-import jjr.com.playandroids.persenter.MyPersenter;
-import jjr.com.playandroids.view.MyView;
+import jjr.com.playandroids.persenter.OnePresenter;
+import jjr.com.playandroids.view.OneView;
 
 /**
  * Created by Administrator on 2019/2/27.
  */
 
-public class OneFragmnet extends BaseFragment<MyView,MyPersenter<MyView>> implements MyView {
+public class OneFragmnet extends BaseFragment<OneView,OnePresenter<OneView>> implements OneView {
     @Override
     public void showError(String error) {
 
     }
 
     @Override
-    public void showData(Object object, String onlyOne) {
-
-    }
-
-    @Override
-    protected MyPersenter<MyView> createPresenter() {
-        return new MyPersenter<>();
+    protected OnePresenter<OneView> createPresenter() {
+        return new OnePresenter<>();
     }
 
     @Override
@@ -33,8 +27,12 @@ public class OneFragmnet extends BaseFragment<MyView,MyPersenter<MyView>> implem
 
     @Override
     protected void initData() {
-
+       // presenter.getDataOneP();
     }
 
 
+    @Override
+    public void showDataOne(Object o, String onlyOne) {
+
+    }
 }
