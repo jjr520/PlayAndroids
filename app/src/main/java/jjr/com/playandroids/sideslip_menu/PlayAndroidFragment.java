@@ -1,20 +1,16 @@
 package jjr.com.playandroids.sideslip_menu;
 
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import jjr.com.playandroids.R;
-import jjr.com.playandroids.VpAdapter;
+import jjr.com.playandroids.adapter.VpAdapter;
 import jjr.com.playandroids.base.fragment.SimperFragment;
 import jjr.com.playandroids.playandroid_frgment.FiveFragmnet;
 import jjr.com.playandroids.playandroid_frgment.FourFragmnet;

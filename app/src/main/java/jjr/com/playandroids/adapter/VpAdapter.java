@@ -1,4 +1,4 @@
-package jjr.com.playandroids;
+package jjr.com.playandroids.adapter;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
