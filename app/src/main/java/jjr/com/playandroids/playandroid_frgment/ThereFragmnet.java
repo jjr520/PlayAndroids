@@ -11,7 +11,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import jjr.com.playandroids.R;
+import jjr.com.playandroids.adapter.wechat.WCVpAdapter;
 import jjr.com.playandroids.base.fragment.BaseFragment;
+import jjr.com.playandroids.base.presenter.IBasePresenter;
+import jjr.com.playandroids.beans.WeChatTabBean;
 import jjr.com.playandroids.only.OnlyOne;
 import jjr.com.playandroids.persenter.MyPersenter;
 import jjr.com.playandroids.view.MyView;
@@ -20,7 +23,9 @@ import jjr.com.playandroids.view.MyView;
  * Created by Administrator on 2019/2/27.
  */
 
-public class ThereFragmnet extends BaseFragment<MyView, MyPersenter<MyView>> implements MyView {
+public class ThereFragmnet extends BaseFragment<MyView<WeChatTabBean>, MyPersenter<MyView<WeChatTabBean>>> implements MyView<WeChatTabBean> {
+
+
     @BindView(R.id.tab_wechat)
     TabLayout mTabWechat;
     @BindView(R.id.vp_wechat)
@@ -32,15 +37,6 @@ public class ThereFragmnet extends BaseFragment<MyView, MyPersenter<MyView>> imp
 
     }
 
-    @Override
-    public void showData(Object object, OnlyOne onlyOne) {
-
-    }
-
-    @Override
-    protected MyPersenter<MyView> createPresenter() {
-        return null;
-    }
 
     @Override
     public int createLayoutId() {
@@ -49,12 +45,22 @@ public class ThereFragmnet extends BaseFragment<MyView, MyPersenter<MyView>> imp
 
     @Override
     protected void initData() {
+        //解析数据
+
+        //Fragment复用
+        WCVpAdapter wcVpAdapter = new WCVpAdapter(getChildFragmentManager());
+        mVpWechat.setAdapter(wcVpAdapter);
+        //关联
+        mTabWechat.setupWithViewPager(mVpWechat);
+    }
+
+    @Override
+    public void showData(WeChatTabBean weChatTabBean, OnlyOne onlyOne) {
 
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
+    protected MyPersenter<MyView<WeChatTabBean>> createPresenter() {
+        return null;
     }
 }

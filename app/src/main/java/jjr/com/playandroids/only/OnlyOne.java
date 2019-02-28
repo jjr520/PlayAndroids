@@ -5,5 +5,6 @@ package jjr.com.playandroids.only;
  */
 
 public class OnlyOne {
-    private static final String  s = "1";
+    private static final String s = "1";
+    public static final String wechattab = "tabout";
 }
