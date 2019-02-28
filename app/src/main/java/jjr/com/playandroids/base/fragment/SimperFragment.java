@@ -47,7 +47,7 @@ public abstract class SimperFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        unbinder = ButterKnife.bind(this, view);
+      //  unbinder = ButterKnife.bind(this, view);
         initData();
     }
 
@@ -71,8 +71,8 @@ public abstract class SimperFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (unbinder != null) {
+       /* if (unbinder != null) {
             unbinder.unbind();
-        }
+        }*/
     }
 }

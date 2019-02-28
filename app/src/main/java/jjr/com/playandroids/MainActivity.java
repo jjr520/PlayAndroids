@@ -16,6 +16,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import jjr.com.playandroids.sideslip_menu.AboutFragment;
+import jjr.com.playandroids.sideslip_menu.CollectFragment;
+import jjr.com.playandroids.sideslip_menu.PlayAndroidFragment;
+import jjr.com.playandroids.sideslip_menu.SetFragment;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -42,6 +47,11 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        PlayAndroidFragment playAndroidFragment = new PlayAndroidFragment();
+        fragmentTransaction.replace(R.id.fram, playAndroidFragment);
+        fragmentTransaction.commit();
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -85,17 +95,20 @@ public class MainActivity extends AppCompatActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         if (id == R.id.nav_wanAndroid) {
-
             // Handle the camera action
+            fragmentTransaction.replace(R.id.fram, new PlayAndroidFragment());
             Toast.makeText(this, "玩安卓", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_collect) {
+            fragmentTransaction.replace(R.id.fram, new CollectFragment());
             Toast.makeText(this, "收藏", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_setting) {
+            fragmentTransaction.replace(R.id.fram, new SetFragment());
             Toast.makeText(this, "设置", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_about_us) {
+            fragmentTransaction.replace(R.id.fram, new AboutFragment());
             Toast.makeText(this, "关于我们", Toast.LENGTH_SHORT).show();
         }
-
+        fragmentTransaction.commit();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
