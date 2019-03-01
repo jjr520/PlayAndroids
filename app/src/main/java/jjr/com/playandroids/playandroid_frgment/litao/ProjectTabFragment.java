@@ -3,6 +3,7 @@ package jjr.com.playandroids.playandroid_frgment.litao;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +67,31 @@ public class ProjectTabFragment extends BaseFragment<FiveView, FivePresenter<Fiv
 
     @Override
     protected void initData() {
+        presenter.getDataFiveP(OnlyFive.LIST, nameId);
         setAdapter();
+        //滑动置顶
+        normalView.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                presenter.getDataFiveP(OnlyFive.LIST, nameId);
+                refreshLayout.finishRefresh(1000);
+            }
+        });
+        normalView.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                presenter.getDataFiveP(OnlyFive.LIST, nameId);
+                refreshLayout.finishLoadMore(1000);
+            }
+        });
+
+    }
+
+    public void isTop(int num) {
+        if (num == 5) {
+            projectListRecyclerView.scrollToPosition(0);
+        }
+
     }
 
     @Override
@@ -90,6 +119,5 @@ public class ProjectTabFragment extends BaseFragment<FiveView, FivePresenter<Fiv
     @Override
     public void load() {
         super.load();
-        presenter.getDataFiveP(OnlyFive.LIST, nameId);
     }
 }

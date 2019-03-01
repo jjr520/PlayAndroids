@@ -7,44 +7,70 @@
     tools:context="jjr.com.playandroids.activitys.knowledge.KnowDetailActivity">
 
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="false"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        android:transitionName="@string/share_view"
-        app:elevation="@dimen/dp_0">
+    <!--  <android.support.design.widget.AppBarLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:fitsSystemWindows="false"
+          android:theme="@style/AppTheme.AppBarOverlay"
+          android:transitionName="@string/share_view"
+          app:elevation="@dimen/dp_0">
 
-        <include layout="@layout/common_toolbar" />
-    </android.support.design.widget.AppBarLayout>
+          <include layout="@layout/common_toolbar" />
+      </android.support.design.widget.AppBarLayout>-->
 
-   <!-- <LinearLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.flyco.tablayout.SlidingTabLayout
-            android:id="@+id/knowledge_hierarchy_detail_tab_layout"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_54"
+            android:background="@drawable/blue_gradient_bg">
+
+            <ImageView
+                android:id="@+id/knowledge_detail_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:background="@drawable/ic_arrow_back_white_24dp" />
+
+            <TextView
+                android:id="@+id/knowledge_detail_toobar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_16"
+                tools:text="@string/common_toolbar" />
+        </RelativeLayout>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/knowledge_detail_tab"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_48"
             android:background="@color/colorPrimary"
-            app:tl_textAllCaps="false"
-            app:tl_textBold="BOTH"
-            app:tl_textsize="@dimen/sp_14" />
+            app:tabIndicatorColor="@color/white"
+
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@color/white"
+            app:tabTextColor="@color/tab_blue" />
 
         <android.support.v4.view.ViewPager
-            android:id="@+id/knowledge_hierarchy_detail_viewpager"
+            android:id="@+id/knowledge_detail_viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white" />
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/knowledge_floating_action_btn"
+        android:id="@+id/knowledge_floating"
         style="@style/style_float_btn"
-        android:layout_margin="@dimen/dp_16"
-        android:src="@mipmap/icon_up_arrow"
-        app:layout_behavior="@string/scale_down_show_behavior" />-->
+        android:layout_marginBottom="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_16"
+        android:src="@mipmap/icon_up_arrow" />
 
 </android.support.design.widget.CoordinatorLayout>

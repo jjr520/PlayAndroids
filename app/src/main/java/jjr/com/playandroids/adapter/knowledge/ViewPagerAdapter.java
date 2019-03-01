@@ -1,4 +1,4 @@
-package jjr.com.playandroids.adapter.wechat;
+package jjr.com.playandroids.adapter.knowledge;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -6,23 +6,19 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import jjr.com.playandroids.beans.wechat.WeChatTabBean;
 
 /**
- * Created by 甘之如饴 on 2019/2/28.
+ * Created by jjr on 2019/3/1.
  */
 
-public class WCVpAdapter extends FragmentStatePagerAdapter {
+public class ViewPagerAdapter extends FragmentStatePagerAdapter {
+    private final ArrayList<Fragment> mFragments;
+    private final ArrayList<String> mStrings;
 
-    private List<WeChatTabBean.DataBean> mData;
-    private ArrayList<Fragment> mFragments;
-
-    public WCVpAdapter(FragmentManager fm, List<WeChatTabBean.DataBean> data, ArrayList<Fragment> fragments) {
+    public ViewPagerAdapter(FragmentManager fm, ArrayList<Fragment> fragments, ArrayList<String> strings) {
         super(fm);
-        mData = data;
         mFragments = fragments;
+        mStrings = strings;
     }
 
     @Override
@@ -32,12 +28,12 @@ public class WCVpAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return mData.size();
+        return mFragments.size();
     }
 
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return mData.get(position).getName();
+        return mStrings.get(position);
     }
 }

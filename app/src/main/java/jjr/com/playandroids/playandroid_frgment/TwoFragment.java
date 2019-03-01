@@ -3,6 +3,7 @@ package jjr.com.playandroids.playandroid_frgment;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +22,7 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnMultiPurposeListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +55,7 @@ public class TwoFragment extends BaseFragment<TwoView, TwoPresenter<TwoView>> im
     @Override
     protected void initData() {
         setRefresh();
-        presenter.getDataTwoP(OnlyTwo.KonwData);
+        presenter.getDataTwoP(OnlyTwo.KonwData, 0, 0);
 
         mKnowReView.setLayoutManager(new LinearLayoutManager(mActivity));
         mKnowReView.setHasFixedSize(true);
@@ -65,12 +67,14 @@ public class TwoFragment extends BaseFragment<TwoView, TwoPresenter<TwoView>> im
             @Override
             public void onClickListener(View v, int position) {
                 Toast.makeText(context, "position:" + position, Toast.LENGTH_SHORT).show();
-                ActivityOptions options = null;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    options = ActivityOptions.makeSceneTransitionAnimation(mActivity, v, getString(R.string.share_view));
-                    Intent intent = new Intent(mActivity, KnowDetailActivity.class);
-                    startActivity(intent, options.toBundle());
-                }
+                Intent intent = new Intent(mActivity, KnowDetailActivity.class);
+                intent.putExtra("superChapterName", dataBeans.get(position).getName());
+                List<KonwDataBean.DataBean.ChildrenBean> children = dataBeans.get(position).getChildren();
+                //利用bundle传集合
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("tabItemBeanList", (Serializable) children);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
     }
