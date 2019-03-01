@@ -63,6 +63,15 @@ public class ProjectTabFragment extends BaseFragment<FiveView, FivePresenter<Fiv
     @Override
     protected void initData() {
         setAdapter();
+        //滑动置顶
+
+    }
+
+    public void isTop(int num) {
+        if(num == 5){
+            projectListRecyclerView.scrollToPosition(0);
+        }
+
     }
 
     @Override
