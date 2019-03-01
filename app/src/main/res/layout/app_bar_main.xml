@@ -67,7 +67,9 @@
         style="@style/style_float_btn"
         android:layout_marginBottom="@dimen/dp_60"
         android:layout_marginRight="@dimen/dp_16"
-        android:src="@mipmap/icon_up_arrow" />
+        android:src="@mipmap/icon_up_arrow"
+        app:layout_behavior="jjr.com.playandroids.widght.ScaleDownShowBehavior"
+        />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation_view"
