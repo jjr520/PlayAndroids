@@ -18,7 +18,6 @@ public class TwoModule {
     }
 
     public void getDataTwo(final TwoCallBack oneCallBack, final String onlyOne, int page, int cid) {
-        oneCallBack.setshowProgressbar();
         switch (onlyOne) {
             case OnlyTwo.KonwData:
                 HttpManager.getInstance().getServer(MyServer.HOST, MyServer.class)
@@ -41,6 +40,5 @@ public class TwoModule {
                         });
                 break;
         }
-        oneCallBack.sethideProgressbar();
     }
 }
