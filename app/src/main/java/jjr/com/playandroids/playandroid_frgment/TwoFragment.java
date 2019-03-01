@@ -1,25 +1,21 @@
 package jjr.com.playandroids.playandroid_frgment;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshFooter;
-import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.constant.RefreshState;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnMultiPurposeListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import java.io.Serializable;
@@ -27,6 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import jjr.com.playandroids.R;
 import jjr.com.playandroids.activitys.knowledge.KnowDetailActivity;
 import jjr.com.playandroids.adapter.knowledge.KnowLedgeAdapter;
@@ -35,6 +34,7 @@ import jjr.com.playandroids.beans.knowbean.KonwDataBean;
 import jjr.com.playandroids.contact.Global;
 import jjr.com.playandroids.only.OnlyTwo;
 import jjr.com.playandroids.persenter.TwoPresenter;
+import jjr.com.playandroids.user_defined.CustomToast;
 import jjr.com.playandroids.view.TwoView;
 
 public class TwoFragment extends BaseFragment<TwoView, TwoPresenter<TwoView>> implements TwoView {
@@ -42,6 +42,13 @@ public class TwoFragment extends BaseFragment<TwoView, TwoPresenter<TwoView>> im
     RecyclerView mKnowReView;
     @BindView(R.id.normal_view)
     SmartRefreshLayout mNormalView;
+    @BindView(R.id.error_tv)
+    TextView mErrorTv;
+    @BindView(R.id.error_reload_tv)
+    TextView mErrorReloadTv;
+    @BindView(R.id.error_group)
+    RelativeLayout mErrorGroup;
+
     private KnowLedgeAdapter mKnowLedge;
 
     private ArrayList<KonwDataBean.DataBean> dataBeans = new ArrayList<>();
@@ -66,7 +73,6 @@ public class TwoFragment extends BaseFragment<TwoView, TwoPresenter<TwoView>> im
         mKnowLedge.setOnClickListener(new KnowLedgeAdapter.OnClickListener() {
             @Override
             public void onClickListener(View v, int position) {
-                Toast.makeText(context, "position:" + position, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(mActivity, KnowDetailActivity.class);
                 intent.putExtra("superChapterName", dataBeans.get(position).getName());
                 List<KonwDataBean.DataBean.ChildrenBean> children = dataBeans.get(position).getChildren();
@@ -79,20 +85,21 @@ public class TwoFragment extends BaseFragment<TwoView, TwoPresenter<TwoView>> im
         });
     }
 
-    /**
-     * 机型适配
-     *
-     * @return 返回true表示非三星机型且Android 6.0以上
-     */
-    private boolean modelFiltering() {
-        return !Build.MANUFACTURER.contains(Global.SAMSUNG) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
-    }
-
     @Override
     public void showError(String error) {
-        Toast.makeText(context, error, Toast.LENGTH_SHORT).show();
+        if (mNormalView != null && mErrorGroup != null) {
+            mNormalView.setVisibility(View.GONE);
+            mErrorGroup.setVisibility(View.VISIBLE);
+        }
+        Log.d("TwoFragment", error);
     }
 
+
+    @OnClick(R.id.error_reload_tv)
+    public void onViewClicked() {
+        Toast.makeText(context, "error_reload_tv:", Toast.LENGTH_SHORT).show();
+        presenter.getDataTwoP(OnlyTwo.KonwData, 0, 0);
+    }
 
     @Override
     protected TwoPresenter<TwoView> createPresenter() {
@@ -104,11 +111,11 @@ public class TwoFragment extends BaseFragment<TwoView, TwoPresenter<TwoView>> im
         switch (onlyOne) {
             case OnlyTwo.KonwData:
                 KonwDataBean konwDataBean = (KonwDataBean) o;
+                dataBeans.clear();
                 List<KonwDataBean.DataBean> data = konwDataBean.getData();
                 dataBeans.addAll(data);
                 mKnowLedge.notifyDataSetChanged();
                 Log.d("TwoFragment", "data:" + data);
-
                 break;
         }
     }
@@ -118,7 +125,10 @@ public class TwoFragment extends BaseFragment<TwoView, TwoPresenter<TwoView>> im
         mNormalView.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                Toast.makeText(context, "LoadMore", Toast.LENGTH_SHORT).show();
+                int xOffset = 0, yOffset = 790;
+                CustomToast.makeText(mActivity, "没有多余的干货了(ﾉ≧∀≦)ﾉ",
+                        Toast.LENGTH_SHORT, xOffset, yOffset).show();
+                //Toast.makeText(context, "没有多余的干货了(ﾉ≧∀≦)ﾉ", Toast.LENGTH_SHORT).show();
                 refreshLayout.finishLoadMore();
             }
         });
@@ -131,7 +141,7 @@ public class TwoFragment extends BaseFragment<TwoView, TwoPresenter<TwoView>> im
 
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                Toast.makeText(context, "Refresh", Toast.LENGTH_SHORT).show();
+                presenter.getDataTwoP(OnlyTwo.KonwData, 0, 0);
                 refreshLayout.finishRefresh();
             }
         });

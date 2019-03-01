@@ -90,5 +90,7 @@ dependencies {
 
     compile 'com.github.githubwing:ByeBurger:1.1.0'
     compile 'com.airbnb.android:lottie:2.3.0'
+
+    //EventBus
     compile 'org.greenrobot:eventbus:3.1.1'
 }
