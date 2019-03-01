@@ -3,8 +3,12 @@
     <color name="colorPrimary">#00abff</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="Primary">#00abff</color>
+    <color name="comment_text">#5b5d5c</color>
     <color name="colorBackground">#EEEEEE</color>
     <color name="colorCard">#FFFFFF</color>
+    <color name="delete_text">#cccccc</color>
     <color name="colorText">#2C2C2C</color>
     <color name="colorLogo">#FED530</color>
 
@@ -14,7 +18,6 @@
     <color name="news_unread">#000000</color>
     <color name="news_read">#898989</color>
 
-    <color name="comment_text">#5b5d5c</color>
     <color name="setting_text">#5b5d5c</color>
     <color name="comment_reply">#9ba4a3</color>
     <color name="comment_btn">#bfbfbf</color>
@@ -24,7 +27,6 @@
     <color name="topic_text">#afafaf</color>
     <color name="grey_search">#FF999999</color>
     <color name="colorPrimaryOverlay">#00abff</color>
-    <color name="delete_text">#cccccc</color>
     <color name="deep_grey">#e6e6e6</color>
     <color name="dialog_background">#ffffff</color>
     <color name="yellow">#f39c12</color>
@@ -36,6 +38,8 @@
 
     //other
     <color name="shallow_green">#FF36BC9B</color>
+    <color name="green">#269378</color>
+    <color name="bule">#23b0df</color>
     <color name="shallow_grey">#FF757575</color>
     <color name="card_color">#202124</color>
     <color name="not_network_bac">#33ffffff</color>
