@@ -18,4 +18,6 @@
 
     <!--知识体系-->
     <string name="share_view">shareView</string>
+    <string name="common_toolbar">开发环境</string>
+
 </resources>

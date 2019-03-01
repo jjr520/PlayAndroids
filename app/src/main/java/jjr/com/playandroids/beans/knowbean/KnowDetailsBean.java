@@ -42,6 +42,15 @@ public class KnowDetailsBean {
         this.errorMsg = errorMsg;
     }
 
+    @Override
+    public String toString() {
+        return "KnowDetailsBean{" +
+                "data=" + data +
+                ", errorCode=" + errorCode +
+                ", errorMsg='" + errorMsg + '\'' +
+                '}';
+    }
+
     public static class DataBean {
         /**
          * curPage : 1
@@ -115,6 +124,19 @@ public class KnowDetailsBean {
 
         public void setDatas(List<DatasBean> datas) {
             this.datas = datas;
+        }
+
+        @Override
+        public String toString() {
+            return "DataBean{" +
+                    "curPage=" + curPage +
+                    ", offset=" + offset +
+                    ", over=" + over +
+                    ", pageCount=" + pageCount +
+                    ", size=" + size +
+                    ", total=" + total +
+                    ", datas=" + datas +
+                    '}';
         }
 
         public static class DatasBean {
@@ -350,6 +372,35 @@ public class KnowDetailsBean {
 
             public void setTags(List<?> tags) {
                 this.tags = tags;
+            }
+
+            @Override
+            public String toString() {
+                return "DatasBean{" +
+                        "apkLink='" + apkLink + '\'' +
+                        ", author='" + author + '\'' +
+                        ", chapterId=" + chapterId +
+                        ", chapterName='" + chapterName + '\'' +
+                        ", collect=" + collect +
+                        ", courseId=" + courseId +
+                        ", desc='" + desc + '\'' +
+                        ", envelopePic='" + envelopePic + '\'' +
+                        ", fresh=" + fresh +
+                        ", id=" + id +
+                        ", link='" + link + '\'' +
+                        ", niceDate='" + niceDate + '\'' +
+                        ", origin='" + origin + '\'' +
+                        ", projectLink='" + projectLink + '\'' +
+                        ", publishTime=" + publishTime +
+                        ", superChapterId=" + superChapterId +
+                        ", superChapterName='" + superChapterName + '\'' +
+                        ", title='" + title + '\'' +
+                        ", type=" + type +
+                        ", userId=" + userId +
+                        ", visible=" + visible +
+                        ", zan=" + zan +
+                        ", tags=" + tags +
+                        '}';
             }
         }
     }

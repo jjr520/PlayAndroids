@@ -14,8 +14,8 @@ public class TwoPresenter<V extends TwoView> extends IBasePresenter<V> implement
 
     private TwoModule twoModule = new TwoModule();
 
-    public void getDataTwoP(String onlyTwo) {
-        twoModule.getDataTwo(this, onlyTwo);
+    public void getDataTwoP(String onlyTwo, int page, int cid) {
+        twoModule.getDataTwo(this, onlyTwo, page, cid);
     }
 
     @Override
@@ -27,16 +27,16 @@ public class TwoPresenter<V extends TwoView> extends IBasePresenter<V> implement
 
     @Override
     public void setshowProgressbar() {
-
+        view.showProgressbar();
     }
 
     @Override
     public void sethideProgressbar() {
-
+        view.hideProgressbar();
     }
 
     @Override
     public void setshowError(String error) {
-
+        view.showError(error);
     }
 }

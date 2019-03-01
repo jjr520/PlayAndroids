@@ -41,8 +41,6 @@ public interface MyServer {
     Observable<ProjectListBean> getProjectListBean(@Path("id") String cid);
 
 
-
-
     //2.1 体系数据
     //http://www.wanandroid.com/tree/json
     @GET("tree/json")
@@ -50,7 +48,7 @@ public interface MyServer {
 
     //2.2 知识体系下的文章
     //http://www.wanandroid.com/article/list/0/json?cid=60
-    @GET("article/list/0/json?cid=60")
-    Observable<KnowDetailsBean> getDetails();
+    @GET("article/list/{page}/json?")
+    Observable<KnowDetailsBean> getDetails(@Path("page") int page, @Query("cid") int cid);
 
 }

@@ -17,7 +17,7 @@ public class TwoModule {
         void setData(T t, String onlyOne);
     }
 
-    public void getDataTwo(final TwoCallBack oneCallBack, final String onlyOne) {
+    public void getDataTwo(final TwoCallBack oneCallBack, final String onlyOne, int page, int cid) {
         oneCallBack.setshowProgressbar();
         switch (onlyOne) {
             case OnlyTwo.KonwData:
@@ -32,11 +32,11 @@ public class TwoModule {
                 break;
             case OnlyTwo.KnowDetails:
                 HttpManager.getInstance().getServer(MyServer.HOST, MyServer.class)
-                        .getDetails().compose(RxUtils.<KnowDetailsBean>rxScheduleThread())
+                        .getDetails(page, cid).compose(RxUtils.<KnowDetailsBean>rxScheduleThread())
                         .subscribe(new BaseObserver<KnowDetailsBean>(oneCallBack) {
                             @Override
                             public void onNext(KnowDetailsBean value) {
-                                oneCallBack.setData(value, OnlyTwo.KonwData);
+                                oneCallBack.setData(value, OnlyTwo.KnowDetails);
                             }
                         });
                 break;
