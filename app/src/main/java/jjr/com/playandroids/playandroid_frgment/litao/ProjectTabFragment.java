@@ -19,6 +19,10 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,6 +71,7 @@ public class ProjectTabFragment extends BaseFragment<FiveView, FivePresenter<Fiv
 
     @Override
     protected void initData() {
+        EventBus.getDefault().register(this);
         presenter.getDataFiveP(OnlyFive.LIST, nameId);
         setAdapter();
         //滑动置顶
@@ -87,12 +92,19 @@ public class ProjectTabFragment extends BaseFragment<FiveView, FivePresenter<Fiv
 
     }
 
-    public void isTop(int num) {
-        if (num == 5) {
-            projectListRecyclerView.scrollToPosition(0);
-        }
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void getData(String str) {
+        if ("5".equals(str)) {
+            projectListRecyclerView.smoothScrollToPosition(0);
+        }
+    }
+
 
     @Override
     public void showDataFive(Object o, String onlyOne) {

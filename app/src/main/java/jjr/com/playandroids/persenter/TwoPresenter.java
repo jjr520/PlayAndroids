@@ -15,11 +15,13 @@ public class TwoPresenter<V extends TwoView> extends IBasePresenter<V> implement
     private TwoModule twoModule = new TwoModule();
 
     public void getDataTwoP(String onlyTwo, int page, int cid) {
+        view.showProgressbar();
         twoModule.getDataTwo(this, onlyTwo, page, cid);
     }
 
     @Override
     public void setData(Object o, String onlyTwo) {
+        view.hideProgressbar();
         if (view != null) {
             view.showDataTwo(o, onlyTwo);
         }
@@ -27,16 +29,23 @@ public class TwoPresenter<V extends TwoView> extends IBasePresenter<V> implement
 
     @Override
     public void setshowProgressbar() {
-        view.showProgressbar();
+        if (view != null) {
+            view.showProgressbar();
+        }
     }
 
     @Override
     public void sethideProgressbar() {
-        view.hideProgressbar();
+        if (view != null) {
+            view.hideProgressbar();
+        }
     }
 
     @Override
     public void setshowError(String error) {
-        view.showError(error);
+        if (view != null) {
+            view.hideProgressbar();
+            view.showError(error);
+        }
     }
 }

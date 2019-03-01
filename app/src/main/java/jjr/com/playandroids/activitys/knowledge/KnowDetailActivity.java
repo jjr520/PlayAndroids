@@ -9,13 +9,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.Serializable;
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,14 +23,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import jjr.com.playandroids.R;
 import jjr.com.playandroids.adapter.knowledge.ViewPagerAdapter;
-import jjr.com.playandroids.base.activity.BaseActivity;
 import jjr.com.playandroids.base.activity.SimperActivity;
-import jjr.com.playandroids.beans.knowbean.KnowDetailsBean;
+import jjr.com.playandroids.beans.knowbean.EventBusBean;
 import jjr.com.playandroids.beans.knowbean.KonwDataBean;
-import jjr.com.playandroids.only.OnlyTwo;
-import jjr.com.playandroids.persenter.TwoPresenter;
 import jjr.com.playandroids.playandroid_frgment.knowdetail.KnowDetailFragment;
-import jjr.com.playandroids.view.TwoView;
 
 public class KnowDetailActivity extends SimperActivity {
 
@@ -76,11 +71,6 @@ public class KnowDetailActivity extends SimperActivity {
         mlTab.setupWithViewPager(mlViewpager);
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments, strings);
         mlViewpager.setAdapter(viewPagerAdapter);
-
-        for (int i = 0; i < tabList.size(); i++) {
-            CharSequence text = mlTab.getTabAt(i).getText();
-            Log.d("KnowDetailActivity", text.toString());
-        }
     }
 
     public void setstatus(String textcolortype, int background) {
@@ -101,9 +91,16 @@ public class KnowDetailActivity extends SimperActivity {
     }
 
 
-    @OnClick(R.id.knowledge_detail_back)
-    public void onViewClicked() {
-        finish();
+    @OnClick({R.id.knowledge_detail_back, R.id.knowledge_floating})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.knowledge_detail_back:
+                finish();
+                break;
+            case R.id.knowledge_floating:
+                EventBusBean eventBusBean=new EventBusBean();
+                EventBus.getDefault().post(eventBusBean);
+                break;
+        }
     }
-
 }

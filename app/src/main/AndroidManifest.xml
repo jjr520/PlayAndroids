@@ -16,7 +16,7 @@
         <activity
             android:name=".activitys.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activitys.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,6 +25,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activitys.knowledge.KnowDetailActivity" />
+        <activity android:name=".activitys.Useful_sitessActivity"></activity>
     </application>
 
 </manifest>
