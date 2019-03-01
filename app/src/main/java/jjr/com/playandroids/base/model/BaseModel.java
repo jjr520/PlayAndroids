@@ -5,6 +5,7 @@ package jjr.com.playandroids.base.model;
  */
 
 public interface BaseModel {
+
     void setshowProgressbar();
 
     void sethideProgressbar();

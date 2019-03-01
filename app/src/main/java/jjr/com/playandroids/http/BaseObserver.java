@@ -48,6 +48,7 @@ public abstract class BaseObserver<T> implements Observer<T> {
                 httpFinishCallback.setshowError("套接字超时异常");
             }else {
                 httpFinishCallback.setshowError("其他请求错误");
+                Log.d("error", "onError: "+e.getMessage());
             }
            // Logger.getLogger(e.getMessage());
             Log.d("error", "onError: "+e.getMessage());

@@ -3,6 +3,7 @@ package jjr.com.playandroids.adapter.project;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -16,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import jjr.com.playandroids.R;
 import jjr.com.playandroids.beans.fivelistbean.ProjectListBean;
+import jjr.com.playandroids.utils.NoImageUtils;
 
 public class ProjectListAdapter extends RecyclerView.Adapter {
 
@@ -42,20 +44,20 @@ public class ProjectListAdapter extends RecyclerView.Adapter {
         viewHolder.itemProjectListContentTv.setText(list.get(position).getDesc());
         viewHolder.itemProjectListTimeTv.setText(list.get(position).getPublishTime() + "");
         viewHolder.itemProjectListTitleTv.setText(list.get(position).getTitle());
-       // Glide.with(context).load(list.get(position).getEnvelopePic()).into(viewHolder.itemProjectListIv);
+        NoImageUtils.getNoImgnstance().LoadGlide(list.get(position).getEnvelopePic().toString(), context, viewHolder.itemProjectListIv, true);
 
     }
 
     @Override
     public int getItemCount() {
-        if(list == null){
+        if (list == null) {
             return 0;
         }
         return list.size();
     }
 
     public void setData(List<ProjectListBean.DataBean.DatasBean> data) {
-        if(list != null){
+        if (list != null) {
             list.clear();
             list.addAll(data);
         }
