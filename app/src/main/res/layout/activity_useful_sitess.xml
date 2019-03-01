@@ -18,10 +18,17 @@
             android:gravity="center"
             android:text="@string/useWeb"
             android:textSize="20sp" />
+
+
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/useRecyclerView"
+    <View
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/grey_text_refresh" />
+
+    <jjr.com.playandroids.lt.MyUseView
+        android:id="@+id/useView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></jjr.com.playandroids.lt.MyUseView>
 </LinearLayout>

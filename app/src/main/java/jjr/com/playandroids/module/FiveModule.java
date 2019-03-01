@@ -43,7 +43,7 @@ public class FiveModule {
                     @Override
                     public void onNext(UseListBean value) {
                         fiveCallBack.setData(value,onlyOne);
-                        Log.e("iiiii","走到了2");
+
                     }
                 });
                 break;

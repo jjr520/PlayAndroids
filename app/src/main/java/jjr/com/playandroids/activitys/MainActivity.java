@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import org.greenrobot.eventbus.EventBus;
 
 import jjr.com.playandroids.R;
@@ -271,6 +272,7 @@ public class MainActivity extends AppCompatActivity
     private void jump(int a) {
         switch (a) {
             case 1:
+
                 EventBus.getDefault().postSticky("1");
                 break;
             case 2:
