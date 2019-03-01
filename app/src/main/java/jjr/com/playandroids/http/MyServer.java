@@ -3,6 +3,7 @@ package jjr.com.playandroids.http;
 import io.reactivex.Observable;
 import jjr.com.playandroids.beans.fivelistbean.ProjectListBean;
 import jjr.com.playandroids.beans.fivelistbean.TreeListBean;
+import jjr.com.playandroids.beans.fivelistbean.UseListBean;
 import jjr.com.playandroids.beans.fourlistbean.NaviListBean;
 import jjr.com.playandroids.beans.wechat.WeChatHistoryBean;
 import jjr.com.playandroids.beans.wechat.WeChatTabBean;
@@ -35,7 +36,8 @@ public interface MyServer {
 
     //公众号列表
     @GET("wxarticle/list/{id}/{page}/json?k=Java")
-    Observable<WeChatHistoryBean> getWeChatHistory(@Path("id") String id,@Path("page") String page);
+    Observable<WeChatHistoryBean> getWeChatHistory(@Path("id") String id, @Path("page") String page);
+
     //http://www.wanandroid.com/project/list/1/json?cid=294
     @GET("project/list/{id}/json?cid=294")
     Observable<ProjectListBean> getProjectListBean(@Path("id") String cid);
@@ -51,4 +53,7 @@ public interface MyServer {
     @GET("article/list/{page}/json?")
     Observable<KnowDetailsBean> getDetails(@Path("page") int page, @Query("cid") int cid);
 
+    //http://www.wanandroid.com/friend/json
+    @GET("friend/json")
+    Observable<UseListBean> getUseListBean();
 }

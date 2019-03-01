@@ -5,6 +5,7 @@ import android.util.Log;
 import jjr.com.playandroids.base.model.BaseModel;
 import jjr.com.playandroids.beans.fivelistbean.ProjectListBean;
 import jjr.com.playandroids.beans.fivelistbean.TreeListBean;
+import jjr.com.playandroids.beans.fivelistbean.UseListBean;
 import jjr.com.playandroids.http.BaseObserver;
 import jjr.com.playandroids.http.HttpManager;
 import jjr.com.playandroids.http.MyServer;
@@ -35,6 +36,15 @@ public class FiveModule {
 
                     }
 
+                });
+                break;
+            case OnlyFive.USE:
+                HttpManager.getInstance().getServer(MyServer.HOST,MyServer.class).getUseListBean().compose(RxUtils.<UseListBean>rxScheduleThread()).subscribe(new BaseObserver<UseListBean>(fiveCallBack) {
+                    @Override
+                    public void onNext(UseListBean value) {
+                        fiveCallBack.setData(value,onlyOne);
+                        Log.e("iiiii","走到了2");
+                    }
                 });
                 break;
         }

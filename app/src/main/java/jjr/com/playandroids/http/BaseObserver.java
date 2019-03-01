@@ -45,13 +45,14 @@ public abstract class BaseObserver<T> implements Observer<T> {
             } else if (e instanceof TimeoutException) {
                 httpFinishCallback.setshowError("超时异常");
             } else if(e instanceof SocketTimeoutException){
+                Log.d("错误是--->", ""+e.getMessage());
                 httpFinishCallback.setshowError("套接字超时异常");
             }else {
                 httpFinishCallback.setshowError("其他请求错误");
-                Log.d("error", "onError: "+e.getMessage());
+                Log.d("错误是--->", ""+e.getMessage());
             }
            // Logger.getLogger(e.getMessage());
-            Log.d("error", "onError: "+e.getMessage());
+            Log.e("走了哑巴",e.getMessage().toString());
             httpFinishCallback.sethideProgressbar();
         }
     }
