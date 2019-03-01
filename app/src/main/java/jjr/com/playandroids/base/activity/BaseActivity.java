@@ -4,6 +4,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.airbnb.lottie.LottieAnimationView;
+
 import jjr.com.playandroids.R;
 import jjr.com.playandroids.base.presenter.IBasePresenter;
 import jjr.com.playandroids.base.view.BaseView;
@@ -16,7 +18,7 @@ import jjr.com.playandroids.base.view.BaseView;
 public abstract class BaseActivity<V, P extends IBasePresenter<V>> extends SimperActivity implements BaseView {
 
     public P presenter;
-    private ProgressBar progressBar;
+    private LottieAnimationView progressBar;
 
     @Override
     public void viewCreated(View view) {
@@ -34,11 +36,14 @@ public abstract class BaseActivity<V, P extends IBasePresenter<V>> extends Simpe
 
     @Override
     public void showProgressbar() {
-        progressBar.setVisibility(View.VISIBLE);
+        progressBar.setAnimation("loading_bus.json");
+        progressBar.loop(true);
+        progressBar.playAnimation();
     }
 
     @Override
     public void hideProgressbar() {
+        progressBar.cancelAnimation();
         progressBar.setVisibility(View.GONE);
     }
 
