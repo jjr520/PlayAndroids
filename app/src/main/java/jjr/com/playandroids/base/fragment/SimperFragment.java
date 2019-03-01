@@ -21,6 +21,7 @@ public abstract class SimperFragment extends Fragment {
     public Context context;
     public Activity mActivity;
     private Unbinder unbinder;
+    public View mView;
 
     @Override
     public void onAttach(Context context) {
@@ -32,9 +33,9 @@ public abstract class SimperFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(createLayoutId(), null);
-        viewCreate(view);
-        return view;
+        mView = inflater.inflate(createLayoutId(), null);
+        viewCreate(mView);
+        return mView;
     }
 
     public void viewCreate(View view) {

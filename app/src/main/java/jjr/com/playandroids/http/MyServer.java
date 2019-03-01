@@ -4,9 +4,12 @@ import io.reactivex.Observable;
 import jjr.com.playandroids.beans.fivelistbean.ProjectListBean;
 import jjr.com.playandroids.beans.fivelistbean.TreeListBean;
 import jjr.com.playandroids.beans.fourlistbean.NaviListBean;
+import jjr.com.playandroids.beans.wechat.WeChatHistoryBean;
+import jjr.com.playandroids.beans.wechat.WeChatTabBean;
 import jjr.com.playandroids.beans.knowbean.KnowDetailsBean;
 import jjr.com.playandroids.beans.knowbean.KonwDataBean;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -26,7 +29,13 @@ public interface MyServer {
     @GET("project/tree/json")
     Observable<TreeListBean> getTreeListBean();
 
+    //微信公众号tab
+    @GET("wxarticle/chapters/json")
+    Observable<WeChatTabBean> getWeChatTab();
 
+    //公众号列表
+    @GET("wxarticle/list/{id}/{page}/json?k=Java")
+    Observable<WeChatHistoryBean> getWeChatHistory(@Path("id") String id,@Path("page") String page);
     //http://www.wanandroid.com/project/list/1/json?cid=294
     @GET("project/list/{id}/json?cid=294")
     Observable<ProjectListBean> getProjectListBean(@Path("id") String cid);
