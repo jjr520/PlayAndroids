@@ -166,6 +166,16 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/android.arch.lifecycle/viewmodel/1.1.0/e4c0c5d65f92ccad0b0148ac2f01b540ac7a711e/viewmodel-1.1.0-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Gradle: com.airbnb.android:lottie-2.3.0">
+      <CLASSES>
+        <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/lottie-2.3.0.aar/d6716be04c4e6071b9a3a3cb2b246433/res" />
+        <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/lottie-2.3.0.aar/d6716be04c4e6071b9a3a3cb2b246433/jars/classes.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.airbnb.android/lottie/2.3.0/7879232de60804e43639946b73c96f242b68cfa2/lottie-2.3.0-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Gradle: com.android.support.constraint:constraint-layout-1.1.3">
       <CLASSES>
         <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/797dabcf9c941d4499b61e3ac8048397/jars/classes.jar!/" />
@@ -239,6 +249,16 @@
       <JAVADOC />
       <SOURCES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/appcompat-v7/27.1.1/21d073509c5f8d25a1bf274067fa729a1fba8d75/appcompat-v7-27.1.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: com.android.support:cardview-v7-27.1.1">
+      <CLASSES>
+        <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/cardview-v7-27.1.1.aar/e26d882a7e8d01a56a439e24c8d169c9/res" />
+        <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/cardview-v7-27.1.1.aar/e26d882a7e8d01a56a439e24c8d169c9/jars/classes.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/cardview-v7/27.1.1/8300d225b205b04e22ec475cb412bd3621911d3/cardview-v7-27.1.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: com.android.support:design-27.1.1">
@@ -350,6 +370,65 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/transition/27.1.1/88ebe6765790253d410e51a3952571565f2040e9/transition-27.1.1-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Gradle: com.flyco.tablayout:FlycoTabLayout_Lib-2.0.2">
+      <CLASSES>
+        <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/FlycoTabLayout_Lib-2.0.2.aar/81e58354ae8941da4f884cd9aa8686ef/res" />
+        <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/FlycoTabLayout_Lib-2.0.2.aar/81e58354ae8941da4f884cd9aa8686ef/jars/classes.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.flyco.tablayout/FlycoTabLayout_Lib/2.0.2/700b89cc7b102f1f3b98c382840102734b7dc08e/FlycoTabLayout_Lib-2.0.2-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: com.github.bumptech.glide:annotations:4.7.1@jar">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/annotations/4.7.1/796c0bf0a61141278c4bc32de2b92e6eb7fa8b1a/annotations-4.7.1.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/annotations/4.7.1/275492b698d1f98a53ab8a47b707f3b62bfcc5cb/annotations-4.7.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: com.github.bumptech.glide:disklrucache:4.7.1@jar">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/disklrucache/4.7.1/21e6054c134c7f5c435ab7635984f39c5375083e/disklrucache-4.7.1.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/disklrucache/4.7.1/faa9b4747a35846097a3cddf975ca2a3ea23e872/disklrucache-4.7.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: com.github.bumptech.glide:gifdecoder-4.7.1">
+      <ANNOTATIONS>
+        <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/gifdecoder-4.7.1.aar/5de33f94075e403815339a0af7256447/annotations.zip!/" />
+      </ANNOTATIONS>
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/gifdecoder-4.7.1.aar/5de33f94075e403815339a0af7256447/jars/classes.jar!/" />
+        <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/gifdecoder-4.7.1.aar/5de33f94075e403815339a0af7256447/res" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/gifdecoder/4.7.1/82de500fb3793f25fc17faebf438b83298dc6689/gifdecoder-4.7.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: com.github.bumptech.glide:glide-4.7.1">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/glide-4.7.1.aar/a59fceb1f2d6b52ab79bff7d69844541/jars/classes.jar!/" />
+        <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/glide-4.7.1.aar/a59fceb1f2d6b52ab79bff7d69844541/res" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/4.7.1/835685a4ca352a1c6d5f724088432ae950e04bac/glide-4.7.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: com.github.githubwing:ByeBurger-1.1.0">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/ByeBurger-1.1.0.aar/eafd78ecd54b598d10880368a6ceb975/jars/classes.jar!/" />
+        <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/ByeBurger-1.1.0.aar/eafd78ecd54b598d10880368a6ceb975/res" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
     <library name="Gradle: com.google.code.findbugs:jsr305:2.0.1@jar">
       <CLASSES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/2.0.1/516c03b21d50a644d538de0f0369c620989cd8f0/jsr305-2.0.1.jar!/" />
@@ -393,6 +472,29 @@
       <JAVADOC />
       <SOURCES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.miguelcatalan/materialsearchview/1.4.0/3b8caddbe9447c1eb0a3d1ea2bd27891c942671d/materialsearchview-1.4.0-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: com.scwang.smartrefresh:SmartRefreshHeader-1.1.0-alpha-20">
+      <ANNOTATIONS>
+        <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/SmartRefreshHeader-1.1.0-alpha-20.aar/b9bd0ab5736f3ee974cc824448bdbc7d/annotations.zip!/" />
+      </ANNOTATIONS>
+      <CLASSES>
+        <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/SmartRefreshHeader-1.1.0-alpha-20.aar/b9bd0ab5736f3ee974cc824448bdbc7d/res" />
+        <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/SmartRefreshHeader-1.1.0-alpha-20.aar/b9bd0ab5736f3ee974cc824448bdbc7d/jars/classes.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.scwang.smartrefresh/SmartRefreshHeader/1.1.0-alpha-20/99accc52a3e118c6569c84f656689e749c358478/SmartRefreshHeader-1.1.0-alpha-20-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: com.scwang.smartrefresh:SmartRefreshLayout-1.1.0-alpha-20">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/SmartRefreshLayout-1.1.0-alpha-20.aar/ca3ef4e966b55c4c55a78dd574294c52/jars/classes.jar!/" />
+        <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/SmartRefreshLayout-1.1.0-alpha-20.aar/ca3ef4e966b55c4c55a78dd574294c52/res" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.scwang.smartrefresh/SmartRefreshLayout/1.1.0-alpha-20/a6394e8656e8f7218fac25847263ec17d7b374fa/SmartRefreshLayout-1.1.0-alpha-20-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: com.squareup.okhttp3:logging-interceptor:3.6.0@jar">
@@ -521,6 +623,24 @@
       <JAVADOC />
       <SOURCES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sf.kxml/kxml2/2.3.0/309cd2cff7260e465792fda3dcbb063b730d8050/kxml2-2.3.0-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.greenrobot:greendao-api:3.2.2@jar">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.greenrobot/greendao-api/3.2.2/e9bbf7a184b0b4914a10d8179c993cc9aa9b1b33/greendao-api-3.2.2.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.greenrobot/greendao-api/3.2.2/559f8c279e3270402cde9e284092231db788d657/greendao-api-3.2.2-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.greenrobot:greendao:3.2.2@jar">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.greenrobot/greendao/3.2.2/f8c7ebdc29310be23d076e5512bafe6bad3ce2f0/greendao-3.2.2.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.greenrobot/greendao/3.2.2/4b0a727cd9b59a7550794f3bec8024cf271b15d/greendao-3.2.2-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: org.hamcrest:hamcrest-core:1.3@jar">

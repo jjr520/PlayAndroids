@@ -8,21 +8,15 @@
     <string name="install">install</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="edit_hint_default">发现更多干货</string>
-    <string name="search">搜索</string>
-    <string name="useWeb">常用网站</string>
 
 
     <string name="scale_down_show_behavior">json.chao.com.wanandroid.widget.behavior.ScaleDownShowBehavior</string>
-    <string name="wx_search_guide">带你发现更多干货</string>
 
 
     <!--知识体系-->
     <string name="share_view">shareView</string>
-    <string name="common_toolbar">开发环境</string>
-    <string name="reload">Reload</string>
-    <string name="error">重新加载</string>
-    <string name="error_tips">不妙！加载失败了ヽ(≧Д≦)ノ\n 告诉大佬一些可能的原因：\n1.不可直视的网络环境\n 2.服务器大哥的不定期抽风\n 3.WanAndroid眼冒金星拒绝服务喔~</string>
-
-
+    <string name="bye_burger_bottom_behavior">com.wingsofts.byeburgernavigationview.ByeBurgerBottomBehavior</string>
+    <string name="edit_hint_default">发现更多干货</string>
+    <string name="search">搜索</string>
+    <string name="wx_search_guide">带你发现更多干货</string>
 </resources>
