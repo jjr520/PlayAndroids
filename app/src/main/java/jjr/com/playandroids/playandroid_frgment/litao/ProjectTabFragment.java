@@ -109,6 +109,7 @@ public class ProjectTabFragment extends BaseFragment<FiveView, FivePresenter<Fiv
     @Override
     public void showDataFive(Object o, String onlyOne) {
         switch (onlyOne) {
+
             case OnlyFive.LIST:
                 ProjectListBean projectListBean = (ProjectListBean) o;
                 mProjectListAdapters.setData(projectListBean.getData().getDatas());
