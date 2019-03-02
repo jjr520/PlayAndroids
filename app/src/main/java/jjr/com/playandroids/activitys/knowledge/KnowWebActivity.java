@@ -24,6 +24,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import jjr.com.playandroids.R;
 import jjr.com.playandroids.base.activity.SimperActivity;
+import jjr.com.playandroids.utils.ShareUtil;
 
 public class KnowWebActivity extends SimperActivity {
 
@@ -41,6 +42,7 @@ public class KnowWebActivity extends SimperActivity {
     boolean isLike = true;
     @BindView(R.id.tool_bar)
     Toolbar mToolBar;
+    private String mAllWeb;
 
     @Override
     public int createLayoutId() {
@@ -52,13 +54,13 @@ public class KnowWebActivity extends SimperActivity {
         setstatus("白色", Color.parseColor("#23b0df"));
 
         Intent intent = getIntent();
-        String allWeb = intent.getStringExtra("allWeb");
+        mAllWeb = intent.getStringExtra("allWeb");
 
         mToolBar.setTitle("");
         setSupportActionBar(mToolBar);
 
         mWebview.getSettings().setJavaScriptEnabled(true);
-        mWebview.loadUrl(allWeb);
+        mWebview.loadUrl(mAllWeb);
 
         mWebview.setWebChromeClient(new WebChromeClient() {
             //获取网页的标题
@@ -95,6 +97,7 @@ public class KnowWebActivity extends SimperActivity {
         return true;
     }
 
+    //menu图标显示
     @SuppressLint("RestrictedApi")
     @Override
     protected boolean onPrepareOptionsPanel(View view, Menu menu) {
@@ -118,7 +121,7 @@ public class KnowWebActivity extends SimperActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_share:
-                Toast.makeText(mActivity, "分享", Toast.LENGTH_SHORT).show();
+                ShareUtil.shareText(mActivity, mAllWeb, "分享一篇文章");
                 break;
             case R.id.action_web:
                 Toast.makeText(mActivity, "用系统浏览器打开", Toast.LENGTH_SHORT).show();
