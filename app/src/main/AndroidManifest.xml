@@ -25,6 +25,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activitys.knowledge.KnowDetailActivity" />
+        <activity android:name=".activitys.knowledge.KnowWebActivity"></activity>
         <activity android:name=".activitys.Useful_sitessActivity"></activity>
     </application>
 

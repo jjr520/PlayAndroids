@@ -25,7 +25,7 @@ import jjr.com.playandroids.beans.knowbean.KnowDetailsBean;
 
 public class DetailFraAdapter extends RecyclerView.Adapter {
 
-    private final ArrayList<KnowDetailsBean.DataBean.DatasBean> mDatas;
+    public ArrayList<KnowDetailsBean.DataBean.DatasBean> mDatas;
     private final Activity mActivity;
     private String mSuperChapterName;
     private OnClickListener mOnClick;

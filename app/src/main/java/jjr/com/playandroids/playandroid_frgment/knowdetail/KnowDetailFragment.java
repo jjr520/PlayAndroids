@@ -2,6 +2,8 @@ package jjr.com.playandroids.playandroid_frgment.knowdetail;
 
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -30,6 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import jjr.com.playandroids.R;
+import jjr.com.playandroids.activitys.knowledge.KnowWebActivity;
 import jjr.com.playandroids.adapter.knowledge.DetailFraAdapter;
 import jjr.com.playandroids.base.fragment.BaseFragment;
 import jjr.com.playandroids.beans.knowbean.EventBusBean;
@@ -75,6 +78,7 @@ public class KnowDetailFragment extends BaseFragment<TwoView, TwoPresenter<TwoVi
 
     @Override
     protected void initData() {
+
         presenter.getDataTwoP(OnlyTwo.KnowDetails, page, mId);
         setRefresh();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
@@ -86,18 +90,17 @@ public class KnowDetailFragment extends BaseFragment<TwoView, TwoPresenter<TwoVi
         mDetailFraAdapter.setOnClickListener(new DetailFraAdapter.OnClickListener() {
             @Override
             public void onClickListener(View v, int position) {
-
+                Intent intent = new Intent(mActivity, KnowWebActivity.class);
+                intent.putExtra("allWeb",mDetailFraAdapter.mDatas.get(position).getLink());
+                startActivity(intent);
             }
         });
-
-
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getEventbus(EventBusBean eventBusBean) {
         mRecyclerView.smoothScrollToPosition(0);
     }
-
 
     @Override
     public void showDataTwo(Object o, String onlyTwo) {

@@ -1,8 +1,13 @@
 package jjr.com.playandroids.playandroid_frgment;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,7 +21,12 @@ import android.widget.Toast;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -55,6 +65,7 @@ public class TwoFragment extends BaseFragment<TwoView, TwoPresenter<TwoView>> im
 
     @Override
     public int createLayoutId() {
+        EventBus.getDefault().register(this);
         return R.layout.two_fragment;
     }
 
@@ -73,6 +84,9 @@ public class TwoFragment extends BaseFragment<TwoView, TwoPresenter<TwoView>> im
         mKnowLedge.setOnClickListener(new KnowLedgeAdapter.OnClickListener() {
             @Override
             public void onClickListener(View v, int position) {
+                //转场动画
+                //ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(mActivity, v, getString(R.string.share_view));
+
                 Intent intent = new Intent(mActivity, KnowDetailActivity.class);
                 intent.putExtra("superChapterName", dataBeans.get(position).getName());
                 List<KonwDataBean.DataBean.ChildrenBean> children = dataBeans.get(position).getChildren();
@@ -80,9 +94,28 @@ public class TwoFragment extends BaseFragment<TwoView, TwoPresenter<TwoView>> im
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("tabItemBeanList", (Serializable) children);
                 intent.putExtras(bundle);
-                startActivity(intent);
+
+                ActivityOptionsCompat compat = ActivityOptionsCompat.makeScaleUpAnimation(v,
+                        v.getWidth() / 2, v.getHeight() / 2, 0, 0);
+                ActivityCompat.startActivity(mActivity, intent, compat.toBundle());
+
+            /*    ActivityOptionsCompat compat =  ActivityOptionsCompat.makeScaleUpAnimation(v,
+                        (int)(v.getWidth()/3f),  //从点击的View的宽度一半
+                        (int)(v.getHeight()/3f), //高度的一半
+                        0,0); //偏移量
+
+                //一定要这么写
+                ActivityCompat.startActivity(mActivity,intent,compat.toBundle());*/
+
             }
         });
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void getData(String str) {
+        if ("2".equals(str)) {
+            mKnowReView.smoothScrollToPosition(0);
+        }
     }
 
     @Override
@@ -133,19 +166,18 @@ public class TwoFragment extends BaseFragment<TwoView, TwoPresenter<TwoView>> im
             }
         });
 
-        mNormalView.setOnRefreshListener(new OnRefreshLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-
-            }
-
+        mNormalView.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 presenter.getDataTwoP(OnlyTwo.KonwData, 0, 0);
                 refreshLayout.finishRefresh();
             }
         });
+    }
 
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
     }
 }
