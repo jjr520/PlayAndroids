@@ -37,6 +37,7 @@
                 tools:text="开发环境" />
 
             <ImageView
+                android:id="@+id/useful_Sites"
                 android:layout_width="@dimen/dp_24"
                 android:layout_height="@dimen/dp_24"
                 android:layout_gravity="center_vertical"
@@ -44,6 +45,7 @@
                 android:src="@drawable/ic_usage" />
 
             <ImageView
+                android:id="@+id/search"
                 android:layout_width="@dimen/dp_33"
                 android:layout_height="@dimen/dp_33"
                 android:layout_gravity="center_vertical"

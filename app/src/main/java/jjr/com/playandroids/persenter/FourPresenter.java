@@ -8,21 +8,30 @@ public class FourPresenter<V extends FourView> extends IBasePresenter<V> impleme
     private FourModule fourModule = new FourModule();
 
     public void getDataFourP(String onlyOne,Object object){
+        view.showProgressbar();
         fourModule.getDataFour(this,onlyOne,object);
     }
     @Override
     public void setData(Object o, String onlyOne) {
-        view.showDataFour(o,onlyOne);
+        if (view!=null){
+            view.hideProgressbar();
+            view.showDataFour(o,onlyOne);
+        }
+
     }
 
     @Override
     public void setshowProgressbar() {
-
+        if (view != null) {
+            view.showProgressbar();
+        }
     }
 
     @Override
     public void sethideProgressbar() {
-
+        if (view != null) {
+            view.hideProgressbar();
+        }
     }
 
     @Override

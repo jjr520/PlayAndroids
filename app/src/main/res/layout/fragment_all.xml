@@ -5,7 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/shadow"
     android:orientation="vertical"
-    tools:context="jjr.com.playandroids.playandroid_frgment.wechat.AllFragment">
+    tools:context="jjr.com.playandroids.playandroid_frgment.wechat.AllFragment"
+    tools:ignore="MissingDefaultResource">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"

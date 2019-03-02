@@ -1,5 +1,6 @@
 package jjr.com.playandroids.activitys;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
@@ -18,8 +19,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -43,10 +46,8 @@ public class MainActivity extends AppCompatActivity
     private BottomNavigationView mBottomNavigationView;
     private OneFragmnet mOneFragmnet;
     private TextView mTopTitle;
-    private TwoFragment mTwoFragment;
-    private ThereFragmnet mThereFragmnet;
-    private FourFragmnet mFourFragmnet;
-    private FiveFragmnet mFiveFragmnet;
+    private ImageView mUseful_sitess;
+    private ImageView search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -206,6 +207,22 @@ public class MainActivity extends AppCompatActivity
         mMainFloatingActionBtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#269378")));
         mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
         mTopTitle = (TextView) findViewById(R.id.top_title);
+        mUseful_sitess = findViewById(R.id.useful_Sites);
+        search = findViewById(R.id.search);
+        mUseful_sitess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,Useful_sitessActivity.class));
+                Toast.makeText(MainActivity.this, "常用网站", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "搜索", Toast.LENGTH_SHORT).show();
+            }
+        });
         mTopTitle.setText("首页");
         BottomNavigationViewHelper.disableShiftMode(mBottomNavigationView);
 
@@ -255,6 +272,7 @@ public class MainActivity extends AppCompatActivity
     private void jump(int a) {
         switch (a) {
             case 1:
+
                 EventBus.getDefault().postSticky("1");
                 break;
             case 2:
