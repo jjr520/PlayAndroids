@@ -1,19 +1,23 @@
 package jjr.com.playandroids.activitys.knowledge;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.ContextMenu;
+import android.support.v7.view.menu.MenuBuilder;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.lang.reflect.Method;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,6 +38,10 @@ public class KnowWebActivity extends SimperActivity {
     @BindView(R.id.webview)
     WebView mWebview;
 
+    boolean isLike = true;
+    @BindView(R.id.tool_bar)
+    Toolbar mToolBar;
+
     @Override
     public int createLayoutId() {
         return R.layout.activity_know_web;
@@ -46,6 +54,9 @@ public class KnowWebActivity extends SimperActivity {
         Intent intent = getIntent();
         String allWeb = intent.getStringExtra("allWeb");
 
+        mToolBar.setTitle("");
+        setSupportActionBar(mToolBar);
+
         mWebview.getSettings().setJavaScriptEnabled(true);
         mWebview.loadUrl(allWeb);
 
@@ -57,6 +68,7 @@ public class KnowWebActivity extends SimperActivity {
                 mWebTitle.setText(title);
             }
         });
+
     }
 
     @OnClick({R.id.web_back, R.id.web_like})
@@ -66,6 +78,13 @@ public class KnowWebActivity extends SimperActivity {
                 finish();
                 break;
             case R.id.web_like:
+                if (isLike) {
+                    mWebLike.setImageResource(R.mipmap.ic_toolbar_like_p);
+                    isLike = false;
+                } else {
+                    mWebLike.setImageResource(R.mipmap.ic_toolbar_like_n);
+                    isLike = true;
+                }
                 break;
         }
     }
@@ -76,20 +95,39 @@ public class KnowWebActivity extends SimperActivity {
         return true;
     }
 
+    @SuppressLint("RestrictedApi")
+    @Override
+    protected boolean onPrepareOptionsPanel(View view, Menu menu) {
+        if (menu != null) {
+            if (menu.getClass() == MenuBuilder.class) {
+                try {
+                    Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
+                    m.setAccessible(true);
+                    m.invoke(menu, true);
+                } catch (Exception e) {
+
+                }
+            }
+        }
+        return super.onPrepareOptionsPanel(view, menu);
+    }
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_share:
-
+                Toast.makeText(mActivity, "分享", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.action_web:
-
+                Toast.makeText(mActivity, "用系统浏览器打开", Toast.LENGTH_SHORT).show();
                 break;
 
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     public void setstatus(String textcolortype, int background) {
         //这个是字体颜色
