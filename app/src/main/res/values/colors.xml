@@ -95,4 +95,6 @@
     <color name="navigation_normal">#FF757575</color>
 
     <color name="four_recycleview_color">#E5E5E5</color>
+    <color name="four_item_color">#FF757575</color>
+    <color name="menghaha">#f0f0f0</color>
 </resources>
