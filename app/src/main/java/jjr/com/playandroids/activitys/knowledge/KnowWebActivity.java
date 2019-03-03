@@ -11,7 +11,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -61,6 +63,23 @@ public class KnowWebActivity extends SimperActivity {
 
         mWebview.getSettings().setJavaScriptEnabled(true);
         mWebview.loadUrl(mAllWeb);
+
+        //避免本地浏览器打开
+        mWebview.setWebViewClient(new WebViewClient() {
+            //覆盖shouldOverrideUrlLoading 方法
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+        });
+        //设置添加JavaScript等支持
+        mWebview.getSettings().setJavaScriptEnabled(true);
+        mWebview.getSettings().setAppCacheEnabled(true);
+        //设置 缓存模式
+        mWebview.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
+        // 开启 DOM storage API 功能
+        mWebview.getSettings().setDomStorageEnabled(true);
 
         mWebview.setWebChromeClient(new WebChromeClient() {
             //获取网页的标题

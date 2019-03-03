@@ -30,5 +30,5 @@
     <jjr.com.playandroids.lt.MyUseView
         android:id="@+id/useView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></jjr.com.playandroids.lt.MyUseView>
+        android:layout_height="match_parent"/>
 </LinearLayout>

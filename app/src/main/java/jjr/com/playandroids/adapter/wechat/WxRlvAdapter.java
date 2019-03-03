@@ -38,7 +38,7 @@ public class WxRlvAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         WxRlvViewHolder holder1 = (WxRlvViewHolder) holder;
         holder1.mAuthor_icon.setText(mWeChatHistoryBean.get(position).getAuthor());
         holder1.mName.setText(mWeChatHistoryBean.get(position).getSuperChapterName() + "/" + mWeChatHistoryBean.get(position).getChapterName());
@@ -55,14 +55,14 @@ public class WxRlvAdapter extends RecyclerView.Adapter {
         holder1.mCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onClick();
+                mListener.onClick(position);
             }
         });
 
         holder1.mName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onNameClick();
+                mListener.onNameClick(position);
             }
         });
     }
@@ -92,8 +92,8 @@ public class WxRlvAdapter extends RecyclerView.Adapter {
         }
     }
     public interface onClickListener{
-        void onClick();
-        void onNameClick();
+        void onClick(int position);
+        void onNameClick(int position);
     }
     public void setOnClickListener(onClickListener listener){
         mListener = listener;

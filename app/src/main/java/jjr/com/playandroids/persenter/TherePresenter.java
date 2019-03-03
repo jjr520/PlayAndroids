@@ -17,11 +17,13 @@ public class TherePresenter<V extends ThereView> extends IBasePresenter<V> imple
     private ThereModule thereModule = new ThereModule();
 
     public void getDataThereP(String onlyOne,HashMap<String,Object> map){
+        view.showProgressbar();
         thereModule.getDataThere(this,onlyOne,map);
     }
 
     @Override
     public void setData(Object o, String onlyOne) {
+        view.hideProgressbar();
         switch (onlyOne) {
             case WECHATTAB:
                 view.showDataThere(o,OnlyThere.WECHATTAB);

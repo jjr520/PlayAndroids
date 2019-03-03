@@ -1,15 +1,14 @@
 package jjr.com.playandroids.playandroid_frgment.wechat;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -18,12 +17,13 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import java.util.HashMap;
 import java.util.List;
 
 import jjr.com.playandroids.R;
+import jjr.com.playandroids.activitys.knowledge.KnowDetailActivity;
+import jjr.com.playandroids.activitys.knowledge.KnowWebActivity;
 import jjr.com.playandroids.adapter.wechat.WxRlvAdapter;
 import jjr.com.playandroids.base.fragment.BaseFragment;
 import jjr.com.playandroids.beans.wechat.WeChatHistoryBean;
@@ -98,7 +98,7 @@ public class AllFragment extends BaseFragment<ThereView<WeChatHistoryBean>, Ther
     public void showDataThere(WeChatHistoryBean weChatHistoryBean, String onlyOne) {
         Log.i("gmc", "公众号历史showDataThere: " + weChatHistoryBean);
         //xlv
-        List<WeChatHistoryBean.DataBean.DatasBean> datas = weChatHistoryBean.getData().getDatas();
+        final List<WeChatHistoryBean.DataBean.DatasBean> datas = weChatHistoryBean.getData().getDatas();
         final WxRlvAdapter wxRlvAdapter = new WxRlvAdapter(getContext(), datas);
         mWeDetailListRecyclerView.setAdapter(wxRlvAdapter);
         mWeDetailListRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
@@ -123,13 +123,14 @@ public class AllFragment extends BaseFragment<ThereView<WeChatHistoryBean>, Ther
         //点击监听
         wxRlvAdapter.setOnClickListener(new WxRlvAdapter.onClickListener() {
             @Override
-            public void onClick() {
-                //点击整个条目
-                Toast.makeText(context, "整个条目", Toast.LENGTH_SHORT).show();
+            public void onClick(int position) {
+                Intent intent = new Intent(getContext(), KnowWebActivity.class);
+                intent.putExtra("allWeb",datas.get(position).getLink());
+                startActivity(intent);
             }
 
             @Override
-            public void onNameClick() {
+            public void onNameClick(int position) {
                 //点击名字
                 Toast.makeText(context, "点击名字", Toast.LENGTH_SHORT).show();
             }
