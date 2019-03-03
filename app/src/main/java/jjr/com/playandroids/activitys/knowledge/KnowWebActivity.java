@@ -61,7 +61,10 @@ public class KnowWebActivity extends SimperActivity {
 
         Intent intent = getIntent();
         mAllWeb = intent.getStringExtra("allWeb");
-
+        int biaoji = intent.getIntExtra("biaoji", 0);
+        if (biaoji != 0 && biaoji == 1) {
+            mWebLike.setVisibility(View.GONE);
+        }
         mToolBar.setTitle("");
         setSupportActionBar(mToolBar);
 
