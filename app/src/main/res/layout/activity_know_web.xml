@@ -61,21 +61,26 @@
         </RelativeLayout>
 
 
-        <ProgressBar
-            android:id="@+id/web_progressBar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_3"
-            android:progressDrawable="@drawable/web_progreebar"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/rela" />
-
-        <WebView
-            android:id="@+id/webview"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/dp_53"
-            app:layout_constraintTop_toBottomOf="@id/rela"></WebView>
+            android:layout_marginTop="@dimen/dp_50"
+            app:layout_constraintTop_toBottomOf="@id/rela">
+
+            <WebView
+                android:id="@+id/webview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></WebView>
+
+
+            <ProgressBar
+                android:id="@+id/web_progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_3"
+                android:progressDrawable="@drawable/web_progreebar"
+                android:visibility="gone" />
+        </FrameLayout>
     </android.support.constraint.ConstraintLayout>
 
 </FrameLayout>
