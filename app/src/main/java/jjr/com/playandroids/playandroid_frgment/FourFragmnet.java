@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
@@ -35,7 +36,6 @@ import jjr.com.playandroids.view.FourView;
 public class FourFragmnet extends BaseFragment<FourView, FourPresenter<FourView>> implements FourView {
     List<NaviListBean.DataBean> list = new ArrayList<>();
     List<NaviListBean.DataBean.ArticlesBean> list2 = new ArrayList<>();
-    List<String> strings = new ArrayList<>();
     @BindView(R.id.rv_four_tab)
     RecyclerView rv_four_tab;
 
@@ -44,6 +44,8 @@ public class FourFragmnet extends BaseFragment<FourView, FourPresenter<FourView>
     RecyclerView rvFourContent;
     private FourTabAdapter fourTabAdapter;
     private FourconentAdapter fourconentAdapter;
+    private LinearLayoutManager contentlinearLayoutManager;
+    private LinearLayoutManager tablinearLayoutManager;
 
     @Override
     public void showError(String error) {
@@ -88,20 +90,46 @@ public class FourFragmnet extends BaseFragment<FourView, FourPresenter<FourView>
     protected void initData() {
         EventBus.getDefault().register(this);
         fourTabAdapter = new FourTabAdapter(list);
-        rv_four_tab.setLayoutManager(new LinearLayoutManager(getContext()));
+        tablinearLayoutManager = new LinearLayoutManager(getContext());
+        rv_four_tab.setLayoutManager(tablinearLayoutManager);
         rv_four_tab.setAdapter(fourTabAdapter);
         fourTabAdapter.setOnclickLienter(new FourTabAdapter.OnclickLienter() {
             @Override
             public void Click(int position) {
                 fourTabAdapter.getColor(position);
+                contentlinearLayoutManager.scrollToPositionWithOffset(position,0);
                 Toast.makeText(context, list.get(position).getName(), Toast.LENGTH_SHORT).show();
             }
         });
         fourconentAdapter = new FourconentAdapter(list);
-        rvFourContent.setLayoutManager(new LinearLayoutManager(getContext()));
+        contentlinearLayoutManager = new LinearLayoutManager(getContext());
+        rvFourContent.setLayoutManager(contentlinearLayoutManager);
         rvFourContent.setAdapter(fourconentAdapter);
         presenter.getDataFourP(OnlyFour.NAVI, null);
 
+        rvFourContent.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
+            private int lastVisibleItemPosition;
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE){
+                    tablinearLayoutManager.scrollToPositionWithOffset(lastVisibleItemPosition,0);
+                    fourTabAdapter.getColor(lastVisibleItemPosition);
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                Log.e("FourFragmnet", dx + "" + dy);
+                RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+                if (layoutManager instanceof LinearLayoutManager) {
+                    LinearLayoutManager linearLayoutManager = (LinearLayoutManager) layoutManager;
+                    lastVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
+                }
+            }
+        });
     }
 }

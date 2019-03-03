@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.zhy.view.flowlayout.FlowLayout;
 
 import java.util.List;
+import java.util.Random;
 
 import jjr.com.playandroids.R;
 import jjr.com.playandroids.beans.fourlistbean.NaviListBean;
@@ -33,17 +34,21 @@ public class FourconentAdapter extends RecyclerView.Adapter<FourconentAdapter.Vi
         return viewHolder;
     }
 
+    Random myRandom=new Random();
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.tv_content.setText(list.get(position).getName());
         holder.flow_four.removeAllViews();
+
+
         for (int i = 0; i < list.size(); i++) {
             for (int j = 0; j < list.get(i).getArticles().size(); j++) {
                 if (holder.tv_content.getText().toString().equals(list.get(i).getArticles().get(j).getChapterName())){
+                    int ranColor = 0xff000000 | myRandom.nextInt(0x00ffffff);
                     String chapterName = list.get(i).getArticles().get(j).getTitle();
                     TextView tv = (TextView) LayoutInflater.from(context).inflate(R.layout.layout_tv_item, holder.flow_four, false);
                     tv.setText(chapterName);
-                    tv.setTextColor(ContextCompat.getColor(context, R.color.colorText));
+                    tv.setTextColor(ranColor);
                     holder.flow_four.addView(tv);
                 }
 
