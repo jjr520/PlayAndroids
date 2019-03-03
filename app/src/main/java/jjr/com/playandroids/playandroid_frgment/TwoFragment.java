@@ -37,6 +37,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import jjr.com.playandroids.R;
+import jjr.com.playandroids.activitys.MainActivity;
 import jjr.com.playandroids.activitys.knowledge.KnowDetailActivity;
 import jjr.com.playandroids.adapter.knowledge.KnowLedgeAdapter;
 import jjr.com.playandroids.base.fragment.BaseFragment;
@@ -82,6 +83,7 @@ public class TwoFragment extends BaseFragment<TwoView, TwoPresenter<TwoView>> im
         mKnowReView.setAdapter(mKnowLedge);
 
         mKnowLedge.setOnClickListener(new KnowLedgeAdapter.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClickListener(View v, int position) {
                 //转场动画
@@ -95,18 +97,7 @@ public class TwoFragment extends BaseFragment<TwoView, TwoPresenter<TwoView>> im
                 bundle.putSerializable("tabItemBeanList", (Serializable) children);
                 intent.putExtras(bundle);
 
-                ActivityOptionsCompat compat = ActivityOptionsCompat.makeScaleUpAnimation(v,
-                        v.getWidth() / 2, v.getHeight() / 2, 0, 0);
-                ActivityCompat.startActivity(mActivity, intent, compat.toBundle());
-
-            /*    ActivityOptionsCompat compat =  ActivityOptionsCompat.makeScaleUpAnimation(v,
-                        (int)(v.getWidth()/3f),  //从点击的View的宽度一半
-                        (int)(v.getHeight()/3f), //高度的一半
-                        0,0); //偏移量
-
-                //一定要这么写
-                ActivityCompat.startActivity(mActivity,intent,compat.toBundle());*/
-
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(mActivity, v, "shareNames").toBundle());
             }
         });
     }
@@ -161,7 +152,6 @@ public class TwoFragment extends BaseFragment<TwoView, TwoPresenter<TwoView>> im
                 int xOffset = 0, yOffset = 790;
                 CustomToast.makeText(mActivity, "没有多余的干货了(ﾉ≧∀≦)ﾉ",
                         Toast.LENGTH_SHORT, xOffset, yOffset).show();
-                //Toast.makeText(context, "没有多余的干货了(ﾉ≧∀≦)ﾉ", Toast.LENGTH_SHORT).show();
                 refreshLayout.finishLoadMore();
             }
         });

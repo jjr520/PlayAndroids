@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:transitionName="shareNames"
     android:background="@color/colorBackground"
     tools:context="jjr.com.playandroids.playandroid_frgment.knowdetail.KnowDetailFragment">
 

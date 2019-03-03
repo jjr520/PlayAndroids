@@ -2,10 +2,13 @@ package jjr.com.playandroids.playandroid_frgment.knowdetail;
 
 
 import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -88,11 +91,12 @@ public class KnowDetailFragment extends BaseFragment<TwoView, TwoPresenter<TwoVi
 
         //知识体系webview的跳转
         mDetailFraAdapter.setOnClickListener(new DetailFraAdapter.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClickListener(View v, int position) {
                 Intent intent = new Intent(mActivity, KnowWebActivity.class);
                 intent.putExtra("allWeb",mDetailFraAdapter.mDatas.get(position).getLink());
-                startActivity(intent);
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(mActivity, v, "shareNames").toBundle());
             }
         });
     }

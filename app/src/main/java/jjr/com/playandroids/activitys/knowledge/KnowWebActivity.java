@@ -3,6 +3,7 @@ package jjr.com.playandroids.activitys.knowledge;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.view.menu.MenuBuilder;
@@ -15,6 +16,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +46,8 @@ public class KnowWebActivity extends SimperActivity {
     boolean isLike = true;
     @BindView(R.id.tool_bar)
     Toolbar mToolBar;
+    @BindView(R.id.web_progressBar)
+    ProgressBar mWebProgressBar;
     private String mAllWeb;
 
     @Override
@@ -61,8 +65,6 @@ public class KnowWebActivity extends SimperActivity {
         mToolBar.setTitle("");
         setSupportActionBar(mToolBar);
 
-        mWebview.getSettings().setJavaScriptEnabled(true);
-        mWebview.loadUrl(mAllWeb);
 
         //避免本地浏览器打开
         mWebview.setWebViewClient(new WebViewClient() {
@@ -81,6 +83,8 @@ public class KnowWebActivity extends SimperActivity {
         // 开启 DOM storage API 功能
         mWebview.getSettings().setDomStorageEnabled(true);
 
+        mWebview.loadUrl(mAllWeb);
+
         mWebview.setWebChromeClient(new WebChromeClient() {
             //获取网页的标题
             @Override
@@ -88,8 +92,19 @@ public class KnowWebActivity extends SimperActivity {
                 super.onReceivedTitle(view, title);
                 mWebTitle.setText(title);
             }
-        });
 
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                if (mWebProgressBar != null) {
+                    if (newProgress == 100) {
+                        mWebProgressBar.setVisibility(View.GONE);//加载完网页进度条消失
+                    } else {
+                        mWebProgressBar.setVisibility(View.VISIBLE);//开始加载网页时显示进度条
+                        mWebProgressBar.setProgress(newProgress);//设置进度值
+                    }
+                }
+            }
+        });
     }
 
     @OnClick({R.id.web_back, R.id.web_like})
@@ -143,7 +158,9 @@ public class KnowWebActivity extends SimperActivity {
                 ShareUtil.shareText(mActivity, mAllWeb, "分享一篇文章");
                 break;
             case R.id.action_web:
-                Toast.makeText(mActivity, "用系统浏览器打开", Toast.LENGTH_SHORT).show();
+                Uri uri = Uri.parse(mAllWeb);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
                 break;
 
         }
