@@ -86,6 +86,8 @@ dependencies {
 
     compile 'com.github.githubwing:ByeBurger:1.1.0'
     compile 'com.airbnb.android:lottie:2.3.0'
+    implementation 'com.youth.banner:banner:1.4.10'  //最新版本 Banner:
+    implementation'org.greenrobot:eventbus:3.1.1'     //eventBus依赖
 
 
     implementation 'org.greenrobot:eventbus:3.1.1'     //eventBus依赖
