@@ -127,7 +127,6 @@ public class KnowDetailFragment extends BaseFragment<TwoView, TwoPresenter<TwoVi
     private void setRefresh() {
         mNormal.setPrimaryColorsId(Global.BLUE_THEME, R.color.white);
 
-
         //刷新
         mNormal.setOnRefreshListener(new OnRefreshListener() {
             @Override

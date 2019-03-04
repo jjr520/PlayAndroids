@@ -6,14 +6,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +18,6 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -33,11 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import jjr.com.playandroids.R;
-import jjr.com.playandroids.activitys.MainActivity;
 import jjr.com.playandroids.activitys.knowledge.KnowDetailActivity;
 import jjr.com.playandroids.adapter.knowledge.KnowLedgeAdapter;
 import jjr.com.playandroids.base.fragment.BaseFragment;
@@ -69,7 +61,6 @@ public class TwoFragment extends BaseFragment<TwoView, TwoPresenter<TwoView>> im
         EventBus.getDefault().register(this);
         return R.layout.two_fragment;
     }
-
 
     @Override
     protected void initData() {

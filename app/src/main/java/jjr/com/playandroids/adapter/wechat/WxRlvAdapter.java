@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import jjr.com.playandroids.R;
+import jjr.com.playandroids.beans.fivelistbean.ProjectListBean;
 import jjr.com.playandroids.beans.wechat.WeChatHistoryBean;
 
 /**
@@ -39,11 +40,14 @@ public class WxRlvAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+
         WxRlvViewHolder holder1 = (WxRlvViewHolder) holder;
+
         holder1.mAuthor_icon.setText(mWeChatHistoryBean.get(position).getAuthor());
         holder1.mName.setText(mWeChatHistoryBean.get(position).getSuperChapterName() + "/" + mWeChatHistoryBean.get(position).getChapterName());
         holder1.mContent.setText(mWeChatHistoryBean.get(position).getTitle());
         holder1.mTime.setText(mWeChatHistoryBean.get(position).getNiceDate());
+
         if (mWeChatHistoryBean.get(position).isCollect()) {
             //收藏
             holder1.mCollection.setBackgroundResource(R.drawable.icon_like);
@@ -65,11 +69,29 @@ public class WxRlvAdapter extends RecyclerView.Adapter {
                 mListener.onNameClick(position);
             }
         });
+
+        holder1.mCollection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.onCollection(position);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return mWeChatHistoryBean.size();
+    }
+
+    public void addData(List<WeChatHistoryBean.DataBean.DatasBean> datas) {
+        mWeChatHistoryBean.addAll(datas);
+        notifyDataSetChanged();
+    }
+
+    public void addSearch(List<WeChatHistoryBean.DataBean.DatasBean> datas) {
+        mWeChatHistoryBean.clear();
+        mWeChatHistoryBean.addAll(datas);
+        notifyDataSetChanged();
     }
 
     class WxRlvViewHolder extends RecyclerView.ViewHolder {
@@ -94,6 +116,7 @@ public class WxRlvAdapter extends RecyclerView.Adapter {
     public interface onClickListener{
         void onClick(int position);
         void onNameClick(int position);
+        void onCollection(int position);
     }
     public void setOnClickListener(onClickListener listener){
         mListener = listener;

@@ -13,6 +13,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 
 /**
  * Created by jjr on 2019/2/27.
@@ -35,8 +36,12 @@ public interface MyServer {
     Observable<WeChatTabBean> getWeChatTab();
 
     //公众号列表
-    @GET("wxarticle/list/{id}/{page}/json?k=Java")
+    @GET("wxarticle/list/{id}/{page}/json")
     Observable<WeChatHistoryBean> getWeChatHistory(@Path("id") String id, @Path("page") String page);
+
+    //微信搜索
+    @GET("wxarticle/list/{id}/{page}/json")
+    Observable<WeChatHistoryBean> getSearchWx(@Path("id") String id, @Path("page") String page,@Query("k") String which);
 
     //http://www.wanandroid.com/project/list/1/json?cid=294
     @GET("project/list/{id}/json?cid=294")

@@ -9,16 +9,18 @@ import jjr.com.playandroids.only.OnlyThere;
 import jjr.com.playandroids.view.ThereView;
 import jjr.com.playandroids.view.TwoView;
 
+import static jjr.com.playandroids.only.OnlyThere.SEARCH;
 import static jjr.com.playandroids.only.OnlyThere.WCHISTORY;
 import static jjr.com.playandroids.only.OnlyThere.WECHATTAB;
+import static jjr.com.playandroids.only.OnlyThere.WXDETAIL;
 
 public class TherePresenter<V extends ThereView> extends IBasePresenter<V> implements ThereModule.ThereCallBack {
 
     private ThereModule thereModule = new ThereModule();
 
-    public void getDataThereP(String onlyOne,HashMap<String,Object> map){
+    public void getDataThereP(String onlyOne, HashMap<String, Object> map) {
         view.showProgressbar();
-        thereModule.getDataThere(this,onlyOne,map);
+        thereModule.getDataThere(this, onlyOne, map);
     }
 
     @Override
@@ -26,10 +28,16 @@ public class TherePresenter<V extends ThereView> extends IBasePresenter<V> imple
         view.hideProgressbar();
         switch (onlyOne) {
             case WECHATTAB:
-                view.showDataThere(o,OnlyThere.WECHATTAB);
+                view.showDataThere(o, OnlyThere.WECHATTAB);
                 break;
             case WCHISTORY:
-                view.showDataThere(o,OnlyThere.WCHISTORY);
+                view.showDataThere(o, OnlyThere.WCHISTORY);
+                break;
+            case WXDETAIL:
+                view.showDataThere(o, OnlyThere.WXDETAIL);
+                break;
+            case SEARCH:
+                view.showDataThere(o, OnlyThere.SEARCH);
                 break;
         }
     }

@@ -618,6 +618,17 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup/javawriter/2.1.1/5b31387d839a5cdaf5b6de3990da01f7f2b963c5/javawriter-2.1.1-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="com.youth.banner:banner-1.4.10">
+      <CLASSES>
+        <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/banner-1.4.10.aar/9f31fe4e112a8dbf217a369709a77377/res" />
+        <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/banner-1.4.10.aar/9f31fe4e112a8dbf217a369709a77377/jars/classes.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.youth.banner/banner/1.4.10/eae835ac9b7ca690031f2b42fbcc88edab66ce5f/banner-1.4.10-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="com.zhy:flowlayout-lib-1.0.3">
     <library name="Gradle: com.youth.banner:banner-1.4.10">
       <CLASSES>
         <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/banner-1.4.10.aar/741b3b720ff458472b55ca138941b906/res" />

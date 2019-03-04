@@ -85,6 +85,7 @@ public class KnowWebActivity extends SimperActivity {
                 return true;
             }
         });
+
         //设置添加JavaScript等支持
         mWebview.getSettings().setJavaScriptEnabled(true);
         mWebview.getSettings().setAppCacheEnabled(true);
@@ -94,6 +95,16 @@ public class KnowWebActivity extends SimperActivity {
         mWebview.getSettings().setDomStorageEnabled(true);
 
         mWebview.loadUrl(mAllWeb);
+
+
+        //获取网页的标题
+        mWebview.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                if (view != null)
+                    mWebTitle.setText(view.getTitle());
+            }
+        });
 
 
         mWebview.setWebChromeClient(new WebChromeClient() {
@@ -153,7 +164,6 @@ public class KnowWebActivity extends SimperActivity {
         return super.onPrepareOptionsPanel(view, menu);
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -183,6 +193,7 @@ public class KnowWebActivity extends SimperActivity {
                 getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);//恢复状态栏白色字体
             }
         }
+
         //这个是背景颜色
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(background);
