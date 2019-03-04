@@ -88,14 +88,18 @@ public class KnowWebActivity extends SimperActivity {
 
         mWebview.loadUrl(mAllWeb);
 
-        mWebview.setWebChromeClient(new WebChromeClient() {
-            //获取网页的标题
-            @Override
-            public void onReceivedTitle(WebView view, String title) {
-                super.onReceivedTitle(view, title);
-                mWebTitle.setText(title);
-            }
 
+        //获取网页的标题
+        mWebview.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                if (view != null)
+                    mWebTitle.setText(view.getTitle());
+            }
+        });
+
+
+        mWebview.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 if (mWebProgressBar != null) {
