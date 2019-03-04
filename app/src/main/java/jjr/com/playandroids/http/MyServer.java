@@ -11,7 +11,6 @@ import jjr.com.playandroids.beans.knowbean.KnowDetailsBean;
 import jjr.com.playandroids.beans.knowbean.KonwDataBean;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
 
@@ -57,6 +56,12 @@ public interface MyServer {
     //http://www.wanandroid.com/article/list/0/json?cid=60
     @GET("article/list/{page}/json?")
     Observable<KnowDetailsBean> getDetails(@Path("page") int page, @Query("cid") int cid);
+
+    /**
+     * 获取收藏列表
+     * http://www.wanandroid.com/lg/collect/list/0/json
+     */
+
 
     //http://www.wanandroid.com/friend/json
     @GET("friend/json")

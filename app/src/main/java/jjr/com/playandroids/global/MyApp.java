@@ -1,6 +1,7 @@
 package jjr.com.playandroids.global;
 
 import android.app.Application;
+import android.support.v7.app.AppCompatDelegate;
 
 import com.tencent.bugly.crashreport.CrashReport;
 
@@ -18,4 +19,6 @@ public class MyApp extends Application {
     public static MyApp getApplication() {
         return sMyApp;
     }
+
+
 }

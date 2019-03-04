@@ -2,7 +2,10 @@ package jjr.com.playandroids.contact;
 
 import android.graphics.Color;
 
+import java.io.File;
+
 import jjr.com.playandroids.R;
+import jjr.com.playandroids.global.MyApp;
 
 /**
  * Created by jjr on 2019/2/27.
@@ -32,5 +35,11 @@ public class Global {
      * Phone MANUFACTURER
      */
     public static final String SAMSUNG = "samsung";
+
+    //================= PATH ====================
+
+    public static final String PATH_DATA = MyApp.getApplication().getCacheDir() + File.separator/* + "Cache"*/;
+
+    public static final String PATH_CACHE = PATH_DATA/* + "/Cache"*/;
 
 }

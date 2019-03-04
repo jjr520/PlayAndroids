@@ -22,6 +22,15 @@
     <string name="action_open">用系统浏览器打开</string>
     <string name="error_tips">不妙！加载失败了ヽ(≧Д≦)ノ\n 告诉大佬一些可能的原因：\n1.不可直视的网络环境\n 2.服务器大哥的不定期抽风\n 3.WanAndroid眼冒金星拒绝服务喔~</string>
 
+    <!--设置-->
+    <string name="setting_normal">通用设置</string>
+    <string name="setting_other">其他设置</string>
+    <string name="setting_cache">自动缓存</string>
+    <string name="setting_image">无图模式</string>
+    <string name="setting_night">夜间模式</string>
+    <string name="setting_feedback">意见反馈</string>
+    <string name="setting_clear">清除缓存</string>
+
     <string name="useWeb">常用网站</string>
     <string name="bye_burger_bottom_behavior">com.wingsofts.byeburgernavigationview.ByeBurgerBottomBehavior</string>
     <string name="search">搜索</string>

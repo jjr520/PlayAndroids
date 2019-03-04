@@ -131,9 +131,6 @@ public class KnowDetailFragment extends BaseFragment<TwoView, TwoPresenter<TwoVi
         mNormal.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                datasBeans.clear();
-                presenter.getDataTwoP(OnlyTwo.KnowDetails, page, mId);
-
                 refreshLayout.finishRefresh();
             }
         });
