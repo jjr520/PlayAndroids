@@ -99,6 +99,7 @@ public class WxRlvAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
+
     class WxRlvViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView mAuthor_icon;
