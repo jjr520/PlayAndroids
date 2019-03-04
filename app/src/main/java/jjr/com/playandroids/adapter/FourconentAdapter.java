@@ -8,8 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zhy.view.flowlayout.FlowLayout;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 import java.util.Random;
@@ -38,7 +41,7 @@ public class FourconentAdapter extends RecyclerView.Adapter<FourconentAdapter.Vi
 
     Random myRandom=new Random();
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
       holder.tv_node_title.setText(list.get(position).getName());
         holder.flow_four.removeAllViews();
 
@@ -47,14 +50,23 @@ public class FourconentAdapter extends RecyclerView.Adapter<FourconentAdapter.Vi
             for (int j = 0; j < list.get(i).getArticles().size(); j++) {
                 if (holder.tv_node_title.getText().toString().equals(list.get(i).getArticles().get(j).getChapterName())){
                     int ranColor = 0xff000000 | myRandom.nextInt(0x00ffffff);
-                    String chapterName = list.get(i).getArticles().get(j).getTitle();
-                    TextView tv = (TextView) LayoutInflater.from(context).inflate(R.layout.layout_tv_item, holder.flow_four, false);
+                    final String chapterName = list.get(i).getArticles().get(j).getTitle();
+                    final String link = list.get(i).getArticles().get(j).getLink();
+                    final TextView tv = (TextView) LayoutInflater.from(context).inflate(R.layout.layout_tv_item, holder.flow_four, false);
                     tv.setText(chapterName);
                     tv.setTextColor(ranColor);
                     holder.flow_four.addView(tv);
+                    tv.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Toast.makeText(context, chapterName, Toast.LENGTH_SHORT).show();
+                            onclickLienter.Click(position,chapterName,link,tv);
+                        }
+                    });
                 }
             }
         }
+
     }
 
     @Override
@@ -73,4 +85,14 @@ public class FourconentAdapter extends RecyclerView.Adapter<FourconentAdapter.Vi
             tv_node_title = itemView.findViewById(R.id.tv_content);
         }
     }
+     //点击事件
+         OnclickLienter onclickLienter;
+
+         public void setOnclickLienter(OnclickLienter onclickLienter) {
+             this.onclickLienter = onclickLienter;
+         }
+
+         public interface OnclickLienter{
+             void Click(int position, String name, String url, View view);
+         }
 }

@@ -1,6 +1,10 @@
 package jjr.com.playandroids.playandroid_frgment;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -22,12 +26,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import jjr.com.playandroids.R;
+import jjr.com.playandroids.activitys.fouractivity.FourInFoActivity;
+import jjr.com.playandroids.activitys.knowledge.KnowWebActivity;
 import jjr.com.playandroids.adapter.FourconentAdapter;
 import jjr.com.playandroids.adapter.fouradapter.FourTabAdapter;
 import jjr.com.playandroids.base.fragment.BaseFragment;
 import jjr.com.playandroids.beans.fourlistbean.NaviListBean;
 import jjr.com.playandroids.only.OnlyFour;
 import jjr.com.playandroids.persenter.FourPresenter;
+import jjr.com.playandroids.utils.CircularAnimUtil;
 import jjr.com.playandroids.view.FourView;
 
 /**
@@ -134,6 +141,18 @@ public class FourFragmnet extends BaseFragment<FourView, FourPresenter<FourView>
                 }
             }
         });
-
+        /*fourconentAdapter.setOnclickLienter(new FourconentAdapter.OnclickLienter() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void Click(int position, String name, String url,View textView) {
+                Toast.makeText(context, name + url + position, Toast.LENGTH_SHORT).show();
+                *//*Intent intent = new Intent();
+                intent.setClass(getContext(), FourInFoActivity.class);
+                CircularAnimUtil.startActivity(getActivity(),intent,textView,R.color.white);*//*
+                Intent intent = new Intent(mActivity, KnowWebActivity.class);
+                intent.putExtra("allWeb",url);
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(mActivity, textView, "shareNames").toBundle());
+            }
+        });*/
     }
 }
