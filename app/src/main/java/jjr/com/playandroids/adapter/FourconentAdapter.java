@@ -14,6 +14,8 @@ import com.zhy.view.flowlayout.FlowLayout;
 import java.util.List;
 import java.util.Random;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import jjr.com.playandroids.R;
 import jjr.com.playandroids.beans.fourlistbean.NaviListBean;
 
@@ -37,13 +39,13 @@ public class FourconentAdapter extends RecyclerView.Adapter<FourconentAdapter.Vi
     Random myRandom=new Random();
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tv_content.setText(list.get(position).getName());
+      holder.tv_node_title.setText(list.get(position).getName());
         holder.flow_four.removeAllViews();
 
 
         for (int i = 0; i < list.size(); i++) {
             for (int j = 0; j < list.get(i).getArticles().size(); j++) {
-                if (holder.tv_content.getText().toString().equals(list.get(i).getArticles().get(j).getChapterName())){
+                if (holder.tv_node_title.getText().toString().equals(list.get(i).getArticles().get(j).getChapterName())){
                     int ranColor = 0xff000000 | myRandom.nextInt(0x00ffffff);
                     String chapterName = list.get(i).getArticles().get(j).getTitle();
                     TextView tv = (TextView) LayoutInflater.from(context).inflate(R.layout.layout_tv_item, holder.flow_four, false);
@@ -51,7 +53,6 @@ public class FourconentAdapter extends RecyclerView.Adapter<FourconentAdapter.Vi
                     tv.setTextColor(ranColor);
                     holder.flow_four.addView(tv);
                 }
-
             }
         }
     }
@@ -63,13 +64,13 @@ public class FourconentAdapter extends RecyclerView.Adapter<FourconentAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private final TextView tv_content;
         private final FlowLayout flow_four;
+        private final TextView tv_node_title;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            tv_content = itemView.findViewById(R.id.tv_content);
             flow_four = itemView.findViewById(R.id.flow_four);
+            tv_node_title = itemView.findViewById(R.id.tv_content);
         }
     }
 }

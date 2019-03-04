@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
@@ -42,6 +43,8 @@ public class FourFragmnet extends BaseFragment<FourView, FourPresenter<FourView>
     Unbinder unbinder;
     @BindView(R.id.rv_four_content)
     RecyclerView rvFourContent;
+    private int mCurrentPosition;
+    private int mTitleHeight;
     private FourTabAdapter fourTabAdapter;
     private FourconentAdapter fourconentAdapter;
     private LinearLayoutManager contentlinearLayoutManager;
@@ -61,7 +64,6 @@ public class FourFragmnet extends BaseFragment<FourView, FourPresenter<FourView>
                 list.addAll(data);
                 fourconentAdapter.notifyDataSetChanged();
                 fourTabAdapter.notifyDataSetChanged();
-
                 Log.e("22222222", "list2:" + list2);
                 Log.e("导航数据", naviListBean.getData().toString());
                 break;
@@ -83,6 +85,7 @@ public class FourFragmnet extends BaseFragment<FourView, FourPresenter<FourView>
     public void getData(String str) {
         if ("4".equals(str)) {
             rv_four_tab.smoothScrollToPosition(0);
+            rvFourContent.smoothScrollToPosition(0);
         }
     }
 
@@ -131,5 +134,6 @@ public class FourFragmnet extends BaseFragment<FourView, FourPresenter<FourView>
                 }
             }
         });
+
     }
 }
