@@ -56,7 +56,7 @@ public class AllFragment extends BaseFragment<ThereView, TherePresenter<ThereVie
      */
 
     private EditText mEdittextSearch;
-    private static LinearLayout mSearchAfter;
+    public static LinearLayout mSearchAfter;
     private RecyclerView mWeDetailListRecyclerView;
     private SmartRefreshLayout mRefreshLayout;
     private WxRlvAdapter mWxRlvAdapter;
@@ -64,9 +64,11 @@ public class AllFragment extends BaseFragment<ThereView, TherePresenter<ThereVie
     private ArrayList<WeChatHistoryBean.DataBean.DatasBean> datasBeans = new ArrayList<>();
     private int mPageCount;
     private int mCurPage;
+
     /**
      * 发现更多干货
      */
+
     private TextView mAction_search;
     private int mSearchPage = 1;
     private String mName;
@@ -135,23 +137,31 @@ public class AllFragment extends BaseFragment<ThereView, TherePresenter<ThereVie
 
             }
         });
-
-        //点击输入搜索
-
     }
 
     private void loadData() {
-        mName = getArguments().getString("name");
-        mEdittextSearch.setHint(mName + "带你发现更多干货");
-        mId = getArguments().getInt("id");
-        HashMap<String, Object> map = new HashMap<>();
-        if (mId != 0) {
-            map.put("id", mId + "");
+        String search = mEdittextSearch.getText().toString();
+            mName = getArguments().getString("name");
+            mId = getArguments().getInt("id");
+        if (search != null) {
+            HashMap<String, Object> map = new HashMap<>();
+            if (mId != 0) {
+                map.put("id", mId + "");
+            }
+            map.put("page", mSearchPage + "");
+            map.put("k", search);
+            presenter.getDataThereP(OnlyThere.SEARCH, map);
+        } else {
+            mEdittextSearch.setHint(mName + "带你发现更多干货");
+            HashMap<String, Object> map = new HashMap<>();
+            if (mId != 0) {
+                map.put("id", mId + "");
+            }
+            if (mName != null) {
+                map.put("page", mPage + "");
+            }
+            presenter.getDataThereP(OnlyThere.WCHISTORY, map);
         }
-        if (mName != null) {
-            map.put("page", mPage + "");
-        }
-        presenter.getDataThereP(OnlyThere.WCHISTORY, map);
     }
 
     public static AllFragment newInstance(int id, String name) {
@@ -230,16 +240,7 @@ public class AllFragment extends BaseFragment<ThereView, TherePresenter<ThereVie
         switch (v.getId()) {
             case R.id.action_search_wx:
                 //点击搜索获取edit中的字
-                String search = mEdittextSearch.getText().toString();
-                if (search != null) {
-                    HashMap<String, Object> map = new HashMap<>();
-                    if (mId != 0) {
-                        map.put("id", mId + "");
-                    }
-                    map.put("page", mSearchPage + "");
-                    map.put("k", search);
-                    presenter.getDataThereP(OnlyThere.SEARCH,map);
-                }
+                loadData();
                 break;
         }
     }

@@ -94,6 +94,11 @@ public class WxRlvAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
+    public void addDatas(List<WeChatHistoryBean.DataBean.DatasBean> datas) {
+        mWeChatHistoryBean.addAll(datas);
+        notifyDataSetChanged();
+    }
+
     class WxRlvViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView mAuthor_icon;
