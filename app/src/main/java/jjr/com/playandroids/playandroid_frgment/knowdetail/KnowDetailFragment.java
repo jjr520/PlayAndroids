@@ -96,6 +96,7 @@ public class KnowDetailFragment extends BaseFragment<TwoView, TwoPresenter<TwoVi
             public void onClickListener(View v, int position) {
                 Intent intent = new Intent(mActivity, KnowWebActivity.class);
                 intent.putExtra("allWeb",mDetailFraAdapter.mDatas.get(position).getLink());
+                intent.putExtra("allTitle",mDetailFraAdapter.mDatas.get(position).getTitle());
                 startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(mActivity, v, "shareNames").toBundle());
             }
         });

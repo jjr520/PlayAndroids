@@ -49,6 +49,7 @@ public class KnowWebActivity extends SimperActivity {
     @BindView(R.id.web_progressBar)
     ProgressBar mWebProgressBar;
     private String mAllWeb;
+    private String mAllTitle;
 
     @Override
     public int createLayoutId() {
@@ -61,6 +62,12 @@ public class KnowWebActivity extends SimperActivity {
 
         Intent intent = getIntent();
         mAllWeb = intent.getStringExtra("allWeb");
+        mAllTitle = intent.getStringExtra("allTitle");
+
+        if (mAllTitle != null) {
+            mWebTitle.setText(mAllTitle);
+        }
+
         int biaoji = intent.getIntExtra("biaoji", 0);
         if (biaoji != 0 && biaoji == 1) {
             mWebLike.setVisibility(View.GONE);
@@ -87,18 +94,6 @@ public class KnowWebActivity extends SimperActivity {
         mWebview.getSettings().setDomStorageEnabled(true);
 
         mWebview.loadUrl(mAllWeb);
-
-
-        //获取网页的标题
-        mWebview.setWebViewClient(new WebViewClient() {
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                if (view != null) {
-                    String title = view.getTitle();
-                    mWebTitle.setText(title);
-                }
-            }
-        });
 
 
         mWebview.setWebChromeClient(new WebChromeClient() {
