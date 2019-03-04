@@ -106,7 +106,6 @@ public class KnowWebActivity extends SimperActivity {
             }
         });
 
-
         mWebview.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {

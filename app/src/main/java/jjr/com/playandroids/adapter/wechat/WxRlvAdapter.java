@@ -83,10 +83,6 @@ public class WxRlvAdapter extends RecyclerView.Adapter {
         return mWeChatHistoryBean.size();
     }
 
-    public void addData(List<WeChatHistoryBean.DataBean.DatasBean> datas) {
-        mWeChatHistoryBean.addAll(datas);
-        notifyDataSetChanged();
-    }
 
     public void addSearch(List<WeChatHistoryBean.DataBean.DatasBean> datas) {
         mWeChatHistoryBean.clear();
@@ -96,6 +92,11 @@ public class WxRlvAdapter extends RecyclerView.Adapter {
 
     public void addDatas(List<WeChatHistoryBean.DataBean.DatasBean> datas) {
         mWeChatHistoryBean.addAll(datas);
+        notifyDataSetChanged();
+    }
+
+    public void addData(List<WeChatHistoryBean.DataBean.DatasBean> datasa) {
+        mWeChatHistoryBean.addAll(datasa);
         notifyDataSetChanged();
     }
 

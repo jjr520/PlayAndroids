@@ -192,8 +192,6 @@ public class AllFragment extends BaseFragment<ThereView, TherePresenter<ThereVie
                 //xdlv
                 mPageCount = wxsearch.getData().getPageCount();
                 mCurPage = wxsearch.getData().getCurPage();
-                Log.i("gmc", "搜索mPageCountshowDataThere: " + mPageCount);
-                Log.i("gmc", "搜索mCurPageshowDataThere: " + mCurPage);
                 final List<WeChatHistoryBean.DataBean.DatasBean> datas = wxsearch.getData().getDatas();
                 mWxRlvAdapter.addSearch(datas);
                 break;
