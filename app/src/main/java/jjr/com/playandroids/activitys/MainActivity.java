@@ -38,6 +38,7 @@ import jjr.com.playandroids.sideslip_menu.CollectFragment;
 import jjr.com.playandroids.sideslip_menu.PlayAndroidFragment;
 import jjr.com.playandroids.sideslip_menu.SetFragment;
 import jjr.com.playandroids.utils.BottomNavigationViewHelper;
+import jjr.com.playandroids.utils.CircularAnimUtil;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -212,8 +213,11 @@ public class MainActivity extends AppCompatActivity
         mUseful_sitess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,Useful_sitessActivity.class));
-                Toast.makeText(MainActivity.this, "常用网站", Toast.LENGTH_SHORT).show();
+
+                CircularAnimUtil.startActivity(MainActivity.this, new Intent(MainActivity.this, Useful_sitessActivity.class), mUseful_sitess, R.color.colorCard);
+
+
+               // Toast.makeText(MainActivity.this, "常用网站", Toast.LENGTH_SHORT).show();
 
             }
         });
