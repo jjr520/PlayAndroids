@@ -93,8 +93,10 @@ public class KnowWebActivity extends SimperActivity {
         mWebview.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
-                if (view != null)
-                    mWebTitle.setText(view.getTitle());
+                if (view != null) {
+                    String title = view.getTitle();
+                    mWebTitle.setText(title);
+                }
             }
         });
 

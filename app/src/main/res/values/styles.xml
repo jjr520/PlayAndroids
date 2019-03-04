@@ -27,6 +27,7 @@
     <style name="AppTheme.ActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- 添加这一句， 即可改变toolbar menu 图标的颜色-->
         <item name="android:textColorSecondary">#ffffff</item>
+        <item name="android:colorBackground">#ffffff</item>
     </style>
 
 
