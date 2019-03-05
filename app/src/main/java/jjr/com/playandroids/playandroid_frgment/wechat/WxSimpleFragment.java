@@ -1,6 +1,5 @@
 package jjr.com.playandroids.playandroid_frgment.wechat;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,46 +7,43 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import jjr.com.playandroids.R;
 import jjr.com.playandroids.activitys.knowledge.KnowWebActivity;
-import jjr.com.playandroids.activitys.wechat.WxShowSimpleActivity;
 import jjr.com.playandroids.adapter.wechat.WxRlvAdapter;
 import jjr.com.playandroids.base.fragment.BaseFragment;
+import jjr.com.playandroids.beans.knowbean.EventBusBean;
 import jjr.com.playandroids.beans.wechat.WeChatHistoryBean;
 import jjr.com.playandroids.only.OnlyThere;
 import jjr.com.playandroids.persenter.TherePresenter;
 import jjr.com.playandroids.user_defined.CustomToast;
 import jjr.com.playandroids.view.ThereView;
-
 import static jjr.com.playandroids.only.OnlyThere.WCHISTORY;
 
 /**
  * A simple {@link Fragment} subclass.
  */
+
 public class WxSimpleFragment extends BaseFragment<ThereView, TherePresenter<ThereView>> implements ThereView {
 
     @BindView(R.id.rlv_wx_simple)
     RecyclerView mRlvWxSimple;
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout mRefreshLayout;
-    Unbinder unbinder1;
     private int mPage = 0;
     private ArrayList<WeChatHistoryBean.DataBean.DatasBean> datasBeans = new ArrayList<>();
     private WxRlvAdapter mWxRlvAdapter;
@@ -64,6 +60,7 @@ public class WxSimpleFragment extends BaseFragment<ThereView, TherePresenter<The
 
     @Override
     protected void initData() {
+//        EventBus.getDefault().register(this);
         loads();
         mRefreshLayout.setEnableRefresh(true);
         mRefreshLayout.setEnableLoadMore(true);
@@ -95,6 +92,7 @@ public class WxSimpleFragment extends BaseFragment<ThereView, TherePresenter<The
                 refreshLayout.finishLoadMore();
             }
         });
+
         mWxRlvAdapter.setOnClickListener(new WxRlvAdapter.onClickListener() {
             @Override
             public void onClick(int position) {
@@ -115,6 +113,11 @@ public class WxSimpleFragment extends BaseFragment<ThereView, TherePresenter<The
             }
         });
     }
+
+    //    @Subscribe(threadMode = ThreadMode.MAIN)
+    //    public void getEventbus(EventBusBean eventBusBean) {
+    //        mRlvWxSimple.smoothScrollToPosition(0);
+    //    }
 
     private void loads() {
         String name = getArguments().getString("name");
@@ -160,4 +163,15 @@ public class WxSimpleFragment extends BaseFragment<ThereView, TherePresenter<The
         fragment.setArguments(args);
         return fragment;
     }
+//    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+//    public void getData(String str) {
+//        if ("3".equals(str)) {
+//            mRlvWxSimple.smoothScrollToPosition(0);
+//        }
+//    }
+//    @Override
+//    public void onDestroy() {
+//        super.onDestroy();
+//        EventBus.getDefault().unregister(this);
+//    }
 }

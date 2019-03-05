@@ -9,6 +9,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.ImageView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,4 +87,5 @@ public class WxShowSimpleActivity extends BaseActivity<ThereView, TherePresenter
     public void onViewClicked() {
         finish();
     }
+
 }

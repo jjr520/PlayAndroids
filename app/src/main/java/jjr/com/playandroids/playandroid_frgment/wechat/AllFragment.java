@@ -1,17 +1,13 @@
 package jjr.com.playandroids.playandroid_frgment.wechat;
 
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.BoolRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,7 +18,10 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
-import java.net.IDN;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,8 +29,9 @@ import java.util.List;
 import jjr.com.playandroids.R;
 import jjr.com.playandroids.activitys.knowledge.KnowWebActivity;
 import jjr.com.playandroids.activitys.wechat.WxShowSimpleActivity;
-import jjr.com.playandroids.adapter.wechat.WxRlvAdapter;
+import jjr.com.playandroids.adapter.wechat.WxAllRlvAdapter;
 import jjr.com.playandroids.base.fragment.BaseFragment;
+import jjr.com.playandroids.beans.knowbean.EventBusBean;
 import jjr.com.playandroids.beans.wechat.WeChatHistoryBean;
 import jjr.com.playandroids.only.OnlyThere;
 import jjr.com.playandroids.persenter.TherePresenter;
@@ -44,6 +44,7 @@ import static jjr.com.playandroids.only.OnlyThere.WCHISTORY;
 /**
  * A simple {@link Fragment} subclass.
  */
+
 public class AllFragment extends BaseFragment<ThereView, TherePresenter<ThereView>> implements ThereView, View.OnClickListener {
 
     private static int sI;
@@ -59,13 +60,14 @@ public class AllFragment extends BaseFragment<ThereView, TherePresenter<ThereVie
     public static LinearLayout mSearchAfter;
     private RecyclerView mWeDetailListRecyclerView;
     private SmartRefreshLayout mRefreshLayout;
-    private WxRlvAdapter mWxRlvAdapter;
+    private WxAllRlvAdapter mWxRlvAdapter;
     private int mId;
     private ArrayList<WeChatHistoryBean.DataBean.DatasBean> datasBeans = new ArrayList<>();
     private int mPageCount;
     private int mCurPage;
+    private boolean collection;
 
-    /**
+    /*
      * 发现更多干货
      */
 
@@ -80,11 +82,12 @@ public class AllFragment extends BaseFragment<ThereView, TherePresenter<ThereVie
 
     @Override
     protected void initData() {
+        EventBus.getDefault().register(this);
         initView();
         loadData();
         mRefreshLayout.setEnableRefresh(true);
         mRefreshLayout.setEnableLoadMore(true);
-        mWxRlvAdapter = new WxRlvAdapter(getContext(), datasBeans);
+        mWxRlvAdapter = new WxAllRlvAdapter(getContext(), datasBeans);
         mWeDetailListRecyclerView.setAdapter(mWxRlvAdapter);
         mWeDetailListRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         //刷新加载
@@ -101,6 +104,8 @@ public class AllFragment extends BaseFragment<ThereView, TherePresenter<ThereVie
         mRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                Log.i("gmc", "onLoadMore:PageCount " + mPageCount);
+                Log.i("gmc", "onLoadMore:mPage " + mPage);
                 if (mPage < mPageCount) {
                     mPage++;
                     loadData();
@@ -112,8 +117,9 @@ public class AllFragment extends BaseFragment<ThereView, TherePresenter<ThereVie
                 refreshLayout.finishLoadMore();
             }
         });
+
         //点击监听
-        mWxRlvAdapter.setOnClickListener(new WxRlvAdapter.onClickListener() {
+        mWxRlvAdapter.setOnClickListener(new WxAllRlvAdapter.onClickListener() {
             @Override
             public void onClick(int position) {
                 Intent intent = new Intent(getContext(), KnowWebActivity.class);
@@ -125,7 +131,6 @@ public class AllFragment extends BaseFragment<ThereView, TherePresenter<ThereVie
             @Override
             public void onNameClick(int position) {
                 //点击名字
-                Toast.makeText(context, "点击名字", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getContext(), WxShowSimpleActivity.class);
                 intent.putExtra("name", getArguments().getString("name"));
                 intent.putExtra("id", getArguments().getInt("id"));
@@ -134,16 +139,26 @@ public class AllFragment extends BaseFragment<ThereView, TherePresenter<ThereVie
 
             @Override
             public void onCollection(int position) {
+                //点击变色
+                if (collection) {
 
+                    collection = false;
+                } else {
+
+                    collection = true;
+                }
             }
         });
+    }@Subscribe(threadMode = ThreadMode.MAIN)
+    public void getEventbus(EventBusBean eventBusBean) {
+        mWeDetailListRecyclerView.smoothScrollToPosition(0);
     }
 
     private void loadData() {
         String search = mEdittextSearch.getText().toString();
-            mName = getArguments().getString("name");
-            mId = getArguments().getInt("id");
-        if (search != null) {
+        mName = getArguments().getString("name");
+        mId = getArguments().getInt("id");
+        if (search.length() > 0) {
             HashMap<String, Object> map = new HashMap<>();
             if (mId != 0) {
                 map.put("id", mId + "");
@@ -188,8 +203,6 @@ public class AllFragment extends BaseFragment<ThereView, TherePresenter<ThereVie
         switch (onlyOne) {
             case SEARCH:
                 WeChatHistoryBean wxsearch = (WeChatHistoryBean) o;
-                Log.i("gmc", "公众号搜索showDataThere: " + wxsearch.getData().getDatas());
-                //xdlv
                 mPageCount = wxsearch.getData().getPageCount();
                 mCurPage = wxsearch.getData().getCurPage();
                 final List<WeChatHistoryBean.DataBean.DatasBean> datas = wxsearch.getData().getDatas();
@@ -197,8 +210,6 @@ public class AllFragment extends BaseFragment<ThereView, TherePresenter<ThereVie
                 break;
             case WCHISTORY:
                 WeChatHistoryBean wxhistory = (WeChatHistoryBean) o;
-                Log.i("gmc", "公众号历史showDataThere: " + wxhistory);
-                //xlv
                 mPageCount = wxhistory.getData().getPageCount();
                 mCurPage = wxhistory.getData().getCurPage();
                 final List<WeChatHistoryBean.DataBean.DatasBean> datasa = wxhistory.getData().getDatas();
@@ -206,7 +217,6 @@ public class AllFragment extends BaseFragment<ThereView, TherePresenter<ThereVie
                 mWxRlvAdapter.notifyDataSetChanged();
                 break;
         }
-
     }
 
     public void initView() {
@@ -233,6 +243,13 @@ public class AllFragment extends BaseFragment<ThereView, TherePresenter<ThereVie
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void getData(String str) {
+        if ("3".equals(str)) {
+            mWeDetailListRecyclerView.smoothScrollToPosition(0);
+        }
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -241,5 +258,10 @@ public class AllFragment extends BaseFragment<ThereView, TherePresenter<ThereVie
                 loadData();
                 break;
         }
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
     }
 }
