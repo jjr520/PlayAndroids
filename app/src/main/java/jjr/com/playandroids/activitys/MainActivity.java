@@ -222,12 +222,14 @@ public class MainActivity extends AppCompatActivity
             // Handle the camera action
             mDrawer.closeDrawer(GravityCompat.START);
             mBottomNavigationView.setVisibility(View.VISIBLE);
+            mMainFloatingActionBtn.setVisibility(View.VISIBLE);
             fragmentTransaction.replace(R.id.fram, mOneFragmnet);
         } else if (id == R.id.nav_collect) {
             mDrawer.closeDrawer(GravityCompat.START);
             SharedPreferences nba = getSharedPreferences("nba", MODE_PRIVATE);
             boolean bool = nba.getBoolean("bool", false);
             if (bool) {
+                mMainFloatingActionBtn.setVisibility(View.VISIBLE);
                 fragmentTransaction.replace(R.id.fram, new CollectFragment());
             } else {
                 Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
@@ -241,6 +243,7 @@ public class MainActivity extends AppCompatActivity
             mDrawer.closeDrawer(GravityCompat.START);
             fragmentTransaction.replace(R.id.fram, new SetFragment());
             mBottomNavigationView.setVisibility(View.GONE);
+            mMainFloatingActionBtn.setVisibility(View.GONE);
         } else if (id == R.id.nav_about_us) {
             mDrawer.closeDrawer(GravityCompat.START);
             startActivity(new Intent(this, AboutActivity.class));
