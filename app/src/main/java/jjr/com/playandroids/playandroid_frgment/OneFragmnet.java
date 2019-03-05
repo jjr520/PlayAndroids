@@ -65,9 +65,7 @@ public class OneFragmnet extends BaseFragment<OneView,OnePresenter<OneView>> imp
     protected void initData() {
         mainPagerRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         datasBeans = new ArrayList<>();
-
         presenter.getDataOneP("banner/json","1");
-
         normalView.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
@@ -92,7 +90,6 @@ public class OneFragmnet extends BaseFragment<OneView,OnePresenter<OneView>> imp
     public void showDataOne(Object o, String onlyOne) {
         if (o instanceof Articlebean){
             datasBeans.addAll(((Articlebean)o).getData().getDatas());
-
             myadapter.notifyDataSetChanged();
 
         }else if (o instanceof Bannerbean){
@@ -124,7 +121,6 @@ public class OneFragmnet extends BaseFragment<OneView,OnePresenter<OneView>> imp
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void getData(String str) {
-        Toast.makeText(context, str+2222, Toast.LENGTH_SHORT).show();
         if ("1".equals(str)) {
             mainPagerRecyclerView.smoothScrollToPosition(0);
         }

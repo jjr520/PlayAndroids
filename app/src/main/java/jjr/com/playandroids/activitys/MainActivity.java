@@ -417,11 +417,9 @@ public class MainActivity extends AppCompatActivity
     private void jump(int a) {
         switch (a) {
             case 1:
-                Toast.makeText(this, ""+a, Toast.LENGTH_SHORT).show();
                 EventBus.getDefault().postSticky("1");
                 break;
             case 2:
-                Toast.makeText(this, ""+a, Toast.LENGTH_SHORT).show();
                 EventBus.getDefault().postSticky("2");
                 break;
             case 3:
