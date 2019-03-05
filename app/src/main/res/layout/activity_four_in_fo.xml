@@ -16,7 +16,7 @@
         android:background="@color/colorPrimary">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/tool_bar"
+            android:id="@+id/tool_bar_fourinfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -24,12 +24,13 @@
             android:layout_alignParentTop="true"
             android:background="@color/colorPrimary"
             android:minHeight="?android:actionBarSize"
+            app:popupTheme="@style/OverflowMenuStyle"
             android:theme="@style/AppTheme.ActionBar">
 
         </android.support.v7.widget.Toolbar>
 
         <TextView
-            android:id="@+id/web_title"
+            android:id="@+id/web_title_fourinfo"
             android:layout_width="@dimen/dp_200"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -40,7 +41,7 @@
             tools:text="@string/common_toolbar" />
 
         <ImageView
-            android:id="@+id/web_back"
+            android:id="@+id/web_back_fourinfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -48,7 +49,7 @@
             android:background="@drawable/ic_arrow_back_white_24dp" />
 
         <ImageView
-            android:id="@+id/web_like"
+            android:id="@+id/web_like_fourinfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -57,6 +58,30 @@
             android:background="@mipmap/ic_toolbar_like_n" />
 
     </RelativeLayout>
+
+
+        <ProgressBar
+            android:id="@+id/web_progressBar_fourinfo"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_3"
+            android:progressDrawable="@drawable/web_progreebar"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rela" />
+
+        <WebView
+            android:id="@+id/web_fourinfo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp_53"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/web_progressBar_fourinfo"
+            tools:ignore="MissingConstraints" />
     </android.support.constraint.ConstraintLayout>
 
 </FrameLayout>

@@ -116,7 +116,16 @@ public class FourFragmnet extends BaseFragment<FourView, FourPresenter<FourView>
         rvFourContent.setLayoutManager(contentlinearLayoutManager);
         rvFourContent.setAdapter(fourconentAdapter);
         presenter.getDataFourP(OnlyFour.NAVI, null);
-
+        fourconentAdapter.setOnclickLienter(new FourconentAdapter.OnclickLienter() {
+            @Override
+            public void Click(int position, String name, String url, View view) {
+                Intent intent = new Intent(getContext(),FourInFoActivity.class);
+                intent.putExtra("url",url);
+                intent.putExtra("title",name);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+            }
+        });
         rvFourContent.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             private int lastVisibleItemPosition;
