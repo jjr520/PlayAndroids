@@ -1,11 +1,16 @@
 package jjr.com.playandroids.activitys;
 
+import android.app.ActivityOptions;
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -17,16 +22,29 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.io.IOException;
 
 import jjr.com.playandroids.R;
+import jjr.com.playandroids.beans.sixlistbean.Login;
 import jjr.com.playandroids.playandroid_frgment.FiveFragmnet;
 import jjr.com.playandroids.playandroid_frgment.FourFragmnet;
 import jjr.com.playandroids.playandroid_frgment.OneFragmnet;
@@ -49,6 +67,10 @@ public class MainActivity extends AppCompatActivity
     private TextView mTopTitle;
     private ImageView mUseful_sitess;
     private ImageView search;
+    private DrawerLayout mDrawer;
+    private MenuItem mItem;
+    private TextView mUser;
+    private PopupWindow mPopupWindow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,15 +92,17 @@ public class MainActivity extends AppCompatActivity
             }
         });
 */
-        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+                this, mDrawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
 
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 //获取mDrawerLayout中的第一个子布局，也就是布局中的RelativeLayout
                 //获取抽屉的view
-                View mContent = drawer.getChildAt(0);
+                View mContent = mDrawer.getChildAt(0);
                 float scale = 1 - slideOffset;
                 float endScale = 0.8f + scale * 0.2f;
                 float startScale = 1 - 0.3f * scale;
@@ -100,7 +124,7 @@ public class MainActivity extends AppCompatActivity
             }
 
         };
-        drawer.addDrawerListener(toggle);
+        mDrawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -111,7 +135,48 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.replace(R.id.fram, mOneFragmnet);
         fragmentTransaction.commit();
         navigationView.setNavigationItemSelectedListener(this);
+
+        mItem = navigationView.getMenu().findItem(R.id.nav_logout);
+
+        View headerView = navigationView.getHeaderView(0);
+
+        mUser = headerView.findViewById(R.id.textView);
+
+        SharedPreferences nba = getSharedPreferences("nba", MODE_PRIVATE);
+        boolean bool = nba.getBoolean("bool", false);
+        String title = nba.getString("title", "");
+        Log.e("tag", "==========>>" + bool);
+        if (bool) {
+            mItem.setVisible(true);
+            mUser.setText(title);
+        } else {
+            mItem.setVisible(false);
+        }
+
+        LoginActivity.setOnItemClickListener(new LoginActivity.OnItemClickListener() {
+            @Override
+            public void OnItemClick(String s) {
+                mDrawer.openDrawer(Gravity.LEFT);
+                mUser.setText(s);
+                mItem.setVisible(true);
+            }
+        });
+        LoginActivity.setOnItemLongClickListener(new LoginActivity.OnItemLongClickListener() {
+            @Override
+            public void OnItemLongClick() {
+                mDrawer.openDrawer(Gravity.LEFT);
+            }
+        });
+        AboutActivity.setOnItemClickListener(new AboutActivity.OnItemClickListener() {
+            @Override
+            public void OnItemClick() {
+                mDrawer.openDrawer(Gravity.LEFT);
+            }
+        });
+
+
     }
+
 
     @Override
     public void onBackPressed() {
@@ -145,6 +210,7 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }*/
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -154,30 +220,94 @@ public class MainActivity extends AppCompatActivity
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         if (id == R.id.nav_wanAndroid) {
             // Handle the camera action
+            mDrawer.closeDrawer(GravityCompat.START);
             mBottomNavigationView.setVisibility(View.VISIBLE);
             fragmentTransaction.replace(R.id.fram, mOneFragmnet);
-            Toast.makeText(this, "玩安卓", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_collect) {
-            fragmentTransaction.replace(R.id.fram, new CollectFragment());
+            mDrawer.closeDrawer(GravityCompat.START);
+            SharedPreferences nba = getSharedPreferences("nba", MODE_PRIVATE);
+            boolean bool = nba.getBoolean("bool", false);
+            if (bool) {
+                fragmentTransaction.replace(R.id.fram, new CollectFragment());
+            } else {
+                Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                Toast.makeText(this, "请先登录~~", Toast.LENGTH_SHORT).show();
+            }
             mBottomNavigationView.setVisibility(View.GONE);
-            Toast.makeText(this, "收藏", Toast.LENGTH_SHORT).show();
+
         } else if (id == R.id.nav_setting) {
+            mDrawer.closeDrawer(GravityCompat.START);
             fragmentTransaction.replace(R.id.fram, new SetFragment());
             mBottomNavigationView.setVisibility(View.GONE);
-            Toast.makeText(this, "设置", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_about_us) {
-            fragmentTransaction.replace(R.id.fram, new AboutFragment());
+            mDrawer.closeDrawer(GravityCompat.START);
+            startActivity(new Intent(this, AboutActivity.class));
             mBottomNavigationView.setVisibility(View.GONE);
-            Toast.makeText(this, "关于我们", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.nav_logout) {
+            WindowManager.LayoutParams lp = getWindow().getAttributes();
+            lp.alpha = 0.5f;
+            getWindow().setAttributes(lp);
+            mDrawer.openDrawer(GravityCompat.START);
+            View view = LayoutInflater.from(this).inflate(R.layout.exit_deligo, null, false);
+            mPopupWindow = new PopupWindow();
+            mPopupWindow.setContentView(view);
+            mPopupWindow.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+            mPopupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        /*    popupWindow.setOutsideTouchable(true);
+            popupWindow.setBackgroundDrawable(new ColorDrawable());*/
+            mPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+            mPopupWindow.setOutsideTouchable(false);
+            mPopupWindow.setFocusable(false);
+
+            view.findViewById(R.id.no).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mPopupWindow.dismiss();
+                    WindowManager.LayoutParams lp = getWindow().getAttributes();
+                    lp.alpha = 1f;
+                    getWindow().setAttributes(lp);
+                }
+            });
+            view.findViewById(R.id.yes).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mItem.setVisible(false);
+                    mUser.setText("登录");
+                    SharedPreferences nba = getSharedPreferences("nba", MODE_PRIVATE);
+                    SharedPreferences.Editor edit = nba.edit();
+                    edit.putBoolean("bool", false);
+                    edit.commit();
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    mPopupWindow.dismiss();
+                    WindowManager.LayoutParams lp = getWindow().getAttributes();
+                    lp.alpha = 1f;
+                    getWindow().setAttributes(lp);
+
+                }
+            });
+
+
         }
         fragmentTransaction.commit();
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+
+
         return true;
 
 
     }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (mPopupWindow != null && mPopupWindow.isShowing()) {
+            return false;
+        }
+        return super.dispatchTouchEvent(event);
+
+    }
+
+    //设置状态栏
     public void setstatus(String textcolortype, int background) {
         //这个是字体颜色
         if (textcolortype.equalsIgnoreCase("黑色")) {
@@ -214,6 +344,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 CircularAnimUtil.startActivity(MainActivity.this, new Intent(MainActivity.this, Useful_sitessActivity.class), mUseful_sitess, R.color.colorCard);
+
             }
         });
         search.setOnClickListener(new View.OnClickListener() {
@@ -233,12 +364,11 @@ public class MainActivity extends AppCompatActivity
                 mTopTitle.setText(item.getTitle());
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                boolean bo = true;
+
                 switch (item.getItemId()) {
                     case R.id.tab_main_pager:
                         a = 1;
                         fragmentTransaction.replace(R.id.fram, mOneFragmnet);
-
                         break;
                     case R.id.tab_knowledge_hierarchy:
                         a = 2;
@@ -290,5 +420,6 @@ public class MainActivity extends AppCompatActivity
 
                 break;
         }
+
     }
 }

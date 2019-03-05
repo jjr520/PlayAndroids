@@ -66,6 +66,7 @@
     <color name="while_most_color">#e4e4e4</color>
     <color name="blackish_green">#6D8FB0</color>
     <color name="text_bg">#8F9AA8</color>
+    <color name="bluee">#3F9FE0</color>
 
     <!--通用触摸背景色-->
     <color name="common_touch_bg">#E3E3E3</color>
@@ -92,7 +93,10 @@
     <color name="light_tab_bac">#45c1b5</color>
     <color name="indicator_color">#115E56</color>
     <color name="navigation_selected">#FF36BC9B</color>
+    <color name="navigation_normal">#FF757575</color>
+    <color name="greys">#FF999999</color>
     <color name="four_recycleview_color">#E5E5E5</color>
+
     <color name="four_item_color">#FF757575</color>
     <color name="menghaha">#f0f0f0</color>
 </resources>

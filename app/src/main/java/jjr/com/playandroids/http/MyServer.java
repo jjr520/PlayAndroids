@@ -1,5 +1,7 @@
 package jjr.com.playandroids.http;
 
+import java.util.Map;
+
 import io.reactivex.Observable;
 import jjr.com.playandroids.beans.fivelistbean.HotSearch;
 import jjr.com.playandroids.beans.fivelistbean.ProjectListBean;
@@ -7,16 +9,25 @@ import jjr.com.playandroids.beans.fivelistbean.SearchBean;
 import jjr.com.playandroids.beans.fivelistbean.TreeListBean;
 import jjr.com.playandroids.beans.fivelistbean.UseListBean;
 import jjr.com.playandroids.beans.fourlistbean.NaviListBean;
+import jjr.com.playandroids.beans.sixlistbean.Login;
+import jjr.com.playandroids.beans.sixlistbean.Register;
 import jjr.com.playandroids.beans.wechat.WeChatHistoryBean;
 import jjr.com.playandroids.beans.wechat.WeChatTabBean;
 import jjr.com.playandroids.beans.knowbean.KnowDetailsBean;
 import jjr.com.playandroids.beans.knowbean.KonwDataBean;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
+import retrofit2.http.QueryMap;
 import retrofit2.http.Url;
 
 /**
@@ -62,10 +73,14 @@ public interface MyServer {
     @GET("article/list/{page}/json?")
     Observable<KnowDetailsBean> getDetails(@Path("page") int page, @Query("cid") int cid);
 
-    /**
-     * 获取收藏列表
-     * http://www.wanandroid.com/lg/collect/list/0/json
-     */
+    @POST("user/login")
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    Observable<Login> getLoginData(@Body RequestBody requestBody);
+
+    @POST("user/register")
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    Observable<Register> getRegisterData(@Body RequestBody requestBody);
+
 
 
     //http://www.wanandroid.com/friend/json
