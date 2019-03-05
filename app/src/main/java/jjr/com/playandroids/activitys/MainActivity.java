@@ -20,6 +20,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
@@ -44,6 +45,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.io.IOException;
 
 import jjr.com.playandroids.R;
+import jjr.com.playandroids.beans.setting.NightModeEvent;
 import jjr.com.playandroids.beans.sixlistbean.Login;
 import jjr.com.playandroids.playandroid_frgment.FiveFragmnet;
 import jjr.com.playandroids.playandroid_frgment.FourFragmnet;
@@ -57,6 +59,7 @@ import jjr.com.playandroids.sideslip_menu.PlayAndroidFragment;
 import jjr.com.playandroids.sideslip_menu.SetFragment;
 import jjr.com.playandroids.utils.BottomNavigationViewHelper;
 import jjr.com.playandroids.utils.CircularAnimUtil;
+import jjr.com.playandroids.utils.SPUtils;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -423,6 +426,24 @@ public class MainActivity extends AppCompatActivity
 
                 break;
         }
+    }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getNightModeEvent(NightModeEvent nightModeEvent) {
+        boolean nightTrue = SPUtils.getInstance(this).getBoolean("Night");
+        if (nightTrue) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);//切换夜间模式
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);//切换日间模式
+        }
+        startActivity(new Intent(this, MainActivity.class));
+        overridePendingTransition(R.anim.animo_alph_close, R.anim.animo_alph_close);
+        finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

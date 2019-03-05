@@ -37,7 +37,6 @@ public class Global {
     public static final String SAMSUNG = "samsung";
 
     //================= PATH ====================
-
     public static final String PATH_DATA = MyApp.getApplication().getCacheDir() + File.separator/* + "Cache"*/;
 
     public static final String PATH_CACHE = PATH_DATA/* + "/Cache"*/;

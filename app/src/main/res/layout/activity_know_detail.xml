@@ -61,6 +61,7 @@
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/knowledge_floating"
             style="@style/style_float_btn"
+            app:layout_behavior="jjr.com.playandroids.widght.ScaleDownShowBehavior"
             android:layout_marginBottom="@dimen/dp_20"
             android:layout_marginRight="@dimen/dp_16"
             android:src="@mipmap/icon_up_arrow" />
