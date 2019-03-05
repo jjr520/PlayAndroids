@@ -68,19 +68,24 @@ public class Myadapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof ViewHolderB){
-            for (Bannerbean.DataBean bean :bannerlist){
-                iamgs.add(bean.getImagePath());
-                names.add(bean.getTitle());
+            if (iamgs.size()<7){
+                for (Bannerbean.DataBean bean :bannerlist){
+                    iamgs.add(bean.getImagePath());
+                    names.add(bean.getTitle());
+                }
+                ((ViewHolderB) holder).banner.setImages(iamgs)
+                        .setImageLoader(new image())
+                        .setBannerStyle(BannerConfig.NUM_INDICATOR_TITLE)
+                        .setBannerAnimation(Transformer.DepthPage)
+                        .isAutoPlay(true)
+                        .setDelayTime(4000)
+                        .setIndicatorGravity(BannerConfig.CENTER)
+                        .setBannerTitles(names);
+                if (bannerlist.size()!=0){
+                    ((ViewHolderB) holder).banner.start();
+                }
             }
-            ((ViewHolderB) holder).banner.setImages(iamgs)
-                    .setImageLoader(new image())
-                    .setBannerStyle(BannerConfig.NUM_INDICATOR_TITLE)
-                    .setBannerAnimation(Transformer.DepthPage)
-                    .isAutoPlay(true)
-                    .setDelayTime(4000)
-                    .setIndicatorGravity(BannerConfig.CENTER)
-                    .setBannerTitles(names)
-            .start();
+
             ((ViewHolderB) holder).banner.setOnBannerListener(new OnBannerListener() {
                 @Override
                 public void OnBannerClick(int position) {
@@ -95,11 +100,28 @@ public class Myadapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             holder1.mAuthor_icon.setTextSize(15);
             holder1.mName.setText(mWeChatHistoryBean.getSuperChapterName() + "/" + mWeChatHistoryBean.getChapterName());
             holder1.mName.setTextSize(15);
+            ((ViewHolderA) holder).mName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    litao.Myname(position);
+                }
+            });
             holder1.mContent.setText(Html.fromHtml(mWeChatHistoryBean.getTitle()));
             holder1.mContent.setTextSize(15);
             holder1.mTime.setText(mWeChatHistoryBean.getNiceDate());
             holder1.mTime.setTextSize(15);
-
+            if (mWeChatHistoryBean.getSuperChapterName().contains("项目")){
+                ((ViewHolderA) holder).red.setVisibility(View.VISIBLE);
+                ((ViewHolderA) holder).red.setText("项目");
+            }else {
+                ((ViewHolderA) holder).red.setVisibility(View.GONE);
+            }
+            if (mWeChatHistoryBean.getNiceDate().contains("分钟")||mWeChatHistoryBean.getNiceDate().contains("小时")||mWeChatHistoryBean.getNiceDate().contains("1天")){
+                ((ViewHolderA) holder).greed.setVisibility(View.VISIBLE);
+                ((ViewHolderA) holder).greed.setText("新");
+            }else {
+                ((ViewHolderA) holder).greed.setVisibility(View.GONE);
+            }
             if (mWeChatHistoryBean.isCollect()) {
                 //收藏
                 holder1.mCollection.setBackgroundResource(R.drawable.icon_like);
@@ -134,9 +156,12 @@ public class Myadapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private final TextView mTime;
         private final ImageView mCollection;
         private final CardView mCard;
-
+        private final TextView red;
+        private final TextView greed;
         ViewHolderA(View view) {
             super(view);
+            red = itemView.findViewById(R.id.Mynew);
+            greed = itemView.findViewById(R.id.Myproject);
             mAuthor_icon = itemView.findViewById(R.id.wx_item_tv_author_icon);
             mName = itemView.findViewById(R.id.wx_item_tv_author_name);
             mContent = itemView.findViewById(R.id.wx_item_tv_content);
@@ -164,5 +189,6 @@ public class Myadapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         void IISSB(int position);
         void LitaoISSB(int position);
         void YISSB(int position);
+        void Myname(int position);
     }
 }

@@ -66,6 +66,7 @@ public class OneFragmnet extends BaseFragment<OneView,OnePresenter<OneView>> imp
         mainPagerRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         datasBeans = new ArrayList<>();
         presenter.getDataOneP("banner/json","1");
+        presenter.getDataOneP(getUrl(arr),"2");
         normalView.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
@@ -91,30 +92,38 @@ public class OneFragmnet extends BaseFragment<OneView,OnePresenter<OneView>> imp
         if (o instanceof Articlebean){
             datasBeans.addAll(((Articlebean)o).getData().getDatas());
             myadapter.notifyDataSetChanged();
-
         }else if (o instanceof Bannerbean){
             data = ((Bannerbean) o).getData();
-            myadapter =new Myadapter(datasBeans,data);
-            mainPagerRecyclerView.setAdapter(myadapter);
-            myadapter.setLitao(new Myadapter.Litao() {
-                @Override
-                public void IISSB(int position) {
-                    MystartActivity(datasBeans.get(position).getTitle(),datasBeans.get(position).getLink());
+            if (getUserVisibleHint()){
+                myadapter =new Myadapter(datasBeans,data);
+                if (mainPagerRecyclerView!=null){
+                    mainPagerRecyclerView.setAdapter(myadapter);
                 }
+                myadapter.setLitao(new Myadapter.Litao() {
+                    @Override
+                    public void IISSB(int position) {
+                        MystartActivity(datasBeans.get(position).getTitle(),datasBeans.get(position).getLink());
+                    }
 
-                @Override
-                public void LitaoISSB(int position) {
-                    //banner点击事件
-                    MystartActivity(data.get(position).getTitle(),data.get(position).getUrl());
-                }
+                    @Override
+                    public void LitaoISSB(int position) {
+                        //banner点击事件
+                        MystartActivity(data.get(position).getTitle(),data.get(position).getUrl());
+                    }
 
-                @Override
-                public void YISSB(int position) {
-                    //收藏
+                    @Override
+                    public void YISSB(int position) {
+                        //收藏
+                        Toast.makeText(context,"收藏",Toast.LENGTH_SHORT).show();
+                    }
 
-                }
-            });
-            presenter.getDataOneP(getUrl(arr),"2");
+                    @Override
+                    public void Myname(int position) {
+                        datasBeans.get(position);
+                    }
+                });
+            }
+
 
         }
     }

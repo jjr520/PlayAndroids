@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
     <!--implementation 'com.android.support:cardview-v7:25.3.1' //卡片条目依赖
     app:cardElevation=" " //阴影大小
     app:cardCornerRadius=" " //圆角的半径，效果就是上面四个角的弧度
@@ -13,7 +14,7 @@
     <android.support.v7.widget.CardView
         android:id="@+id/wx_item_cardview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dp_10"
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginRight="@dimen/dp_10"
@@ -24,6 +25,7 @@
         app:cardElevation="@dimen/dp_5">
 
         <RelativeLayout
+            android:background="@color/colorBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -45,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="鸿洋"
-                android:textColor="@color/wx_author"
+                android:textColor="@color/colorText"
                 android:textSize="@dimen/dp_15" />
 
             <TextView
@@ -66,6 +68,7 @@
                 android:layout_marginRight="@dimen/dp_6"
                 android:layout_marginTop="@dimen/dp_50"
                 android:gravity="center"
+                android:textColor="@color/colorText"
                 android:text="推荐一个实用漂亮的弹窗库"
                 android:textSize="@dimen/dp_16" />
 
@@ -78,6 +81,7 @@
                 android:src="@drawable/icon_like_author_selected" />
 
             <TextView
+                android:textColor="@color/colorText"
                 android:id="@+id/wx_item_tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -85,7 +89,42 @@
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_toRightOf="@id/wx_collection"
                 android:drawableLeft="@drawable/ic_time"
+                android:gravity="center_vertical"
                 android:text="一小时之前" />
+            <LinearLayout
+                android:layout_margin="@dimen/dp_13"
+                android:id="@+id/item_search_tag_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/wx_item_tv_content">
+
+                <TextView
+                    android:id="@+id/Mynew"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="新"
+                    android:textColor="@color/light_deep_red"
+                    android:background="@drawable/shape_tag_red_background_normal"
+                    android:gravity="center"
+                    android:paddingStart="@dimen/dp_5"
+                    android:paddingEnd="@dimen/dp_5"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/Myproject"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="项目"
+                    android:textColor="@color/light_green"
+                    android:background="@drawable/shape_tag_green_background"
+                    android:gravity="center"
+                    android:paddingStart="@dimen/dp_5"
+                    android:paddingEnd="@dimen/dp_5"
+                    android:visibility="gone"/>
+            </LinearLayout>
+
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>
