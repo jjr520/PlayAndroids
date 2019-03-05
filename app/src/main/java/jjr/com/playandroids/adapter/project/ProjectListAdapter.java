@@ -2,6 +2,7 @@ package jjr.com.playandroids.adapter.project;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -50,8 +51,10 @@ public class ProjectListAdapter extends RecyclerView.Adapter {
         viewHolder.itemProjectListTimeTv.setText(list.get(position).getPublishTime() + "");
         viewHolder.itemProjectListTitleTv.setText(list.get(position).getTitle());
 
-
-        NoImageUtils.getNoImgnstance().LoadGlide(list.get(position).getEnvelopePic().toString(), context, viewHolder.itemProjectListIv, true);
+        SharedPreferences noImg = context.getSharedPreferences("noImg", Context.MODE_PRIVATE);
+        boolean no = noImg.getBoolean("no", false);
+        Log.e("无图111",no+"");
+        NoImageUtils.getNoImgnstance().LoadGlide(list.get(position).getEnvelopePic().toString(), context, viewHolder.itemProjectListIv, no);
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

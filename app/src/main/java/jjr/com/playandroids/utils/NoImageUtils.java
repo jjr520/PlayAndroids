@@ -45,9 +45,10 @@ public class NoImageUtils {
 
         if (m) {
            // Log.e("项目图片2",imgUrl);
-            Glide.with(context).load(imgUrl).into(imageView);
-        } else {
             Glide.with(context).load(R.mipmap.icon_author).into(imageView);
+        } else {
+
+            Glide.with(context).load(imgUrl).into(imageView);
         }
 
     }

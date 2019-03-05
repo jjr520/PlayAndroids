@@ -1,6 +1,8 @@
 package jjr.com.playandroids.sideslip_menu;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -58,6 +60,7 @@ public class SetFragment extends SimperFragment {
 
     @Override
     protected void initData() {
+        state();
         cacheFile = new File(Global.PATH_CACHE);
         mTvClear.setText(ACache.getCacheSize(cacheFile));
 
@@ -70,7 +73,7 @@ public class SetFragment extends SimperFragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    SPUtils.getInstance( mActivity).put("Night", true);
+                    SPUtils.getInstance(mActivity).put("Night", true);
                     EventBus.getDefault().post(new NightModeEvent(true));
                 } else {
                     SPUtils.getInstance(mActivity).put("Night", false);
@@ -78,6 +81,26 @@ public class SetFragment extends SimperFragment {
                 }
             }
         });
+        SharedPreferences noImg = mActivity.getSharedPreferences("noImg", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor edit = noImg.edit();
+        mCbImage.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                edit.putBoolean("no", isChecked);
+                edit.commit();
+            }
+        });
+    }
+
+    private void state() {
+        SharedPreferences noImg = getActivity().getSharedPreferences("noImg", Context.MODE_PRIVATE);
+        boolean no = noImg.getBoolean("no", false);
+        if (no) {
+            mCbImage.setChecked(true);
+
+        } else {
+            mCbImage.setChecked(false);
+        }
     }
 
     @OnClick({R.id.ll_setting_feedback, R.id.ll_setting_clear})
