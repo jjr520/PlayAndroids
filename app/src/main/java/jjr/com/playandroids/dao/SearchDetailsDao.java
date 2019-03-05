@@ -17,6 +17,7 @@ import jjr.com.playandroids.beans.fivelistbean.SearchDetails;
 */
 public class SearchDetailsDao extends AbstractDao<SearchDetails, Long> {
 
+    //asd
     public static final String TABLENAME = "SEARCH_DETAILS";
 
     /**
