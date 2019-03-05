@@ -1,0 +1,24 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="jjr.com.playandroids.playandroid_frgment.wechat.WxSimpleFragment">
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srlAccentColor="@color/white"
+        app:srlPrimaryColor="@color/bule"
+        app:srlEnablePreviewInEditMode="true">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rlv_wx_simple"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorBackground" />
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+</FrameLayout>

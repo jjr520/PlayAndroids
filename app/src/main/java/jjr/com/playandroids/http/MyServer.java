@@ -1,7 +1,9 @@
 package jjr.com.playandroids.http;
 
 import io.reactivex.Observable;
+import jjr.com.playandroids.beans.fivelistbean.HotSearch;
 import jjr.com.playandroids.beans.fivelistbean.ProjectListBean;
+import jjr.com.playandroids.beans.fivelistbean.SearchBean;
 import jjr.com.playandroids.beans.fivelistbean.TreeListBean;
 import jjr.com.playandroids.beans.fivelistbean.UseListBean;
 import jjr.com.playandroids.beans.fourlistbean.NaviListBean;
@@ -9,10 +11,13 @@ import jjr.com.playandroids.beans.wechat.WeChatHistoryBean;
 import jjr.com.playandroids.beans.wechat.WeChatTabBean;
 import jjr.com.playandroids.beans.knowbean.KnowDetailsBean;
 import jjr.com.playandroids.beans.knowbean.KonwDataBean;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 
 /**
  * Created by jjr on 2019/2/27.
@@ -35,8 +40,12 @@ public interface MyServer {
     Observable<WeChatTabBean> getWeChatTab();
 
     //公众号列表
-    @GET("wxarticle/list/{id}/{page}/json?k=Java")
+    @GET("wxarticle/list/{id}/{page}/json")
     Observable<WeChatHistoryBean> getWeChatHistory(@Path("id") String id, @Path("page") String page);
+
+    //微信搜索
+    @GET("wxarticle/list/{id}/{page}/json")
+    Observable<WeChatHistoryBean> getSearchWx(@Path("id") String id, @Path("page") String page,@Query("k") String which);
 
     //http://www.wanandroid.com/project/list/1/json?cid=294
     @GET("project/list/{id}/json?cid=294")
@@ -53,7 +62,28 @@ public interface MyServer {
     @GET("article/list/{page}/json?")
     Observable<KnowDetailsBean> getDetails(@Path("page") int page, @Query("cid") int cid);
 
+    /**
+     * 获取收藏列表
+     * http://www.wanandroid.com/lg/collect/list/0/json
+     */
+
+
     //http://www.wanandroid.com/friend/json
     @GET("friend/json")
     Observable<UseListBean> getUseListBean();
+
+    //http://www.wanandroid.com//hotkey/json
+    @GET("hotkey/json")
+    Observable<HotSearch> getHotSearch();
+
+
+
+    //2.2 知识体系下的文章
+    //http://www.wanandroid.com/article/list/0/json?cid=60
+
+    @POST("article/query/{page}/json")
+    @FormUrlEncoded
+    Observable<SearchBean> getSearchBean(@Path("page") String page,@Field("k") String key);
+
+    //http://www.wanandroid.com/
 }

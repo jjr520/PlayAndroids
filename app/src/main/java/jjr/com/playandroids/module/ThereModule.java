@@ -42,6 +42,17 @@ public class ThereModule {
                             }
                         });
                 break;
+            case OnlyThere.SEARCH:
+                HttpManager.getInstance().getRetrofit(MyServer.HOST)
+                        .create(MyServer.class).getSearchWx((String) map.get("id"),(String) map.get("page"),(String) map.get("k"))
+                        .compose(RxUtils.<WeChatHistoryBean>rxScheduleThread())
+                        .subscribe(new BaseObserver<WeChatHistoryBean>(thereCallBack) {
+                            @Override
+                            public void onNext(WeChatHistoryBean value) {
+                                thereCallBack.setData(value,OnlyThere.SEARCH);
+                            }
+                        });
+                break;
         }
     }
 }

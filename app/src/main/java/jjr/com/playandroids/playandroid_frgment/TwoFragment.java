@@ -1,14 +1,15 @@
 package jjr.com.playandroids.playandroid_frgment;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,16 +17,18 @@ import android.widget.Toast;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import jjr.com.playandroids.R;
 import jjr.com.playandroids.activitys.knowledge.KnowDetailActivity;
 import jjr.com.playandroids.adapter.knowledge.KnowLedgeAdapter;
@@ -55,9 +58,9 @@ public class TwoFragment extends BaseFragment<TwoView, TwoPresenter<TwoView>> im
 
     @Override
     public int createLayoutId() {
+        EventBus.getDefault().register(this);
         return R.layout.two_fragment;
     }
-
 
     @Override
     protected void initData() {
@@ -71,8 +74,12 @@ public class TwoFragment extends BaseFragment<TwoView, TwoPresenter<TwoView>> im
         mKnowReView.setAdapter(mKnowLedge);
 
         mKnowLedge.setOnClickListener(new KnowLedgeAdapter.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClickListener(View v, int position) {
+                //转场动画
+                //ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(mActivity, v, getString(R.string.share_view));
+
                 Intent intent = new Intent(mActivity, KnowDetailActivity.class);
                 intent.putExtra("superChapterName", dataBeans.get(position).getName());
                 List<KonwDataBean.DataBean.ChildrenBean> children = dataBeans.get(position).getChildren();
@@ -80,9 +87,17 @@ public class TwoFragment extends BaseFragment<TwoView, TwoPresenter<TwoView>> im
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("tabItemBeanList", (Serializable) children);
                 intent.putExtras(bundle);
-                startActivity(intent);
+
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(mActivity, v, "shareNames").toBundle());
             }
         });
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void getData(String str) {
+        if ("2".equals(str)) {
+            mKnowReView.smoothScrollToPosition(0);
+        }
     }
 
     @Override
@@ -128,24 +143,22 @@ public class TwoFragment extends BaseFragment<TwoView, TwoPresenter<TwoView>> im
                 int xOffset = 0, yOffset = 790;
                 CustomToast.makeText(mActivity, "没有多余的干货了(ﾉ≧∀≦)ﾉ",
                         Toast.LENGTH_SHORT, xOffset, yOffset).show();
-                //Toast.makeText(context, "没有多余的干货了(ﾉ≧∀≦)ﾉ", Toast.LENGTH_SHORT).show();
                 refreshLayout.finishLoadMore();
             }
         });
 
-        mNormalView.setOnRefreshListener(new OnRefreshLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-
-            }
-
+        mNormalView.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 presenter.getDataTwoP(OnlyTwo.KonwData, 0, 0);
                 refreshLayout.finishRefresh();
             }
         });
+    }
 
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
     }
 }

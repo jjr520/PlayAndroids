@@ -4,6 +4,9 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
 
     <application
         android:name=".global.MyApp"
@@ -25,7 +28,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".activitys.knowledge.KnowDetailActivity" />
-        <activity android:name=".activitys.Useful_sitessActivity"></activity>
+        <activity android:name=".activitys.Useful_sitessActivity" />
+        <activity android:name=".activitys.knowledge.KnowWebActivity" />
+        <activity android:name=".activitys.wechat.WxShowSimpleActivity"></activity>
+        <activity android:name=".activitys.fouractivity.FourInFoActivity" />
+        <activity android:name=".activitys.SearchActivity" />
+        <activity android:name=".activitys.SearchDetailsActivity"></activity>
     </application>
 
 </manifest>

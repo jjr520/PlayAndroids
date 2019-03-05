@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:id="@+id/linear_four"
-    android:orientation="vertical"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tv_tab"
+        android:id="@+id/tv_itemlv"
+        android:textSize="@dimen/sp_16"
+        android:text="sdlkfnsdvfnf"
+        android:background="@color/menghaha"
+        android:gravity="center"
+        android:textColor="@color/shallow_grey"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/dp_20"
-        android:layout_marginTop="@dimen/dp_20"
-        android:layout_marginBottom="@dimen/dp_20"
-        android:text="@string/app_name" />
+        android:layout_height="@dimen/dp_50"/>
+
 </LinearLayout>

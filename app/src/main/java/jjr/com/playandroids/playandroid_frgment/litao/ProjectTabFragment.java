@@ -2,6 +2,7 @@ package jjr.com.playandroids.playandroid_frgment.litao;
 
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -31,6 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import jjr.com.playandroids.R;
+import jjr.com.playandroids.activitys.knowledge.KnowWebActivity;
 import jjr.com.playandroids.adapter.project.ProjectListAdapter;
 import jjr.com.playandroids.base.fragment.BaseFragment;
 import jjr.com.playandroids.beans.fivelistbean.ProjectListBean;
@@ -88,6 +90,16 @@ public class ProjectTabFragment extends BaseFragment<FiveView, FivePresenter<Fiv
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 presenter.getDataFiveP(OnlyFive.LIST, nameId);
                 refreshLayout.finishLoadMore(1000);
+            }
+        });
+        mProjectListAdapters.setOnItemClickListener(new ProjectListAdapter.OnItemClickListener() {
+            @Override
+            public void onClickListener(View v, int position) {
+                Intent intent = new Intent(getActivity(), KnowWebActivity.class);
+                intent.putExtra("allWeb", list.get(position).getLink());
+                intent.putExtra("allTitle", list.get(position).getTitle());
+                intent.putExtra("biaoji", 1);
+                context.startActivity(intent);
             }
         });
 

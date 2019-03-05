@@ -1,6 +1,7 @@
 package jjr.com.playandroids.adapter.project;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -16,13 +18,16 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import jjr.com.playandroids.R;
+import jjr.com.playandroids.activitys.knowledge.KnowWebActivity;
 import jjr.com.playandroids.beans.fivelistbean.ProjectListBean;
 import jjr.com.playandroids.utils.NoImageUtils;
 
 public class ProjectListAdapter extends RecyclerView.Adapter {
 
     private final Context context;
-    private final List<ProjectListBean.DataBean.DatasBean> list;
+    public List<ProjectListBean.DataBean.DatasBean> list;
+    private OnItemClickListener listener;
+
 
     public ProjectListAdapter(Context context, List<ProjectListBean.DataBean.DatasBean> datas) {
         this.list = datas;
@@ -38,14 +43,25 @@ public class ProjectListAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
         viewHolder.itemProjectListAuthorTv.setText(list.get(position).getAuthor());
         viewHolder.itemProjectListContentTv.setText(list.get(position).getDesc());
         viewHolder.itemProjectListTimeTv.setText(list.get(position).getPublishTime() + "");
         viewHolder.itemProjectListTitleTv.setText(list.get(position).getTitle());
-        NoImageUtils.getNoImgnstance().LoadGlide(list.get(position).getEnvelopePic().toString(), context, viewHolder.itemProjectListIv, true);
 
+
+        NoImageUtils.getNoImgnstance().LoadGlide(list.get(position).getEnvelopePic().toString(), context, viewHolder.itemProjectListIv, true);
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (listener != null) {
+                    listener.onClickListener(v, position);
+                }
+
+            }
+        });
     }
 
     @Override
@@ -82,5 +98,14 @@ public class ProjectListAdapter extends RecyclerView.Adapter {
             super(view);
             ButterKnife.bind(this, view);
         }
+    }
+
+    public interface OnItemClickListener {
+        void onClickListener(View v, int position);
+
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 }

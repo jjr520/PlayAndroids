@@ -2,8 +2,13 @@ package jjr.com.playandroids.playandroid_frgment.knowdetail;
 
 
 import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,6 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import jjr.com.playandroids.R;
+import jjr.com.playandroids.activitys.knowledge.KnowWebActivity;
 import jjr.com.playandroids.adapter.knowledge.DetailFraAdapter;
 import jjr.com.playandroids.base.fragment.BaseFragment;
 import jjr.com.playandroids.beans.knowbean.EventBusBean;
@@ -75,6 +81,7 @@ public class KnowDetailFragment extends BaseFragment<TwoView, TwoPresenter<TwoVi
 
     @Override
     protected void initData() {
+
         presenter.getDataTwoP(OnlyTwo.KnowDetails, page, mId);
         setRefresh();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
@@ -84,20 +91,21 @@ public class KnowDetailFragment extends BaseFragment<TwoView, TwoPresenter<TwoVi
 
         //知识体系webview的跳转
         mDetailFraAdapter.setOnClickListener(new DetailFraAdapter.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClickListener(View v, int position) {
-
+                Intent intent = new Intent(mActivity, KnowWebActivity.class);
+                intent.putExtra("allWeb",mDetailFraAdapter.mDatas.get(position).getLink());
+                intent.putExtra("allTitle",mDetailFraAdapter.mDatas.get(position).getTitle());
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(mActivity, v, "shareNames").toBundle());
             }
         });
-
-
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getEventbus(EventBusBean eventBusBean) {
         mRecyclerView.smoothScrollToPosition(0);
     }
-
 
     @Override
     public void showDataTwo(Object o, String onlyTwo) {
@@ -119,14 +127,10 @@ public class KnowDetailFragment extends BaseFragment<TwoView, TwoPresenter<TwoVi
     private void setRefresh() {
         mNormal.setPrimaryColorsId(Global.BLUE_THEME, R.color.white);
 
-
         //刷新
         mNormal.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                datasBeans.clear();
-                presenter.getDataTwoP(OnlyTwo.KnowDetails, page, mId);
-
                 refreshLayout.finishRefresh();
             }
         });

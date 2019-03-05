@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activitys.fouractivity.FourInFoActivity">
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rela"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:background="@color/colorPrimary">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tool_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorPrimary"
+            android:minHeight="?android:actionBarSize"
+            android:theme="@style/AppTheme.ActionBar">
+
+        </android.support.v7.widget.Toolbar>
+
+        <TextView
+            android:id="@+id/web_title"
+            android:layout_width="@dimen/dp_200"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16"
+            tools:text="@string/common_toolbar" />
+
+        <ImageView
+            android:id="@+id/web_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:background="@drawable/ic_arrow_back_white_24dp" />
+
+        <ImageView
+            android:id="@+id/web_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_40"
+            android:background="@mipmap/ic_toolbar_like_n" />
+
+    </RelativeLayout>
+    </android.support.constraint.ConstraintLayout>
+
+</FrameLayout>

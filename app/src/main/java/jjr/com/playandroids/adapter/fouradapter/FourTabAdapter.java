@@ -18,10 +18,10 @@ import jjr.com.playandroids.R;
 import jjr.com.playandroids.beans.fourlistbean.NaviListBean;
 
 public class FourTabAdapter extends RecyclerView.Adapter<FourTabAdapter.ViewHolder> {
-    private List<NaviListBean.DataBean.ArticlesBean> list2;
+    private List<NaviListBean.DataBean> list2;
     private Context context;
     private int mPosition;
-    public FourTabAdapter(List<NaviListBean.DataBean.ArticlesBean> list2) {
+    public FourTabAdapter(List<NaviListBean.DataBean> list2) {
         this.list2 = list2;
     }
 
@@ -29,25 +29,31 @@ public class FourTabAdapter extends RecyclerView.Adapter<FourTabAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
-        View inflate = LayoutInflater.from(context).inflate(R.layout.four_tab_item, null);
+        View inflate = LayoutInflater.from(context).inflate(R.layout.four_tab_item, parent,false);
         ViewHolder viewHolder = new ViewHolder(inflate);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.tv_tab.setText(list2.get(position).getChapterName());
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+        holder.tv_tab.setText(list2.get(position).getName());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 onclickLienter.Click(position);
             }
         });
-
+        if(mPosition==position){
+            holder.tv_tab.setTextColor(Color.parseColor("#FF36BC9B"));
+            holder.tv_tab.setBackgroundColor(Color.parseColor("#ffffff"));
+        }else{
+            holder.tv_tab.setBackgroundColor(Color.parseColor("#f0f0f0"));
+            holder.tv_tab.setTextColor(Color.parseColor("#FF757575"));
+        }
     }
     public void getColor(int posi){
         mPosition = posi;
+        notifyDataSetChanged();
     }
     @Override
     public int getItemCount() {
@@ -57,12 +63,10 @@ public class FourTabAdapter extends RecyclerView.Adapter<FourTabAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView tv_tab;
-        private final LinearLayout linear_four;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            tv_tab = itemView.findViewById(R.id.tv_tab);
-            linear_four = itemView.findViewById(R.id.linear_four);
+            tv_tab = itemView.findViewById(R.id.tv_itemlv);
         }
     }
      //点击事件
