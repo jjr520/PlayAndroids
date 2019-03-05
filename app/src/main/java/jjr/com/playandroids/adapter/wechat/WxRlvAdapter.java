@@ -101,7 +101,7 @@ public class WxRlvAdapter extends RecyclerView.Adapter {
     }
 
 
-    class WxRlvViewHolder extends RecyclerView.ViewHolder {
+    public static class WxRlvViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView mAuthor_icon;
         private final TextView mName;

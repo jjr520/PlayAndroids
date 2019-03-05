@@ -341,7 +341,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private int a;
+    private int a=1;
 
     private void initView() {
         mMainFloatingActionBtn = (FloatingActionButton) findViewById(R.id.main_floating_action_btn);
@@ -417,10 +417,11 @@ public class MainActivity extends AppCompatActivity
     private void jump(int a) {
         switch (a) {
             case 1:
-
+                Toast.makeText(this, ""+a, Toast.LENGTH_SHORT).show();
                 EventBus.getDefault().postSticky("1");
                 break;
             case 2:
+                Toast.makeText(this, ""+a, Toast.LENGTH_SHORT).show();
                 EventBus.getDefault().postSticky("2");
                 break;
             case 3:
@@ -433,7 +434,6 @@ public class MainActivity extends AppCompatActivity
                 EventBus.getDefault().postSticky("5");
                 break;
             default:
-
                 break;
         }
     }

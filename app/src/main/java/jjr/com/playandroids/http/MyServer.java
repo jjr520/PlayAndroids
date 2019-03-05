@@ -9,6 +9,8 @@ import jjr.com.playandroids.beans.fivelistbean.SearchBean;
 import jjr.com.playandroids.beans.fivelistbean.TreeListBean;
 import jjr.com.playandroids.beans.fivelistbean.UseListBean;
 import jjr.com.playandroids.beans.fourlistbean.NaviListBean;
+import jjr.com.playandroids.beans.one.Articlebean;
+import jjr.com.playandroids.beans.one.Bannerbean;
 import jjr.com.playandroids.beans.sixlistbean.Login;
 import jjr.com.playandroids.beans.sixlistbean.Register;
 import jjr.com.playandroids.beans.wechat.WeChatHistoryBean;
@@ -86,6 +88,12 @@ public interface MyServer {
     //http://www.wanandroid.com/friend/json
     @GET("friend/json")
     Observable<UseListBean> getUseListBean();
+    //banner数据
+    @GET("banner/json")
+    Observable<Bannerbean> getBanner();
+    //
+    @GET()
+    Observable<Articlebean> getArticle(@Url String url);
 
     //http://www.wanandroid.com//hotkey/json
     @GET("hotkey/json")
