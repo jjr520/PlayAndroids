@@ -1,5 +1,6 @@
 package jjr.com.playandroids.base.activity;
 
+import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -55,4 +56,5 @@ public abstract class BaseActivity<V, P extends IBasePresenter<V>> extends Simpe
             presenter = null;
         }
     }
+
 }

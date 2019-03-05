@@ -97,22 +97,7 @@ public class WelcomeActivity extends SimperActivity {
         setstatus("白色", Color.parseColor("#00000000"));
         return R.layout.activity_welcome;
     }
-    public void setstatus(String textcolortype, int background) {
-        //这个是字体颜色
-        if (textcolortype.equalsIgnoreCase("黑色")) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                this.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-            }
-        } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);//恢复状态栏白色字体
-            }
-        }
-        //这个是背景颜色
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(background);
-        }
-    }
+
 
     public void initView() {
         mOneAnimation = (LottieAnimationView) findViewById(R.id.one_animation);

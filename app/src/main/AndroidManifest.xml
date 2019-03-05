@@ -28,7 +28,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".activitys.knowledge.KnowDetailActivity" />
+        <activity android:name=".activitys.LoginActivity" />
         <activity android:name=".activitys.Useful_sitessActivity" />
+        <activity android:name=".activitys.RegisterActivity" />
+        <activity android:name=".activitys.AboutActivity"></activity>
         <activity android:name=".activitys.knowledge.KnowWebActivity" />
         <activity android:name=".activitys.wechat.WxShowSimpleActivity"></activity>
         <activity android:name=".activitys.fouractivity.FourInFoActivity" />
