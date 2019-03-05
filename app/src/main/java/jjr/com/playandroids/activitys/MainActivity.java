@@ -78,6 +78,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+
 
         setContentView(R.layout.activity_main);
         setstatus("白色", Color.parseColor("#23b0df"));
@@ -431,6 +433,7 @@ public class MainActivity extends AppCompatActivity
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getNightModeEvent(NightModeEvent nightModeEvent) {
         boolean nightTrue = SPUtils.getInstance(this).getBoolean("Night");
+        Log.d("MainActivity", "nightTrue:" + nightTrue);
         if (nightTrue) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);//切换夜间模式
         } else {
