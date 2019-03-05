@@ -213,18 +213,13 @@ public class MainActivity extends AppCompatActivity
         mUseful_sitess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 CircularAnimUtil.startActivity(MainActivity.this, new Intent(MainActivity.this, Useful_sitessActivity.class), mUseful_sitess, R.color.colorCard);
-
-
-               // Toast.makeText(MainActivity.this, "常用网站", Toast.LENGTH_SHORT).show();
-
             }
         });
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "搜索", Toast.LENGTH_SHORT).show();
+                CircularAnimUtil.startActivity(MainActivity.this, new Intent(MainActivity.this, SearchActivity.class), mUseful_sitess, R.color.colorCard);
             }
         });
         mTopTitle.setText("首页");

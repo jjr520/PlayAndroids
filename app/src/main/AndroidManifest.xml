@@ -32,7 +32,8 @@
         <activity android:name=".activitys.knowledge.KnowWebActivity" />
         <activity android:name=".activitys.wechat.WxShowSimpleActivity"></activity>
         <activity android:name=".activitys.fouractivity.FourInFoActivity" />
-        <activity android:name=".activitys.SearchActivity"></activity>
+        <activity android:name=".activitys.SearchActivity" />
+        <activity android:name=".activitys.SearchDetailsActivity"></activity>
     </application>
 
 </manifest>

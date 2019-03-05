@@ -68,7 +68,7 @@ public class Useful_sitessActivity extends BaseActivity<FiveView, FivePresenter<
             mTextViews = mLinearLayouts.findViewById(R.id.commonItemTitle);
             mTextViews.setText(data.get(i).getName());
             Random myRandom = new Random();
-            int ranColor = 0xff000000 | myRandom.nextInt(0x00ffffff);
+            int ranColor = 0x55000000 | myRandom.nextInt(0x55ffffff);
             mTextViews.setBackgroundColor(ranColor);
             mTextViews.setTextColor(0xffffffff);
             if (myUseView != null) {
@@ -96,10 +96,11 @@ public class Useful_sitessActivity extends BaseActivity<FiveView, FivePresenter<
                                         (v, v.getWidth() / 2, v.getHeight() / 2, 0, 0);
                                 Intent intent = new Intent(Useful_sitessActivity.this, KnowWebActivity.class);
                                 intent.putExtra("allWeb", data.get(finalI).getLink());
-                                intent.putExtra("allTitle", data.get(finalI).getName());
+                                intent.putExtra("allTitle", data.get(finalI).getLink());
                                 intent.putExtra("biaoji", 1);
                                 ActivityCompat.startActivity(Useful_sitessActivity.this, intent,
                                         compat.toBundle());
+
                                 mAnimations = animation;
 
                                 //mAnimations.setFillAfter(true);

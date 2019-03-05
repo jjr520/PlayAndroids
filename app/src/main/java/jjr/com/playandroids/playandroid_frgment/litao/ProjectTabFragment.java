@@ -97,7 +97,7 @@ public class ProjectTabFragment extends BaseFragment<FiveView, FivePresenter<Fiv
             public void onClickListener(View v, int position) {
                 Intent intent = new Intent(getActivity(), KnowWebActivity.class);
                 intent.putExtra("allWeb", list.get(position).getLink());
-                intent.putExtra("allTitle", list.get(position).getChapterName());
+                intent.putExtra("allTitle", list.get(position).getTitle());
                 intent.putExtra("biaoji", 1);
                 context.startActivity(intent);
             }

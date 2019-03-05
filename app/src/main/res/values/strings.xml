@@ -36,4 +36,11 @@
     <string name="search">搜索</string>
     <string name="wx_search_guide">带你发现更多干货</string>
     <string name="edit_hint_default">发现更多干货</string>
+    <string name="clear_all">清除所有</string>
+    <string name="history_search">搜索历史</string>
+    <string name="search_null_tint">快来搜点干货吧</string>
+    <string name="action_search">搜索</string>
+    <string name="search_tint">发现更多干货</string>
+    <string name="hot_search">热搜</string>
+
 </resources>
