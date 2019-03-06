@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -91,7 +92,9 @@ public class OneFragmnet extends BaseFragment<OneView,OnePresenter<OneView>> imp
     public void showDataOne(Object o, String onlyOne) {
         if (o instanceof Articlebean){
             datasBeans.addAll(((Articlebean)o).getData().getDatas());
-            myadapter.notifyDataSetChanged();
+            if (myadapter!=null){
+                myadapter.notifyDataSetChanged();
+            }
         }else if (o instanceof Bannerbean){
             data = ((Bannerbean) o).getData();
             if (getUserVisibleHint()){
@@ -99,6 +102,7 @@ public class OneFragmnet extends BaseFragment<OneView,OnePresenter<OneView>> imp
                 if (mainPagerRecyclerView!=null){
                     mainPagerRecyclerView.setAdapter(myadapter);
                 }
+
                 myadapter.setLitao(new Myadapter.Litao() {
                     @Override
                     public void IISSB(int position) {
@@ -112,9 +116,22 @@ public class OneFragmnet extends BaseFragment<OneView,OnePresenter<OneView>> imp
                     }
 
                     @Override
-                    public void YISSB(int position) {
+                    public void YISSB(int position, ImageView imageView) {
                         //收藏
-                        Toast.makeText(context,"收藏",Toast.LENGTH_SHORT).show();
+                        //if ()
+                       // Toast.makeText(context,"收藏",Toast.LENGTH_SHORT).show();
+                        boolean collect = datasBeans.get(position).isCollect();
+                        if (collect){
+                            //取消收藏
+                            datasBeans.get(position).setCollect(false);
+                            myadapter.notifyItemChanged(position,false);
+                            Toast.makeText(context,"取消收藏",Toast.LENGTH_SHORT).show();
+                        }else {
+                            //收藏成功
+                            datasBeans.get(position).setCollect(true);
+                            myadapter.notifyItemChanged(position,true);
+                            Toast.makeText(context,"收藏成功",Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override

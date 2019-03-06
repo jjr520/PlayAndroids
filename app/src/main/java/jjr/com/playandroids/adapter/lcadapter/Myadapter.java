@@ -34,6 +34,7 @@ public class Myadapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<String> iamgs= new ArrayList<>();
     private List<String> names= new ArrayList<>();
     private Litao litao;
+    private int arr = 0;
 
     public void setLitao(Litao litao) {
         this.litao = litao;
@@ -66,7 +67,7 @@ public class Myadapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof ViewHolderB){
             if (iamgs.size()<7){
                 for (Bannerbean.DataBean bean :bannerlist){
@@ -122,17 +123,23 @@ public class Myadapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }else {
                 ((ViewHolderA) holder).greed.setVisibility(View.GONE);
             }
+
+            arr++;
             if (mWeChatHistoryBean.isCollect()) {
                 //收藏
-                holder1.mCollection.setBackgroundResource(R.drawable.icon_like);
+                //holder1.mCollection.setBackgroundResource(R.drawable.icon_like);
+                holder1.mCollection.setImageResource(R.drawable.icon_like);
+                Log.e("梁琛",""+arr);
+                arr++;
             } else {
                 //未收藏
-                holder1.mCollection.setBackgroundResource(R.drawable.icon_like_article_not_selected);
+                Log.e("梁琛",""+arr);
+                holder1.mCollection.setImageResource(R.drawable.icon_like_article_not_selected);
             }
             ((ViewHolderA) holder).mCollection.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    litao.YISSB(position);
+                    litao.YISSB(position,((ViewHolderA) holder).mCollection);
                 }
             });
             holder1.mCard.setOnClickListener(new View.OnClickListener() {
@@ -147,6 +154,22 @@ public class Myadapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public int getItemCount() {
         return artilist.size();
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position, @NonNull List<Object> payloads) {
+        if (payloads.isEmpty()){
+            super.onBindViewHolder(holder, position, payloads);
+            return;
+        }
+        if (holder instanceof ViewHolderA){
+            if ((Boolean) payloads.get(0)){
+                ((ViewHolderA) holder).mCollection.setImageResource(R.drawable.icon_like);
+            }else {
+                ((ViewHolderA) holder).mCollection.setImageResource(R.drawable.icon_like_article_not_selected);
+            }
+
+        }
     }
 
     static class ViewHolderA extends RecyclerView.ViewHolder {
@@ -188,7 +211,7 @@ public class Myadapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public interface Litao{
         void IISSB(int position);
         void LitaoISSB(int position);
-        void YISSB(int position);
+        void YISSB(int position,ImageView imageView);
         void Myname(int position);
     }
 }

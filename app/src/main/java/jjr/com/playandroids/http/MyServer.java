@@ -103,10 +103,10 @@ public interface MyServer {
 
     //2.2 知识体系下的文章
     //http://www.wanandroid.com/article/list/0/json?cid=60
-
     @POST("article/query/{page}/json")
     @FormUrlEncoded
     Observable<SearchBean> getSearchBean(@Path("page") String page,@Field("k") String key);
 
     //http://www.wanandroid.com/
+
 }
