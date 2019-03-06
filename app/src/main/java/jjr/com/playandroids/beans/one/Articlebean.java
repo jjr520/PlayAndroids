@@ -125,7 +125,7 @@ public class Articlebean {
              * envelopePic : http://www.wanandroid.com/resources/image/pc/default_project_img.jpg
              * fresh : true
              * id : 7992
-             * link : http://www.wanandroid.com/blog/show/2507
+             * link : http://www.wanandroid.com/project/list/1?cid=367
              * niceDate : 16小时前
              * origin :
              * projectLink : https://github.com/yangchong211/YCApt
