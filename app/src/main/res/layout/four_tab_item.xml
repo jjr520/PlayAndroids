@@ -2,16 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/linear_four_tab"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv_itemlv"
-        android:textSize="@dimen/sp_16"
-        android:text="sdlkfnsdvfnf"
-        android:background="@color/menghaha"
-        android:gravity="center"
-        android:textColor="@color/shallow_grey"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_50"/>
+        android:layout_height="@dimen/dp_50"
+        android:gravity="center"
+        android:text="sdlkfnsdvfnf"
+
+        android:textSize="@dimen/sp_15" />
 
 </LinearLayout>

@@ -99,5 +99,13 @@
 
     <color name="four_item_color">#FF757575</color>
     <color name="menghaha">#f0f0f0</color>
+    
+    <color name="four_selected_text">#FF36BC9B</color>
+    <color name="four_unselected_text">#939393</color>
+    <color name="four_unselected_tabBackground">#F0F0F0</color>
+    <color name="four_selected_tabBackground">#ffffff</color>
+    <color name="four_textcolor">#000000</color>
+
+    <color name="four_selected_contentBackground">#ffffff</color>
 
 </resources>

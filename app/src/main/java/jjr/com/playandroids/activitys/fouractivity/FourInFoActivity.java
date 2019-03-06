@@ -215,11 +215,15 @@ public class FourInFoActivity extends BaseActivity<FourView, FourPresenter<FourV
         switch (onlyOne){
             case OnlyFour.Articles_outside:
                 CollectDataList collectDataList = (CollectDataList) o;
-                Toast.makeText(this, "collectDataList.getErrorCode():" + collectDataList.getErrorCode(), Toast.LENGTH_SHORT).show();
+                if (collectDataList.getErrorCode() == 0){
+                    Toast.makeText(this, "收藏成功", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case OnlyFour.A_DELETE_COLLECTION:
                 CollectDataList collectDataList2 = (CollectDataList) o;
-                Toast.makeText(this, "collectDataList.getErrorCode():" + collectDataList2.getErrorCode(), Toast.LENGTH_SHORT).show();
+                if (collectDataList2.getErrorCode() == 0){
+                    Toast.makeText(this, "收藏成功", Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }

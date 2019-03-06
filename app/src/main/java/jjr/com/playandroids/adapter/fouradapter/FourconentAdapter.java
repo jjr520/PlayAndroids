@@ -1,24 +1,18 @@
-package jjr.com.playandroids.adapter;
+package jjr.com.playandroids.adapter.fouradapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.zhy.view.flowlayout.FlowLayout;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 import java.util.Random;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import jjr.com.playandroids.R;
 import jjr.com.playandroids.beans.fourlistbean.NaviListBean;
 
@@ -61,7 +55,7 @@ public class FourconentAdapter extends RecyclerView.Adapter<FourconentAdapter.Vi
                     tv.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Toast.makeText(context, chapterName, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(context, chapterName, Toast.LENGTH_SHORT).show();
                             onclickLienter.Click(position,chapterName,link,author,id);
                         }
                     });

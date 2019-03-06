@@ -37,6 +37,7 @@ public class CollectFragment extends BaseFragment<CollectView, CollectPresenter<
     @BindView(R.id.smart_collect)
     SmartRefreshLayout smartCollect;
     private boolean isSmart = false;
+    private int page = 0;
     Unbinder unbinder;
     private List<CollectListBean.DataBean.DatasBean> list = new ArrayList<>();
     private CollectAdapter collectAdapter;
@@ -51,16 +52,18 @@ public class CollectFragment extends BaseFragment<CollectView, CollectPresenter<
         collectAdapter = new CollectAdapter(list);
         rvCollect.setLayoutManager(new LinearLayoutManager(getContext()));
         rvCollect.setAdapter(collectAdapter);
-        presenter.getCollectP(OnlyCollect.COLLECT, 0);
+        presenter.getCollectP(OnlyCollect.COLLECT, page);
         smartCollect.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-
+                page++;
+                presenter.getCollectP(OnlyCollect.COLLECT, page);
             }
 
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                presenter.getCollectP(OnlyCollect.COLLECT, 0);
+                page=0;
+                presenter.getCollectP(OnlyCollect.COLLECT, page);
                 /*if (isSmart){
 
                 }else {
@@ -84,9 +87,14 @@ public class CollectFragment extends BaseFragment<CollectView, CollectPresenter<
         switch (onlyCollect) {
             case OnlyCollect.COLLECT:
                 List<CollectListBean.DataBean.DatasBean> datas = collectListBean.getData().getDatas();
-                    list.clear();
-                    list.addAll(datas);
-                    smartCollect.finishRefresh();
+                   if (page == 0){
+                       list.clear();
+                       list.addAll(datas);
+                       smartCollect.finishRefresh();
+                   }else {
+                       list.addAll(datas);
+                       smartCollect.finishLoadMore();
+                   }
                 collectAdapter.notifyDataSetChanged();
                 Log.e("CollectFragment", "datas:" + datas);
                 break;

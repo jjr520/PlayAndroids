@@ -1,20 +1,13 @@
 package jjr.com.playandroids.playandroid_frgment;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
-import android.os.Build;
-import android.os.Bundle;
-import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
@@ -25,19 +18,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import jjr.com.playandroids.R;
 import jjr.com.playandroids.activitys.fouractivity.FourInFoActivity;
-import jjr.com.playandroids.activitys.knowledge.KnowWebActivity;
-import jjr.com.playandroids.adapter.FourconentAdapter;
+import jjr.com.playandroids.adapter.fouradapter.FourconentAdapter;
 import jjr.com.playandroids.adapter.fouradapter.FourTabAdapter;
 import jjr.com.playandroids.base.fragment.BaseFragment;
 import jjr.com.playandroids.beans.fourlistbean.NaviListBean;
 import jjr.com.playandroids.only.OnlyFour;
 import jjr.com.playandroids.persenter.FourPresenter;
-import jjr.com.playandroids.utils.CircularAnimUtil;
 import jjr.com.playandroids.view.FourView;
+import q.rorbin.verticaltablayout.VerticalTabLayout;
+import q.rorbin.verticaltablayout.adapter.TabAdapter;
+import q.rorbin.verticaltablayout.widget.ITabView;
+import q.rorbin.verticaltablayout.widget.TabView;
 
 /**
  * Created by Administrator on 2019/2/27.
@@ -48,6 +42,8 @@ public class FourFragmnet extends BaseFragment<FourView, FourPresenter<FourView>
     List<NaviListBean.DataBean.ArticlesBean> list2 = new ArrayList<>();
     @BindView(R.id.rv_four_tab)
     RecyclerView rv_four_tab;
+    /*@BindView(R.id.navigation_tab_layout)
+    VerticalTabLayout navigation_tab_layout;*/
     @BindView(R.id.error_group)
     RelativeLayout mErrorGroup;
     @BindView(R.id.four_linearlayout)
@@ -73,12 +69,11 @@ public class FourFragmnet extends BaseFragment<FourView, FourPresenter<FourView>
         switch (onlyOne) {
             case OnlyFour.NAVI:
                 NaviListBean naviListBean = (NaviListBean) object;
-                List<NaviListBean.DataBean> data = naviListBean.getData();
+                final List<NaviListBean.DataBean> data = naviListBean.getData();
                 list.addAll(data);
                 fourconentAdapter.notifyDataSetChanged();
                 fourTabAdapter.notifyDataSetChanged();
-                Log.e("22222222", "list2:" + list2);
-                Log.e("导航数据", naviListBean.getData().toString());
+
                 break;
         }
 
