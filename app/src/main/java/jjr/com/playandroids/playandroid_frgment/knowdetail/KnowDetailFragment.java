@@ -97,6 +97,9 @@ public class KnowDetailFragment extends BaseFragment<TwoView, TwoPresenter<TwoVi
                 Intent intent = new Intent(mActivity, KnowWebActivity.class);
                 intent.putExtra("allWeb", mDetailFraAdapter.mDatas.get(position).getLink());
                 intent.putExtra("allTitle", mDetailFraAdapter.mDatas.get(position).getTitle());
+                intent.putExtra("allAuthor", mDetailFraAdapter.mDatas.get(position).getAuthor());
+                intent.putExtra("allId", mDetailFraAdapter.mDatas.get(position).getId());
+                intent.putExtra("allCollect", mDetailFraAdapter.mDatas.get(position).isCollect());
                 startActivity(intent);
             }
 
@@ -121,6 +124,13 @@ public class KnowDetailFragment extends BaseFragment<TwoView, TwoPresenter<TwoVi
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getEventbus(EventBusBean eventBusBean) {
         mRecyclerView.smoothScrollToPosition(0);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void getData(String s) {
+        if (s != null && s.equals("刷新一下")) {
+            mDetailFraAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override

@@ -58,7 +58,6 @@ public class KnowWebActivity extends SimperActivity {
     ProgressBar mWebProgressBar;
     private String mAllWeb;
     private String mAllTitle;
-    public boolean state;
 
 
     @Override
@@ -153,7 +152,6 @@ public class KnowWebActivity extends SimperActivity {
             @Override
             public void onClick(View v) {
 /*
-
                 SharedPreferences collect = getSharedPreferences("title", MODE_PRIVATE);
                 SharedPreferences.Editor edit = collect.edit();
 
