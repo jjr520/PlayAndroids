@@ -35,4 +35,11 @@
     <color name="color8A9599">#8A9599</color>
 
 
+    <color name="four_selected_text">#FF36BC9B</color>
+    <color name="four_unselected_text">#757575</color>
+    <color name="four_selected_tabBackground">#ffffff</color>
+    <color name="four_unselected_tabBackground">#37383B</color>
+    <color name="four_textcolor">#ffffff</color>
+    <!---->
+    <color name="four_selected_contentBackground"> #202124</color>
 </resources>

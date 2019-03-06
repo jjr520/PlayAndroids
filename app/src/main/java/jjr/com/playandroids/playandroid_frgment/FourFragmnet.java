@@ -1,20 +1,13 @@
 package jjr.com.playandroids.playandroid_frgment;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
-import android.os.Build;
-import android.os.Bundle;
-import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
@@ -25,19 +18,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import jjr.com.playandroids.R;
 import jjr.com.playandroids.activitys.fouractivity.FourInFoActivity;
-import jjr.com.playandroids.activitys.knowledge.KnowWebActivity;
-import jjr.com.playandroids.adapter.FourconentAdapter;
+import jjr.com.playandroids.adapter.fouradapter.FourconentAdapter;
 import jjr.com.playandroids.adapter.fouradapter.FourTabAdapter;
 import jjr.com.playandroids.base.fragment.BaseFragment;
 import jjr.com.playandroids.beans.fourlistbean.NaviListBean;
 import jjr.com.playandroids.only.OnlyFour;
 import jjr.com.playandroids.persenter.FourPresenter;
-import jjr.com.playandroids.utils.CircularAnimUtil;
 import jjr.com.playandroids.view.FourView;
+import q.rorbin.verticaltablayout.VerticalTabLayout;
+import q.rorbin.verticaltablayout.adapter.TabAdapter;
+import q.rorbin.verticaltablayout.widget.ITabView;
+import q.rorbin.verticaltablayout.widget.TabView;
 
 /**
  * Created by Administrator on 2019/2/27.
@@ -46,8 +40,10 @@ import jjr.com.playandroids.view.FourView;
 public class FourFragmnet extends BaseFragment<FourView, FourPresenter<FourView>> implements FourView {
     List<NaviListBean.DataBean> list = new ArrayList<>();
     List<NaviListBean.DataBean.ArticlesBean> list2 = new ArrayList<>();
-    @BindView(R.id.rv_four_tab)
-    RecyclerView rv_four_tab;
+    /*@BindView(R.id.rv_four_tab)
+    RecyclerView rv_four_tab;*/
+    @BindView(R.id.navigation_tab_layout)
+    VerticalTabLayout navigation_tab_layout;
     @BindView(R.id.error_group)
     RelativeLayout mErrorGroup;
     @BindView(R.id.four_linearlayout)
@@ -57,7 +53,7 @@ public class FourFragmnet extends BaseFragment<FourView, FourPresenter<FourView>
     RecyclerView rvFourContent;
     private int mCurrentPosition;
     private int mTitleHeight;
-    private FourTabAdapter fourTabAdapter;
+    //private FourTabAdapter fourTabAdapter;
     private FourconentAdapter fourconentAdapter;
     private LinearLayoutManager contentlinearLayoutManager;
     private LinearLayoutManager tablinearLayoutManager;
@@ -73,12 +69,40 @@ public class FourFragmnet extends BaseFragment<FourView, FourPresenter<FourView>
         switch (onlyOne) {
             case OnlyFour.NAVI:
                 NaviListBean naviListBean = (NaviListBean) object;
-                List<NaviListBean.DataBean> data = naviListBean.getData();
+                final List<NaviListBean.DataBean> data = naviListBean.getData();
                 list.addAll(data);
                 fourconentAdapter.notifyDataSetChanged();
-                fourTabAdapter.notifyDataSetChanged();
-                Log.e("22222222", "list2:" + list2);
-                Log.e("导航数据", naviListBean.getData().toString());
+                navigation_tab_layout.setTabSelected(0);
+                //fourTabAdapter.notifyDataSetChanged();
+                navigation_tab_layout.setTabAdapter(new TabAdapter() {
+                    @Override
+                    public int getCount() {
+                        return data == null ? 0 : data.size();
+                    }
+
+                    @Override
+                    public ITabView.TabBadge getBadge(int i) {
+                        return null;
+                    }
+
+                    @Override
+                    public ITabView.TabIcon getIcon(int i) {
+                        return null;
+                    }
+
+                    @Override
+                    public ITabView.TabTitle getTitle(int i) {
+                        return new TabView.TabTitle.Builder()
+                                .setContent(data.get(i).getName())
+                                .setTextColor(ContextCompat.getColor(mActivity, R.color.shallow_green),
+                                        ContextCompat.getColor(mActivity, R.color.shallow_grey))
+                                .build();
+                    }
+                    @Override
+                    public int getBackground(int i) {
+                        return -1;
+                    }
+                });
                 break;
         }
 
@@ -97,7 +121,7 @@ public class FourFragmnet extends BaseFragment<FourView, FourPresenter<FourView>
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void getData(String str) {
         if ("4".equals(str)) {
-            rv_four_tab.smoothScrollToPosition(0);
+            navigation_tab_layout.setTabSelected(0);
             rvFourContent.smoothScrollToPosition(0);
         }
     }
@@ -105,18 +129,18 @@ public class FourFragmnet extends BaseFragment<FourView, FourPresenter<FourView>
     @Override
     protected void initData() {
         EventBus.getDefault().register(this);
-        fourTabAdapter = new FourTabAdapter(list);
+        //fourTabAdapter = new FourTabAdapter(list);
         tablinearLayoutManager = new LinearLayoutManager(getContext());
-        rv_four_tab.setLayoutManager(tablinearLayoutManager);
-        rv_four_tab.setAdapter(fourTabAdapter);
-        fourTabAdapter.setOnclickLienter(new FourTabAdapter.OnclickLienter() {
+        //rv_four_tab.setLayoutManager(tablinearLayoutManager);
+        //rv_four_tab.setAdapter(fourTabAdapter);
+        /*fourTabAdapter.setOnclickLienter(new FourTabAdapter.OnclickLienter() {
             @Override
             public void Click(int position) {
                 fourTabAdapter.getColor(position);
                 contentlinearLayoutManager.scrollToPositionWithOffset(position,0);
                 Toast.makeText(context, list.get(position).getName(), Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
         fourconentAdapter = new FourconentAdapter(list);
         contentlinearLayoutManager = new LinearLayoutManager(getContext());
         rvFourContent.setLayoutManager(contentlinearLayoutManager);
@@ -134,6 +158,18 @@ public class FourFragmnet extends BaseFragment<FourView, FourPresenter<FourView>
                 getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
             }
         });
+        navigation_tab_layout.addOnTabSelectedListener(new VerticalTabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabView tab, int position) {
+                navigation_tab_layout.setTabSelected(position);
+                contentlinearLayoutManager.scrollToPositionWithOffset(position,0);
+            }
+
+            @Override
+            public void onTabReselected(TabView tab, int position) {
+
+            }
+        });
         rvFourContent.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             private int lastVisibleItemPosition;
@@ -143,7 +179,8 @@ public class FourFragmnet extends BaseFragment<FourView, FourPresenter<FourView>
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_IDLE){
                     tablinearLayoutManager.scrollToPositionWithOffset(lastVisibleItemPosition,0);
-                    fourTabAdapter.getColor(lastVisibleItemPosition);
+                    //fourTabAdapter.getColor(lastVisibleItemPosition);
+                    navigation_tab_layout.setTabSelected(lastVisibleItemPosition);
                 }
             }
 

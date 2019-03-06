@@ -1,5 +1,6 @@
 package jjr.com.playandroids.adapter.fouradapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -34,6 +35,7 @@ public class FourTabAdapter extends RecyclerView.Adapter<FourTabAdapter.ViewHold
         return viewHolder;
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         holder.tv_tab.setText(list2.get(position).getName());
@@ -43,13 +45,13 @@ public class FourTabAdapter extends RecyclerView.Adapter<FourTabAdapter.ViewHold
                 onclickLienter.Click(position);
             }
         });
-        if(mPosition==position){
+        /*if(mPosition==position){
             holder.tv_tab.setTextColor(Color.parseColor("#FF36BC9B"));
-            holder.tv_tab.setBackgroundColor(Color.parseColor("#ffffff"));
+            holder.linear_four_tab.setBackgroundColor(R.color.four_selected_tabBackground);
         }else{
-            holder.tv_tab.setBackgroundColor(Color.parseColor("#f0f0f0"));
-            holder.tv_tab.setTextColor(Color.parseColor("#FF757575"));
-        }
+            holder.tv_tab.setTextColor(R.color.four_unselected_text);
+            //holder.tv_tab.setBackgroundColor(R.color.four_unselected_Background);
+        }*/
     }
     public void getColor(int posi){
         mPosition = posi;
@@ -63,10 +65,12 @@ public class FourTabAdapter extends RecyclerView.Adapter<FourTabAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView tv_tab;
+        private final LinearLayout linear_four_tab;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tv_tab = itemView.findViewById(R.id.tv_itemlv);
+            linear_four_tab = itemView.findViewById(R.id.linear_four_tab);
         }
     }
      //点击事件
