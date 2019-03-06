@@ -2,12 +2,15 @@ package jjr.com.playandroids.activitys.knowledge;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +24,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.lang.reflect.Method;
 
 import butterknife.BindView;
@@ -28,7 +33,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import jjr.com.playandroids.R;
 import jjr.com.playandroids.base.activity.SimperActivity;
+import jjr.com.playandroids.utils.SPUtils;
 import jjr.com.playandroids.utils.ShareUtil;
+import jjr.com.playandroids.utils.litao.CollectData;
+import jjr.com.playandroids.utils.litao.CollectUtils;
 
 public class KnowWebActivity extends SimperActivity {
 
@@ -50,6 +58,8 @@ public class KnowWebActivity extends SimperActivity {
     ProgressBar mWebProgressBar;
     private String mAllWeb;
     private String mAllTitle;
+    public boolean state;
+
 
     @Override
     public int createLayoutId() {
@@ -58,11 +68,40 @@ public class KnowWebActivity extends SimperActivity {
 
     @Override
     protected void initData() {
+
         setstatus("白色", Color.parseColor("#23b0df"));
 
         Intent intent = getIntent();
         mAllWeb = intent.getStringExtra("allWeb");
         mAllTitle = intent.getStringExtra("allTitle");
+
+       /* SharedPreferences collect = getSharedPreferences("title", MODE_PRIVATE);
+        String title = collect.getString("title", "");
+        if(title.equals(mAllTitle)){
+            boolean s = SPUtils.getInstance(this).getBoolean("boolean");
+            if (s == true) {
+                mWebLike.setImageResource(R.drawable.icon_like_article_not_selected);
+            } else {
+                mWebLike.setImageResource(R.drawable.selector_toolbar_like);
+
+            }
+        }else{
+
+        }*/
+
+
+        CollectUtils collectUtils = CollectData.getCollectDataInstance().selectSingle(mAllWeb, mAllTitle);
+        if (collectUtils != null) {
+
+            if (collectUtils.getState() == true) {
+                mWebLike.setImageResource(R.drawable.icon_like_article_not_selected);
+            } else {
+                mWebLike.setImageResource(R.drawable.selector_toolbar_like);
+            }
+        } else {
+            mWebLike.setImageResource(R.drawable.selector_toolbar_like);
+        }
+
 
         if (mAllTitle != null) {
             mWebTitle.setText(mAllTitle);
@@ -110,6 +149,48 @@ public class KnowWebActivity extends SimperActivity {
                 }
             }
         });
+        mWebLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+/*
+
+                SharedPreferences collect = getSharedPreferences("title", MODE_PRIVATE);
+                SharedPreferences.Editor edit = collect.edit();
+
+                if (state == false) {
+
+                    mWebLike.setImageResource(R.drawable.icon_like_article_not_selected);
+                    state = true;
+                    SPUtils.getInstance(KnowWebActivity.this).put("boolean", state);
+                } else {
+
+                    mWebLike.setImageResource(R.drawable.selector_toolbar_like);
+                    state = false;
+                    SPUtils.getInstance(KnowWebActivity.this).put("boolean", state);
+                }
+                edit.putString("title", mAllTitle);
+                edit.commit();
+*/
+
+                CollectUtils collectUtils = CollectData.getCollectDataInstance().selectSingle(mAllWeb, mAllTitle);
+                if (collectUtils == null) {
+                    CollectUtils collectUtils1 = new CollectUtils(null, mAllWeb, mAllTitle, "", "", 0, true);
+                    CollectData.getCollectDataInstance().insert(collectUtils1);
+                    mWebLike.setImageResource(R.drawable.icon_like_article_not_selected);
+                } else {
+                    if (collectUtils.getState() == false) {
+                        collectUtils.setState(true);
+                        CollectData.getCollectDataInstance().update(collectUtils);
+                        mWebLike.setImageResource(R.drawable.icon_like_article_not_selected);
+                    } else {
+                        collectUtils.setState(false);
+                        CollectData.getCollectDataInstance().update(collectUtils);
+                        mWebLike.setImageResource(R.drawable.selector_toolbar_like);
+                    }
+                }
+
+            }
+        });
     }
 
     @OnClick({R.id.web_back, R.id.web_like})
@@ -117,6 +198,7 @@ public class KnowWebActivity extends SimperActivity {
         switch (view.getId()) {
             case R.id.web_back:
                 finish();
+                EventBus.getDefault().postSticky("刷新一下");
                 break;
             case R.id.web_like:
                 if (isLike) {

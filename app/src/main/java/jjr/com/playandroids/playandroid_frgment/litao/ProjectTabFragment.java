@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 
@@ -19,7 +20,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
+
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -49,9 +50,10 @@ public class ProjectTabFragment extends BaseFragment<FiveView, FivePresenter<Fiv
 
     @BindView(R.id.project_list_recycler_view)
     RecyclerView projectListRecyclerView;
+    @BindView(R.id.error_group)
+    RelativeLayout mErrorGroup;
     @BindView(R.id.normal_view)
     SmartRefreshLayout normalView;
-    Unbinder unbinder;
     private String nameId;
     private List<ProjectListBean.DataBean.DatasBean> list = new ArrayList<>();
     private ProjectListAdapter mProjectListAdapters;
@@ -139,6 +141,8 @@ public class ProjectTabFragment extends BaseFragment<FiveView, FivePresenter<Fiv
 
     @Override
     public void showError(String error) {
+        normalView.setVisibility(View.GONE);
+        mErrorGroup.setVisibility(View.VISIBLE);
         Toast.makeText(context, error, Toast.LENGTH_SHORT).show();
     }
 

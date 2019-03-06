@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -18,6 +20,8 @@ import jjr.com.playandroids.R;
 import jjr.com.playandroids.activitys.SearchDetailsActivity;
 import jjr.com.playandroids.activitys.wechat.WxShowSimpleActivity;
 import jjr.com.playandroids.beans.fivelistbean.SearchBean;
+import jjr.com.playandroids.utils.litao.CollectData;
+import jjr.com.playandroids.utils.litao.CollectUtils;
 
 public class SearchListAdapter extends RecyclerView.Adapter {
     public List<SearchBean.DataBean.DatasBean> list;
@@ -38,11 +42,46 @@ public class SearchListAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
-        ViewHolder viewHolder = (ViewHolder) holder;
+        final ViewHolder viewHolder = (ViewHolder) holder;
         viewHolder.wxItemTvAuthorIcon.setText(list.get(position).getChapterName());
         viewHolder.wxItemTvContent.setText(list.get(position).getTitle());
         viewHolder.wxItemTvTime.setText(list.get(position).getNiceDate() + "");
+        if (CollectData.getCollectDataInstance().selectSingle(list.get(position).getLink(), list.get(position).getTitle()) != null) {
+            if (CollectData.getCollectDataInstance().selectSingle(list.get(position).getLink(), list.get(position).getTitle()).getState() == true) {
 
+               // Glide.with(context).load(R.drawable.icon_like_article_not_selected).into(viewHolder.wxCollection);
+                viewHolder.wxCollection.setImageResource(R.drawable.icon_like);
+            } else {
+                viewHolder.wxCollection.setImageResource(R.drawable.icon_like_article_not_selected);
+              //  Glide.with(context).load(R.drawable.icon_like).into(viewHolder.wxCollection);
+            }
+        }/*else{
+            Glide.with(context).load(R.drawable.icon_like_article_not_selected).into(viewHolder.wxCollection);
+        }*/
+        viewHolder.wxCollection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CollectUtils collectUtils = CollectData.getCollectDataInstance().selectSingle(list.get(position).getLink(), list.get(position).getTitle());
+                if(collectUtils == null){
+                    CollectUtils collectUtils1 = new CollectUtils(null, list.get(position).getLink(), list.get(position).getTitle(), "", "", 0, true);
+                    CollectData.getCollectDataInstance().insert(collectUtils1);
+                   // Glide.with(context).load(R.drawable.icon_like).into(viewHolder.wxCollection);
+                    viewHolder.wxCollection.setImageResource(R.drawable.icon_like);
+                }else{
+                    if(collectUtils.getState()==false){
+                        collectUtils.setState(true);
+                        CollectData.getCollectDataInstance().update(collectUtils);
+                        viewHolder.wxCollection.setImageResource(R.drawable.icon_like);
+                       // Glide.with(context).load(R.drawable.icon_like_article_not_selected).into(viewHolder.wxCollection);
+                    }else{
+                        collectUtils.setState(false);
+                        CollectData.getCollectDataInstance().update(collectUtils);
+                       // Glide.with(context).load(R.drawable.icon_like_article_not_selected).into(viewHolder.wxCollection);
+                        viewHolder.wxCollection.setImageResource(R.drawable.icon_like_article_not_selected);
+                    }
+                }
+            }
+        });
         viewHolder.wxItemTvAuthorName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -15,6 +15,11 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -50,6 +55,7 @@ public class SearchDetailsActivity extends BaseActivity<FiveView, FivePresenter<
 
     @Override
     protected void initData() {
+        EventBus.getDefault().register(this);
         final Intent intent = getIntent();
         normalView.setPrimaryColorsId(Global.BLUE_THEME, R.color.white);
         mCids = intent.getStringExtra("cid");
@@ -81,7 +87,6 @@ public class SearchDetailsActivity extends BaseActivity<FiveView, FivePresenter<
                 startActivity(intent1);
             }
         });
-
 
 
         normalView.setOnRefreshListener(new OnRefreshListener() {
@@ -118,7 +123,7 @@ public class SearchDetailsActivity extends BaseActivity<FiveView, FivePresenter<
     public void showDataFive(Object o, String onlyOne) {
         SearchBean searchBean = (SearchBean) o;
         if (searchBean != null) {
-            mSearchAdapters.setData(searchBean.getData().getDatas(),page);
+            mSearchAdapters.setData(searchBean.getData().getDatas(), page);
         }
 
     }
@@ -128,7 +133,16 @@ public class SearchDetailsActivity extends BaseActivity<FiveView, FivePresenter<
         Toast.makeText(mActivity, error, Toast.LENGTH_SHORT).show();
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void getData(String s) {
+        if (s != null && s.equals("刷新一下")) {
+            mSearchAdapters.notifyDataSetChanged();
+        }
+    }
 
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Random;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import jjr.com.playandroids.R;
 import jjr.com.playandroids.adapter.lt.SearchDetailsAdapter;
 import jjr.com.playandroids.base.activity.BaseActivity;

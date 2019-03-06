@@ -25,7 +25,7 @@
         app:cardElevation="@dimen/dp_5">
 
         <RelativeLayout
-            android:background="@color/colorBackground"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

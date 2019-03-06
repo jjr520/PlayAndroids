@@ -113,7 +113,7 @@
             <jjr.com.playandroids.lt.MyUseView
                 android:id="@+id/myUseviewsearch"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></jjr.com.playandroids.lt.MyUseView>
+                android:layout_height="wrap_content" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
