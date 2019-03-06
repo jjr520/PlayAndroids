@@ -148,7 +148,21 @@ public class Myadapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public int getItemCount() {
         return artilist.size();
     }
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position, @NonNull List<Object> payloads) {
+        if (payloads.isEmpty()){
+            super.onBindViewHolder(holder, position, payloads);
+            return;
+        }
+        if (holder instanceof ViewHolderA){
+            if ((Boolean) payloads.get(0)){
+                ((ViewHolderA) holder).mCollection.setImageResource(R.drawable.icon_like);
+            }else {
+                ((ViewHolderA) holder).mCollection.setImageResource(R.drawable.icon_like_article_not_selected);
+            }
 
+        }
+    }
     static class ViewHolderA extends RecyclerView.ViewHolder {
         private final TextView mAuthor_icon;
         private final TextView mName;
