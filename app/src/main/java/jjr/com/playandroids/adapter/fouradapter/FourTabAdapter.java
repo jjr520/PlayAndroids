@@ -45,13 +45,13 @@ public class FourTabAdapter extends RecyclerView.Adapter<FourTabAdapter.ViewHold
                 onclickLienter.Click(position);
             }
         });
-        /*if(mPosition==position){
+        if(mPosition==position){
             holder.tv_tab.setTextColor(Color.parseColor("#FF36BC9B"));
-            holder.linear_four_tab.setBackgroundColor(R.color.four_selected_tabBackground);
-        }else{
-            holder.tv_tab.setTextColor(R.color.four_unselected_text);
-            //holder.tv_tab.setBackgroundColor(R.color.four_unselected_Background);
-        }*/
+            holder.tv_tab.setBackgroundColor(Color.parseColor("#ffffff"));
+        }else {
+            holder.tv_tab.setBackgroundColor(Color.parseColor("#f0f0f0"));
+            holder.tv_tab.setTextColor(Color.parseColor("#FF757575"));
+        }
     }
     public void getColor(int posi){
         mPosition = posi;

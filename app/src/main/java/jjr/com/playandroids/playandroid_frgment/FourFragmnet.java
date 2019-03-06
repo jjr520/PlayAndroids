@@ -40,10 +40,10 @@ import q.rorbin.verticaltablayout.widget.TabView;
 public class FourFragmnet extends BaseFragment<FourView, FourPresenter<FourView>> implements FourView {
     List<NaviListBean.DataBean> list = new ArrayList<>();
     List<NaviListBean.DataBean.ArticlesBean> list2 = new ArrayList<>();
-    /*@BindView(R.id.rv_four_tab)
-    RecyclerView rv_four_tab;*/
-    @BindView(R.id.navigation_tab_layout)
-    VerticalTabLayout navigation_tab_layout;
+    @BindView(R.id.rv_four_tab)
+    RecyclerView rv_four_tab;
+    /*@BindView(R.id.navigation_tab_layout)
+    VerticalTabLayout navigation_tab_layout;*/
     @BindView(R.id.error_group)
     RelativeLayout mErrorGroup;
     @BindView(R.id.four_linearlayout)
@@ -53,7 +53,7 @@ public class FourFragmnet extends BaseFragment<FourView, FourPresenter<FourView>
     RecyclerView rvFourContent;
     private int mCurrentPosition;
     private int mTitleHeight;
-    //private FourTabAdapter fourTabAdapter;
+    private FourTabAdapter fourTabAdapter;
     private FourconentAdapter fourconentAdapter;
     private LinearLayoutManager contentlinearLayoutManager;
     private LinearLayoutManager tablinearLayoutManager;
@@ -72,37 +72,8 @@ public class FourFragmnet extends BaseFragment<FourView, FourPresenter<FourView>
                 final List<NaviListBean.DataBean> data = naviListBean.getData();
                 list.addAll(data);
                 fourconentAdapter.notifyDataSetChanged();
-                navigation_tab_layout.setTabSelected(0);
-                //fourTabAdapter.notifyDataSetChanged();
-                navigation_tab_layout.setTabAdapter(new TabAdapter() {
-                    @Override
-                    public int getCount() {
-                        return data == null ? 0 : data.size();
-                    }
+                fourTabAdapter.notifyDataSetChanged();
 
-                    @Override
-                    public ITabView.TabBadge getBadge(int i) {
-                        return null;
-                    }
-
-                    @Override
-                    public ITabView.TabIcon getIcon(int i) {
-                        return null;
-                    }
-
-                    @Override
-                    public ITabView.TabTitle getTitle(int i) {
-                        return new TabView.TabTitle.Builder()
-                                .setContent(data.get(i).getName())
-                                .setTextColor(ContextCompat.getColor(mActivity, R.color.shallow_green),
-                                        ContextCompat.getColor(mActivity, R.color.shallow_grey))
-                                .build();
-                    }
-                    @Override
-                    public int getBackground(int i) {
-                        return -1;
-                    }
-                });
                 break;
         }
 
@@ -121,7 +92,7 @@ public class FourFragmnet extends BaseFragment<FourView, FourPresenter<FourView>
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void getData(String str) {
         if ("4".equals(str)) {
-            navigation_tab_layout.setTabSelected(0);
+            rv_four_tab.smoothScrollToPosition(0);
             rvFourContent.smoothScrollToPosition(0);
         }
     }
@@ -129,18 +100,18 @@ public class FourFragmnet extends BaseFragment<FourView, FourPresenter<FourView>
     @Override
     protected void initData() {
         EventBus.getDefault().register(this);
-        //fourTabAdapter = new FourTabAdapter(list);
+        fourTabAdapter = new FourTabAdapter(list);
         tablinearLayoutManager = new LinearLayoutManager(getContext());
-        //rv_four_tab.setLayoutManager(tablinearLayoutManager);
-        //rv_four_tab.setAdapter(fourTabAdapter);
-        /*fourTabAdapter.setOnclickLienter(new FourTabAdapter.OnclickLienter() {
+        rv_four_tab.setLayoutManager(tablinearLayoutManager);
+        rv_four_tab.setAdapter(fourTabAdapter);
+        fourTabAdapter.setOnclickLienter(new FourTabAdapter.OnclickLienter() {
             @Override
             public void Click(int position) {
                 fourTabAdapter.getColor(position);
                 contentlinearLayoutManager.scrollToPositionWithOffset(position,0);
                 Toast.makeText(context, list.get(position).getName(), Toast.LENGTH_SHORT).show();
             }
-        });*/
+        });
         fourconentAdapter = new FourconentAdapter(list);
         contentlinearLayoutManager = new LinearLayoutManager(getContext());
         rvFourContent.setLayoutManager(contentlinearLayoutManager);
@@ -158,18 +129,6 @@ public class FourFragmnet extends BaseFragment<FourView, FourPresenter<FourView>
                 getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
             }
         });
-        navigation_tab_layout.addOnTabSelectedListener(new VerticalTabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabView tab, int position) {
-                navigation_tab_layout.setTabSelected(position);
-                contentlinearLayoutManager.scrollToPositionWithOffset(position,0);
-            }
-
-            @Override
-            public void onTabReselected(TabView tab, int position) {
-
-            }
-        });
         rvFourContent.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             private int lastVisibleItemPosition;
@@ -179,8 +138,7 @@ public class FourFragmnet extends BaseFragment<FourView, FourPresenter<FourView>
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_IDLE){
                     tablinearLayoutManager.scrollToPositionWithOffset(lastVisibleItemPosition,0);
-                    //fourTabAdapter.getColor(lastVisibleItemPosition);
-                    navigation_tab_layout.setTabSelected(lastVisibleItemPosition);
+                    fourTabAdapter.getColor(lastVisibleItemPosition);
                 }
             }
 
