@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:background="@color/colorBackground">
     <!--implementation 'com.android.support:cardview-v7:25.3.1' //卡片条目依赖
     app:cardElevation=" " //阴影大小
     app:cardCornerRadius=" " //圆角的半径，效果就是上面四个角的弧度
@@ -19,32 +20,32 @@
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginRight="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_10"
-        android:background="@color/white"
+        android:background="@color/colorBackground"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="@dimen/dp_5"
         app:cardElevation="@dimen/dp_5">
 
         <RelativeLayout
-            android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/colorBackground">
 
             <ImageView
                 android:id="@+id/wx_author_icon"
                 android:layout_width="@dimen/dp_24"
                 android:layout_height="@dimen/dp_24"
-                android:layout_marginRight="@dimen/dp_10"
                 android:layout_alignLeft="@+id/wx_collection"
                 android:layout_alignStart="@+id/wx_collection"
                 android:layout_alignTop="@+id/wx_item_tv_author_icon"
+                android:layout_marginRight="@dimen/dp_10"
                 android:src="@mipmap/icon_author" />
 
             <TextView
-                android:layout_marginTop="@dimen/dp_10"
-                android:layout_toRightOf="@id/wx_author_icon"
                 android:id="@+id/wx_item_tv_author_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_toRightOf="@id/wx_author_icon"
                 android:gravity="center"
                 android:text="鸿洋"
                 android:textColor="@color/colorText"
@@ -68,8 +69,8 @@
                 android:layout_marginRight="@dimen/dp_6"
                 android:layout_marginTop="@dimen/dp_50"
                 android:gravity="center"
-                android:textColor="@color/colorText"
                 android:text="推荐一个实用漂亮的弹窗库"
+                android:textColor="@color/colorText"
                 android:textSize="@dimen/dp_16" />
 
             <ImageView
@@ -81,7 +82,6 @@
                 android:src="@drawable/icon_like_author_selected" />
 
             <TextView
-                android:textColor="@color/colorText"
                 android:id="@+id/wx_item_tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -90,39 +90,41 @@
                 android:layout_toRightOf="@id/wx_collection"
                 android:drawableLeft="@drawable/ic_time"
                 android:gravity="center_vertical"
-                android:text="一小时之前" />
+                android:text="一小时之前"
+                android:textColor="@color/colorText" />
+
             <LinearLayout
-                android:layout_margin="@dimen/dp_13"
                 android:id="@+id/item_search_tag_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_alignParentRight="true"
-                android:layout_below="@id/wx_item_tv_content">
+                android:layout_below="@id/wx_item_tv_content"
+                android:layout_margin="@dimen/dp_13"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/Mynew"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="新"
-                    android:textColor="@color/light_deep_red"
                     android:background="@drawable/shape_tag_red_background_normal"
                     android:gravity="center"
-                    android:paddingStart="@dimen/dp_5"
                     android:paddingEnd="@dimen/dp_5"
-                    android:visibility="gone"/>
+                    android:paddingStart="@dimen/dp_5"
+                    android:textColor="@color/light_deep_red"
+                    android:visibility="gone"
+                    tools:text="新" />
 
                 <TextView
                     android:id="@+id/Myproject"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="项目"
-                    android:textColor="@color/light_green"
                     android:background="@drawable/shape_tag_green_background"
                     android:gravity="center"
-                    android:paddingStart="@dimen/dp_5"
                     android:paddingEnd="@dimen/dp_5"
-                    android:visibility="gone"/>
+                    android:paddingStart="@dimen/dp_5"
+                    android:textColor="@color/light_green"
+                    android:visibility="gone"
+                    tools:text="项目" />
             </LinearLayout>
 
         </RelativeLayout>

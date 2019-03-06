@@ -4,64 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".activitys.SearchDetailsActivity">
 
     <LinearLayout
+        android:background="@color/colorBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white">
 
-        <ImageView
-            android:id="@+id/searchDetails"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_20"
-            android:layout_marginTop="@dimen/dp_17"
-            android:src="@mipmap/back" />
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_56"
-            android:gravity="center"
-            android:orientation="horizontal"
-            tools:ignore="UselessLeaf">
+            android:layout_height="wrap_content"
+            android:background="@color/colorBackground">
 
-
-            <TextView
-                android:id="@+id/searchDetailsTitle"
+            <ImageView
+                android:id="@+id/searchDetails"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/search"
-                android:textColor="@color/title_black"
-                android:textSize="@dimen/sp_16" />
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_17"
+                android:src="@mipmap/back" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_56"
+                android:gravity="center"
+                android:orientation="horizontal"
+                tools:ignore="UselessLeaf">
 
 
-        </LinearLayout>
-    </RelativeLayout>
+                <TextView
+                    android:id="@+id/searchDetailsTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search"
+                    android:textColor="@color/title_black"
+                    android:textSize="@dimen/sp_16" />
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/normal_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:srlDragRate="0.7"
-        app:srlEnableHeaderTranslationContent="true"
-        app:srlEnableLoadMore="true"
-        app:srlHeaderMaxDragRate="1.3"
-        app:srlPrimaryColor="@color/colorPrimary">
-        <com.scwang.smartrefresh.header.BezierCircleHeader
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/normal_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/searchDetailsList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_10"
-            android:layout_marginTop="@dimen/dp_10"></android.support.v7.widget.RecyclerView>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+            android:layout_height="match_parent"
+            app:srlDragRate="0.7"
+            app:srlEnableHeaderTranslationContent="true"
+            app:srlEnableLoadMore="true"
+            app:srlHeaderMaxDragRate="1.3"
+            app:srlPrimaryColor="@color/colorPrimary">
+
+            <com.scwang.smartrefresh.header.BezierCircleHeader
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/searchDetailsList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@color/colorBackground"></android.support.v7.widget.RecyclerView>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
     </LinearLayout>
 </FrameLayout>

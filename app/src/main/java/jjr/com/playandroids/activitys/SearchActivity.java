@@ -75,7 +75,6 @@ public class SearchActivity extends BaseActivity<FiveView, FivePresenter<FiveVie
 
     @Override
     protected void initData() {
-
         presenter.getDataFiveP(OnlyFive.SEARCH, "");
         searchHistoryRv.setLayoutManager(new LinearLayoutManager(this));
         mSearchDetailsAdapters = new SearchDetailsAdapter(this, Search.getSearchInstance().selectAll());
@@ -84,7 +83,6 @@ public class SearchActivity extends BaseActivity<FiveView, FivePresenter<FiveVie
         searchBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 finish();
             }
         });

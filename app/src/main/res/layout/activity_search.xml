@@ -164,6 +164,7 @@
     </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton
+        app:layout_behavior="@string/bye_burger_bottom_behavior"
         android:id="@+id/search_floating_action_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

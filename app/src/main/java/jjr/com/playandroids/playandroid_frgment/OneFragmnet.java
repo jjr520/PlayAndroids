@@ -36,31 +36,8 @@ import jjr.com.playandroids.view.OneView;
  */
 
 public class OneFragmnet extends BaseFragment<OneView,OnePresenter<OneView>> implements OneView{
-    @Override
-    protected OnePresenter<OneView> createPresenter() {
-        return new OnePresenter<>();
-    }
 
-    @Override
-    public int createLayoutId() {
-        return R.layout.one_fragment;
-    }
-
-    @Override
-    protected void initData() {
-
-    }
-
-    @Override
-    public void showDataOne(Object o, String onlyOne) {
-
-    }
-
-    @Override
-    public void showError(String error) {
-
-    }
-   /* @BindView(R.id.main_pager_recycler_view)
+    @BindView(R.id.main_pager_recycler_view)
     RecyclerView mainPagerRecyclerView;
     @BindView(R.id.normal_view)
     SmartRefreshLayout normalView;
@@ -173,5 +150,5 @@ public class OneFragmnet extends BaseFragment<OneView,OnePresenter<OneView>> imp
         intent.putExtra("allWeb",url);
         intent.putExtra("allTitle",title);
         startActivity(intent);
-    }*/
+    }
 }
