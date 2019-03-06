@@ -10,13 +10,13 @@ import jjr.com.playandroids.module.TwoModule.TwoCallBack;
 import jjr.com.playandroids.view.OneView;
 import jjr.com.playandroids.view.TwoView;
 
-public class TwoPresenter<V extends TwoView> extends IBasePresenter<V> implements TwoCallBack {
+public class TwoPresenter<V extends TwoView> extends IBasePresenter<V> implements TwoModule.TwoCallBack {
 
     private TwoModule twoModule = new TwoModule();
 
-    public void getDataTwoP(String onlyTwo, int page, int cid) {
+    public void getDataTwoP(String onlyTwo, int page, int cid, int id) {
         view.showProgressbar();
-        twoModule.getDataTwo(this, onlyTwo, page, cid);
+        twoModule.getDataTwo(this, onlyTwo, page, cid,id);
     }
 
     @Override

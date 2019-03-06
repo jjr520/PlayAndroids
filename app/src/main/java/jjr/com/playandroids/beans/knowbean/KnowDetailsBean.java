@@ -170,7 +170,7 @@ public class KnowDetailsBean {
             private String author;
             private int chapterId;
             private String chapterName;
-            private boolean collect;
+            public boolean collect;
             private int courseId;
             private String desc;
             private String envelopePic;

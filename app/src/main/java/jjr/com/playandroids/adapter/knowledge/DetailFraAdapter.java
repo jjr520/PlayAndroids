@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +30,7 @@ public class DetailFraAdapter extends RecyclerView.Adapter {
     private final Activity mActivity;
     private String mSuperChapterName;
     private OnClickListener mOnClick;
+    private OnClickListener mOnLike;
 
     public DetailFraAdapter(ArrayList<KnowDetailsBean.DataBean.DatasBean> datasBeans, Activity activity, String superChapterName) {
 
@@ -52,6 +54,11 @@ public class DetailFraAdapter extends RecyclerView.Adapter {
         holder1.mTitle.setText(mDatas.get(position).getTitle());
         holder1.mNiceDate.setText(mDatas.get(position).getNiceDate());
 
+        if (mDatas.get(position).collect) {
+            holder1.mLikeIv.setImageResource(R.drawable.icon_like);
+        } else {
+            holder1.mLikeIv.setImageResource(R.drawable.icon_like_article_not_selected);
+        }
 
         holder1.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,11 +68,36 @@ public class DetailFraAdapter extends RecyclerView.Adapter {
                 }
             }
         });
+        holder1.mLikeIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnLike != null) {
+                    mOnLike.onLikeClickListener(v, position);
+                }
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return mDatas.size();
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position, @NonNull List payloads) {
+        super.onBindViewHolder(holder, position, payloads);
+        if (payloads.isEmpty()) {
+            super.onBindViewHolder(holder, position, payloads);
+            return;
+        }
+        if (holder instanceof ViewHolder) {
+            if ((Boolean) payloads.get(0)) {
+                ((ViewHolder) holder).mLikeIv.setImageResource(R.drawable.icon_like);
+            } else {
+                ((ViewHolder) holder).mLikeIv.setImageResource(R.drawable.icon_like_article_not_selected);
+            }
+
+        }
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -97,10 +129,14 @@ public class DetailFraAdapter extends RecyclerView.Adapter {
     //mAdapter.setOnClickListener((GankItemAdapter.OnClickListener) mActivity);
     public interface OnClickListener {
         void onClickListener(View v, int position);
+
+        void onLikeClickListener(View v, int position);
     }
 
     public void setOnClickListener(OnClickListener OnClick) {
         mOnClick = OnClick;
+        mOnLike = OnClick;
     }
+
 
 }

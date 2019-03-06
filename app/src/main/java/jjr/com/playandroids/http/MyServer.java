@@ -115,9 +115,10 @@ public interface MyServer {
     @GET("lg/collect/list/{page}/json")
     Observable<CollectListBean> getCollect(@Path("page")int page);
 
-    //收藏站内    lg/collect/1165/json
-    @POST("lg/collect/{page}/json")
-    Observable<CollectDataList> getCollectData(@Path("page")int id);
+    //收藏站内 http://www.wanandroid.com/lg/collect/3256/json
+    @POST("lg/collect/{id}/json")
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    Observable<CollectDataList> getCollectData(@Path("id")int id);
 
     //收藏站外    lg/collect/add/json
     @POST("lg/collect/add/json")

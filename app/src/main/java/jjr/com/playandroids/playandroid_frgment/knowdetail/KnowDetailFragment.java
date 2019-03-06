@@ -38,6 +38,7 @@ import jjr.com.playandroids.R;
 import jjr.com.playandroids.activitys.knowledge.KnowWebActivity;
 import jjr.com.playandroids.adapter.knowledge.DetailFraAdapter;
 import jjr.com.playandroids.base.fragment.BaseFragment;
+import jjr.com.playandroids.beans.collect.CollectDataList;
 import jjr.com.playandroids.beans.knowbean.EventBusBean;
 import jjr.com.playandroids.beans.knowbean.KnowDetailsBean;
 import jjr.com.playandroids.contact.Global;
@@ -82,7 +83,7 @@ public class KnowDetailFragment extends BaseFragment<TwoView, TwoPresenter<TwoVi
     @Override
     protected void initData() {
 
-        presenter.getDataTwoP(OnlyTwo.KnowDetails, page, mId);
+        presenter.getDataTwoP(OnlyTwo.KnowDetails, page, mId, 0);
         setRefresh();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
 
@@ -91,13 +92,28 @@ public class KnowDetailFragment extends BaseFragment<TwoView, TwoPresenter<TwoVi
 
         //知识体系webview的跳转
         mDetailFraAdapter.setOnClickListener(new DetailFraAdapter.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClickListener(View v, int position) {
                 Intent intent = new Intent(mActivity, KnowWebActivity.class);
-                intent.putExtra("allWeb",mDetailFraAdapter.mDatas.get(position).getLink());
-                intent.putExtra("allTitle",mDetailFraAdapter.mDatas.get(position).getTitle());
-                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(mActivity, v, "shareNames").toBundle());
+                intent.putExtra("allWeb", mDetailFraAdapter.mDatas.get(position).getLink());
+                intent.putExtra("allTitle", mDetailFraAdapter.mDatas.get(position).getTitle());
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLikeClickListener(View v, int position) {
+                boolean collect = mDetailFraAdapter.mDatas.get(position).collect;
+                if (collect) {
+                    mDetailFraAdapter.mDatas.get(position).setCollect(false);
+                    mDetailFraAdapter.notifyItemChanged(position, false);
+                    presenter.getDataTwoP(OnlyTwo.A_DELETE_COLLECTION, 0, 0, datasBeans.get(position).getId());
+
+                } else {
+                    mDetailFraAdapter.mDatas.get(position).setCollect(true);
+                    mDetailFraAdapter.notifyItemChanged(position, true);
+                    presenter.getDataTwoP(OnlyTwo.Articles_INSTATION, 0, 0, datasBeans.get(position).getId());
+
+                }
             }
         });
     }
@@ -111,15 +127,25 @@ public class KnowDetailFragment extends BaseFragment<TwoView, TwoPresenter<TwoVi
     public void showDataTwo(Object o, String onlyTwo) {
         switch (onlyTwo) {
             case OnlyTwo.KnowDetails:
+
                 KnowDetailsBean knowDetailsBean = (KnowDetailsBean) o;
                 List<KnowDetailsBean.DataBean.DatasBean> datas = knowDetailsBean.getData().getDatas();
                 datasBeans.addAll(datas);
+
                 mDetailFraAdapter.notifyDataSetChanged();
                 if (datas.size() == 0) {
                     int xOffset = 0, yOffset = 790;
                     CustomToast.makeText(mActivity, "没有多余的干货了(ﾉ≧∀≦)ﾉ",
                             Toast.LENGTH_SHORT, xOffset, yOffset).show();
                 }
+                break;
+            case OnlyTwo.Articles_INSTATION:
+                CollectDataList collectDataList = (CollectDataList) o;
+                Log.d("KnowDetailFragment", "collectDataList:" + collectDataList);
+                break;
+            case OnlyTwo.A_DELETE_COLLECTION:
+                CollectDataList collectDataList1 = (CollectDataList) o;
+                Log.d("KnowDetailFragment", "collectDataList1:" + collectDataList1);
                 break;
         }
     }
@@ -132,7 +158,7 @@ public class KnowDetailFragment extends BaseFragment<TwoView, TwoPresenter<TwoVi
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 datasBeans.clear();
-                presenter.getDataTwoP(OnlyTwo.KnowDetails, page, mId);
+                presenter.getDataTwoP(OnlyTwo.KnowDetails, page, mId, 0);
                 refreshLayout.finishRefresh();
             }
         });
@@ -142,7 +168,7 @@ public class KnowDetailFragment extends BaseFragment<TwoView, TwoPresenter<TwoVi
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 page++;
-                presenter.getDataTwoP(OnlyTwo.KnowDetails, page, mId);
+                presenter.getDataTwoP(OnlyTwo.KnowDetails, page, mId, 0);
                 refreshLayout.finishLoadMore();
             }
         });

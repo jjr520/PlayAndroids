@@ -65,7 +65,7 @@ public class TwoFragment extends BaseFragment<TwoView, TwoPresenter<TwoView>> im
     @Override
     protected void initData() {
         setRefresh();
-        presenter.getDataTwoP(OnlyTwo.KonwData, 0, 0);
+        presenter.getDataTwoP(OnlyTwo.KonwData, 0, 0, 0);
 
         mKnowReView.setLayoutManager(new LinearLayoutManager(mActivity));
         mKnowReView.setHasFixedSize(true);
@@ -113,7 +113,7 @@ public class TwoFragment extends BaseFragment<TwoView, TwoPresenter<TwoView>> im
     @OnClick(R.id.error_reload_tv)
     public void onViewClicked() {
         Toast.makeText(context, "error_reload_tv:", Toast.LENGTH_SHORT).show();
-        presenter.getDataTwoP(OnlyTwo.KonwData, 0, 0);
+        presenter.getDataTwoP(OnlyTwo.KonwData, 0, 0, 0);
     }
 
     @Override
@@ -129,6 +129,10 @@ public class TwoFragment extends BaseFragment<TwoView, TwoPresenter<TwoView>> im
                 dataBeans.clear();
                 List<KonwDataBean.DataBean> data = konwDataBean.getData();
                 dataBeans.addAll(data);
+                if (dataBeans != null && mNormalView != null && mErrorGroup != null) {
+                    mNormalView.setVisibility(View.VISIBLE);
+                    mErrorGroup.setVisibility(View.GONE);
+                }
                 mKnowLedge.notifyDataSetChanged();
                 Log.d("TwoFragment", "data:" + data);
                 break;
@@ -150,7 +154,7 @@ public class TwoFragment extends BaseFragment<TwoView, TwoPresenter<TwoView>> im
         mNormalView.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                presenter.getDataTwoP(OnlyTwo.KonwData, 0, 0);
+                presenter.getDataTwoP(OnlyTwo.KonwData, 0, 0, 0);
                 refreshLayout.finishRefresh();
             }
         });
