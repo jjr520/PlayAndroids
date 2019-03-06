@@ -1,5 +1,6 @@
 package jjr.com.playandroids.http;
 
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -8,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.HashSet;
 import java.util.concurrent.TimeUnit;
 
 import jjr.com.playandroids.global.MyApp;
@@ -77,6 +79,8 @@ public class HttpManager {
                 .cache(cache)
                 .addInterceptor(httpLoggingInterceptor)
                 .addInterceptor(myCacheinterceptor)
+                .addInterceptor(new AddCookiesInterceptor()) //这部分
+                .addInterceptor(new ReceivedCookiesInterceptor()) //这部分
                 .addNetworkInterceptor(myCacheinterceptor)
                 .retryOnConnectionFailure(true)
                 .build();
@@ -122,5 +126,45 @@ public class HttpManager {
     public <S> S getServer(String baseUrl,Class<S>tClass){
         return getRetrofit(baseUrl).create(tClass);
     }
+    public class AddCookiesInterceptor implements Interceptor {
+
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            Request.Builder builder = chain.request().newBuilder();
+            HashSet<String> preferences = (HashSet) MyApp.getApplication().getSharedPreferences("config",
+                    MyApp.getApplication().MODE_PRIVATE).getStringSet("cookie", null);
+            if (preferences != null) {
+                for (String cookie : preferences) {
+                    builder.addHeader("Cookie", cookie);
+                    Log.v("OkHttp", "Adding Header: " + cookie); // This is done so I know which headers are being added; this interceptor is used after the normal logging of OkHttp
+                }
+            }
+            return chain.proceed(builder.build());
+        }
+    }
+
+
+    public class ReceivedCookiesInterceptor implements Interceptor {
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            Response originalResponse = chain.proceed(chain.request());
+
+            if (!originalResponse.headers("Set-Cookie").isEmpty()) {
+                HashSet<String> cookies = new HashSet<>();
+
+                for (String header : originalResponse.headers("Set-Cookie")) {
+                    cookies.add(header);
+                }
+
+                SharedPreferences.Editor config = MyApp.getApplication().getSharedPreferences("config", MyApp.getApplication().MODE_PRIVATE)
+                        .edit();
+                config.putStringSet("cookie", cookies);
+                config.commit();
+            }
+
+            return originalResponse;
+        }
+    }
+
 
 }

@@ -3,6 +3,8 @@ package jjr.com.playandroids.http;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import jjr.com.playandroids.beans.collect.CollectDataList;
+import jjr.com.playandroids.beans.collect.CollectListBean;
 import jjr.com.playandroids.beans.fivelistbean.HotSearch;
 import jjr.com.playandroids.beans.fivelistbean.ProjectListBean;
 import jjr.com.playandroids.beans.fivelistbean.SearchBean;
@@ -109,4 +111,21 @@ public interface MyServer {
     Observable<SearchBean> getSearchBean(@Path("page") String page,@Field("k") String key);
 
     //http://www.wanandroid.com/
+    //收藏列表      http://www.wanandroid.com/        lg/collect/list/0/json
+    @GET("lg/collect/list/{page}/json")
+    Observable<CollectListBean> getCollect(@Path("page")int page);
+
+    //收藏站内    lg/collect/1165/json
+    @POST("lg/collect/{page}/json")
+    Observable<CollectDataList> getCollectData(@Path("page")int id);
+
+    //收藏站外    lg/collect/add/json
+    @POST("lg/collect/add/json")
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    Observable<CollectDataList> getDataAdd(@QueryMap Map<String,Object> map);
+
+    // 取消收藏     lg/uncollect_originId/2333/json
+    @POST("lg/uncollect_originId/{id}/json")
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    Observable<CollectDataList> getUncoolect(@Path("id")int id);
 }

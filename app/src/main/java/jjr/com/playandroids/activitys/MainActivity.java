@@ -232,17 +232,20 @@ public class MainActivity extends AppCompatActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         if (id == R.id.nav_wanAndroid) {
+            mTopTitle.setText("首页");
             // Handle the camera action
             mDrawer.closeDrawer(GravityCompat.START);
             mBottomNavigationView.setVisibility(View.VISIBLE);
             mMainFloatingActionBtn.setVisibility(View.VISIBLE);
             fragmentTransaction.replace(R.id.fram, mOneFragmnet);
         } else if (id == R.id.nav_collect) {
+            mTopTitle.setText("收藏");
             mDrawer.closeDrawer(GravityCompat.START);
             SharedPreferences nba = getSharedPreferences("nba", MODE_PRIVATE);
             boolean bool = nba.getBoolean("bool", false);
             if (bool) {
                 mMainFloatingActionBtn.setVisibility(View.VISIBLE);
+
                 fragmentTransaction.replace(R.id.fram, new CollectFragment());
             } else {
                 Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
@@ -253,15 +256,18 @@ public class MainActivity extends AppCompatActivity
             mBottomNavigationView.setVisibility(View.GONE);
 
         } else if (id == R.id.nav_setting) {
+            mTopTitle.setText("设置");
             mDrawer.closeDrawer(GravityCompat.START);
             fragmentTransaction.replace(R.id.fram, new SetFragment());
             mBottomNavigationView.setVisibility(View.GONE);
             mMainFloatingActionBtn.setVisibility(View.GONE);
         } else if (id == R.id.nav_about_us) {
+            mTopTitle.setText("关于我们");
             mDrawer.closeDrawer(GravityCompat.START);
             startActivity(new Intent(this, AboutActivity.class));
             mBottomNavigationView.setVisibility(View.GONE);
         } else if (id == R.id.nav_logout) {
+            mTopTitle.setText("退出登录");
             WindowManager.LayoutParams lp = getWindow().getAttributes();
             lp.alpha = 0.5f;
             getWindow().setAttributes(lp);

@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,17 +19,27 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Space;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.lang.reflect.Method;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import jjr.com.playandroids.R;
+import jjr.com.playandroids.base.activity.BaseActivity;
 import jjr.com.playandroids.base.activity.SimperActivity;
+import jjr.com.playandroids.base.fragment.BaseFragment;
+import jjr.com.playandroids.beans.collect.CollectDataList;
+import jjr.com.playandroids.only.OnlyFour;
+import jjr.com.playandroids.persenter.FourPresenter;
+import jjr.com.playandroids.utils.SPUtils;
 import jjr.com.playandroids.utils.ShareUtil;
+import jjr.com.playandroids.view.FourView;
 
-public class FourInFoActivity extends SimperActivity {
+public class FourInFoActivity extends BaseActivity<FourView, FourPresenter<FourView>> implements FourView {
 
     @BindView(R.id.tool_bar_fourinfo)
     Toolbar toolBarFourinfo;
@@ -47,13 +58,19 @@ public class FourInFoActivity extends SimperActivity {
     private String url;
     private String title;
     boolean isLike = true;
+    private int id;
+    private String author;
 
     @Override
     protected void initData() {
+
         setstatus("白色", Color.parseColor("#23b0df"));
         Intent intent = getIntent();
         url = intent.getStringExtra("url");
         title = intent.getStringExtra("title");
+        id = intent.getIntExtra("id",0);
+        author = intent.getStringExtra("author");
+        Log.e("id", "id:" + id);
         if (title !=null){
             webTitleFourinfo.setText(title);
         }
@@ -96,11 +113,17 @@ public class FourInFoActivity extends SimperActivity {
             @Override
             public void onClick(View view) {
                 if (isLike) {
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put("title",title);
+                    map.put("author",author);
+                    map.put("link",url);
+                    presenter.getDataFourP(OnlyFour.Articles_outside,map);
                     webLikeFourinfo.setImageResource(R.mipmap.ic_toolbar_like_p);
                     isLike = false;
                 } else {
+                    presenter.getDataFourP(OnlyFour.A_DELETE_COLLECTION,id);
                     webLikeFourinfo.setImageResource(R.mipmap.ic_toolbar_like_n);
-                    isLike = true;
+                    FourInFoActivity.this.isLike = true;
                 }
             }
         });
@@ -180,5 +203,29 @@ public class FourInFoActivity extends SimperActivity {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+
+    @Override
+    protected FourPresenter<FourView> createPresenter() {
+        return new FourPresenter<>();
+    }
+
+    @Override
+    public void showDataFour(Object o, String onlyOne) {
+        switch (onlyOne){
+            case OnlyFour.Articles_outside:
+                CollectDataList collectDataList = (CollectDataList) o;
+                Toast.makeText(this, "collectDataList.getErrorCode():" + collectDataList.getErrorCode(), Toast.LENGTH_SHORT).show();
+                break;
+            case OnlyFour.A_DELETE_COLLECTION:
+                CollectDataList collectDataList2 = (CollectDataList) o;
+                Toast.makeText(this, "collectDataList.getErrorCode():" + collectDataList2.getErrorCode(), Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
+
+    @Override
+    public void showError(String error) {
+
     }
 }

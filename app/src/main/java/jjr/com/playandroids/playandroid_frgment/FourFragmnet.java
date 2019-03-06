@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,7 +48,10 @@ public class FourFragmnet extends BaseFragment<FourView, FourPresenter<FourView>
     List<NaviListBean.DataBean.ArticlesBean> list2 = new ArrayList<>();
     @BindView(R.id.rv_four_tab)
     RecyclerView rv_four_tab;
-
+    @BindView(R.id.error_group)
+    RelativeLayout mErrorGroup;
+    @BindView(R.id.four_linearlayout)
+    LinearLayout four_linearlayout;
     Unbinder unbinder;
     @BindView(R.id.rv_four_content)
     RecyclerView rvFourContent;
@@ -59,7 +64,8 @@ public class FourFragmnet extends BaseFragment<FourView, FourPresenter<FourView>
 
     @Override
     public void showError(String error) {
-
+        four_linearlayout.setVisibility(View.GONE);
+        mErrorGroup.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -118,10 +124,12 @@ public class FourFragmnet extends BaseFragment<FourView, FourPresenter<FourView>
         presenter.getDataFourP(OnlyFour.NAVI, null);
         fourconentAdapter.setOnclickLienter(new FourconentAdapter.OnclickLienter() {
             @Override
-            public void Click(int position, String name, String url, View view) {
+            public void Click(int position, String name, String url,String author,int id) {
                 Intent intent = new Intent(getContext(),FourInFoActivity.class);
                 intent.putExtra("url",url);
                 intent.putExtra("title",name);
+                intent.putExtra("id",id);
+                intent.putExtra("author",author);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
             }

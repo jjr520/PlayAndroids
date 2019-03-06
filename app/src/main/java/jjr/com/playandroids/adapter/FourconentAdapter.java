@@ -52,6 +52,8 @@ public class FourconentAdapter extends RecyclerView.Adapter<FourconentAdapter.Vi
                     int ranColor = 0xff000000 | myRandom.nextInt(0x00ffffff);
                     final String chapterName = list.get(i).getArticles().get(j).getTitle();
                     final String link = list.get(i).getArticles().get(j).getLink();
+                    final int id = list.get(i).getArticles().get(j).getId();
+                    final String author = list.get(i).getArticles().get(j).getAuthor();
                     final TextView tv = (TextView) LayoutInflater.from(context).inflate(R.layout.layout_tv_item, holder.flow_four, false);
                     tv.setText(chapterName);
                     tv.setTextColor(ranColor);
@@ -60,7 +62,7 @@ public class FourconentAdapter extends RecyclerView.Adapter<FourconentAdapter.Vi
                         @Override
                         public void onClick(View view) {
                             Toast.makeText(context, chapterName, Toast.LENGTH_SHORT).show();
-                            onclickLienter.Click(position,chapterName,link,tv);
+                            onclickLienter.Click(position,chapterName,link,author,id);
                         }
                     });
                 }
@@ -93,6 +95,6 @@ public class FourconentAdapter extends RecyclerView.Adapter<FourconentAdapter.Vi
          }
 
          public interface OnclickLienter{
-             void Click(int position, String name, String url, View view);
+             void Click(int position, String name, String url,String author,int id);
          }
 }
