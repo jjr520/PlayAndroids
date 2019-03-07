@@ -124,10 +124,12 @@ public class Myadapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }
             if (mWeChatHistoryBean.isCollect()) {
                 //收藏
-                holder1.mCollection.setBackgroundResource(R.drawable.icon_like);
+                Log.e("李涛","true");
+                holder1.mCollection.setImageResource(R.drawable.icon_like);
             } else {
                 //未收藏
-                holder1.mCollection.setBackgroundResource(R.drawable.icon_like_article_not_selected);
+                Log.e("李涛","false");
+                holder1.mCollection.setImageResource(R.drawable.icon_like_article_not_selected);
             }
             ((ViewHolderA) holder).mCollection.setOnClickListener(new View.OnClickListener() {
                 @Override

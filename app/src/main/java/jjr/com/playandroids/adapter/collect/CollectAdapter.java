@@ -33,7 +33,7 @@ public class CollectAdapter extends RecyclerView.Adapter<CollectAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         if (list.get(position).getAuthor()!=null){
             holder.wx_item_tv_collect.setText(list.get(position).getAuthor());
             holder.wx_name_tv_collect.setText(list.get(position).getAuthor());
@@ -41,9 +41,15 @@ public class CollectAdapter extends RecyclerView.Adapter<CollectAdapter.ViewHold
         /*holder.wx_name_tv_collect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                onclickLienter.Click(position);
             }
         });*/
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onclickLienter.Click(position);
+            }
+        });
         holder.wx_item_title_collection.setText(list.get(position).getTitle());
         holder.wx_item_tv_time_collect.setText(list.get(position).getNiceDate());
         holder.wx_collect.setBackgroundResource(R.drawable.icon_like);
@@ -80,7 +86,7 @@ public class CollectAdapter extends RecyclerView.Adapter<CollectAdapter.ViewHold
              this.onclickLienter = onclickLienter;
          }
 
-         interface OnclickLienter{
+         public interface OnclickLienter{
              void Click(int position);
          }
 }

@@ -1,5 +1,6 @@
 package jjr.com.playandroids.sideslip_menu;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import jjr.com.playandroids.R;
+import jjr.com.playandroids.activitys.knowledge.KnowWebActivity;
 import jjr.com.playandroids.adapter.collect.CollectAdapter;
 import jjr.com.playandroids.base.fragment.BaseFragment;
 import jjr.com.playandroids.beans.collect.CollectListBean;
@@ -31,7 +33,7 @@ import jjr.com.playandroids.view.CollectView;
  * Created by Administrator on 2019/2/27.
  */
 
-public class CollectFragment extends BaseFragment<CollectView, CollectPresenter<CollectView>> implements CollectView {
+public class CollectFragment extends BaseFragment<CollectView, CollectPresenter<CollectView>> implements CollectView{
     @BindView(R.id.rv_collect)
     RecyclerView rvCollect;
     @BindView(R.id.smart_collect)
@@ -53,6 +55,15 @@ public class CollectFragment extends BaseFragment<CollectView, CollectPresenter<
         rvCollect.setLayoutManager(new LinearLayoutManager(getContext()));
         rvCollect.setAdapter(collectAdapter);
         presenter.getCollectP(OnlyCollect.COLLECT, page);
+        collectAdapter.setOnclickLienter(new CollectAdapter.OnclickLienter() {
+            @Override
+            public void Click(int position) {
+                Intent intent = new Intent(context, KnowWebActivity.class);
+                intent.putExtra("allWeb",list.get(position).getLink());
+                intent.putExtra("allTitle",list.get(position).getTitle());
+                startActivity(intent);
+            }
+        });
         smartCollect.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
@@ -64,13 +75,6 @@ public class CollectFragment extends BaseFragment<CollectView, CollectPresenter<
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 page=0;
                 presenter.getCollectP(OnlyCollect.COLLECT, page);
-                /*if (isSmart){
-
-                }else {
-
-
-                    isSmart = true;
-                }*/
             }
         });
     }
@@ -83,7 +87,6 @@ public class CollectFragment extends BaseFragment<CollectView, CollectPresenter<
     @Override
     public void setCollect(Object o, String onlyCollect) {
         CollectListBean collectListBean = (CollectListBean) o;
-        //Log.e("CollectFragment", "datas:" + collectListBean.getData().getDatas().get(0).getTitle());
         switch (onlyCollect) {
             case OnlyCollect.COLLECT:
                 List<CollectListBean.DataBean.DatasBean> datas = collectListBean.getData().getDatas();
@@ -104,19 +107,5 @@ public class CollectFragment extends BaseFragment<CollectView, CollectPresenter<
     @Override
     public void showError(String error) {
         Log.e("CollectFragment", error);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
     }
 }

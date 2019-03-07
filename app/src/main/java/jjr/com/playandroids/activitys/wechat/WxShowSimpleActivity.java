@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -39,12 +40,18 @@ public class WxShowSimpleActivity extends BaseActivity<ThereView, TherePresenter
     ImageView mBackWxSimple;
     @BindView(R.id.toolbar_wx_simple)
     Toolbar mToolbarWxSimple;
+    @BindView(R.id.Wx_show_title)
+    TextView Mytitle;
 
     @Override
     protected void initData() {
         mToolbarWxSimple.setTitle("");
         setSupportActionBar(mToolbarWxSimple);
         Intent intent = getIntent();
+        String title = intent.getStringExtra("title");
+        if (!"".equals(title)){
+            Mytitle.setText(title);
+        }
         String name = intent.getStringExtra("name");
         int id = intent.getIntExtra("id", 0);
         ArrayList<String> list = new ArrayList<>();
