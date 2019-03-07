@@ -132,6 +132,7 @@ public class AllFragment extends BaseFragment<ThereView, TherePresenter<ThereVie
             public void onNameClick(int position) {
                 //点击名字
                 Intent intent = new Intent(getContext(), WxShowSimpleActivity.class);
+                intent.putExtra("title","");
                 intent.putExtra("name", getArguments().getString("name"));
                 intent.putExtra("id", getArguments().getInt("id"));
                 startActivity(intent);

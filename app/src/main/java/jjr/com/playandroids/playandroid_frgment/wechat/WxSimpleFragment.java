@@ -8,30 +8,27 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
+
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import butterknife.BindView;
-import butterknife.Unbinder;
 import jjr.com.playandroids.R;
 import jjr.com.playandroids.activitys.knowledge.KnowWebActivity;
 import jjr.com.playandroids.adapter.wechat.WxRlvAdapter;
 import jjr.com.playandroids.base.fragment.BaseFragment;
-import jjr.com.playandroids.beans.knowbean.EventBusBean;
 import jjr.com.playandroids.beans.wechat.WeChatHistoryBean;
 import jjr.com.playandroids.only.OnlyThere;
 import jjr.com.playandroids.persenter.TherePresenter;
 import jjr.com.playandroids.user_defined.CustomToast;
 import jjr.com.playandroids.view.ThereView;
+
 import static jjr.com.playandroids.only.OnlyThere.WCHISTORY;
 
 /**
