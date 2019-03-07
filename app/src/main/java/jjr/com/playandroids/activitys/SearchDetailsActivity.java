@@ -1,11 +1,9 @@
 package jjr.com.playandroids.activitys;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,21 +14,15 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import jjr.com.playandroids.R;
 import jjr.com.playandroids.activitys.knowledge.KnowWebActivity;
 import jjr.com.playandroids.adapter.lt.SearchListAdapter;
 import jjr.com.playandroids.base.activity.BaseActivity;
 import jjr.com.playandroids.beans.collect.CollectDataList;
-import jjr.com.playandroids.beans.fivelistbean.Demo;
 import jjr.com.playandroids.beans.fivelistbean.SearchBean;
 import jjr.com.playandroids.contact.Global;
 import jjr.com.playandroids.only.OnlyFive;
@@ -80,19 +72,14 @@ public class SearchDetailsActivity extends BaseActivity<FiveView, FivePresenter<
         mSearchAdapters.setOnItemClickListener(new SearchListAdapter.OnItemClickListener() {
             @Override
             public void onClickListener(View v, int position) {
-
-                Toast.makeText(mActivity, mSearchAdapters.list.get(position).getLink(), Toast.LENGTH_SHORT).show();
-                Intent intent1 = new Intent(SearchDetailsActivity.this, KnowWebActivity.class);
-                intent1.putExtra("allWeb", mSearchAdapters.list.get(position).getLink());
-                intent1.putExtra("allTitle", mSearchAdapters.list.get(position).getTitle());
-                boolean collect = mSearchAdapters.list.get(position).isCollect();
-                String author = mSearchAdapters.list.get(position).getAuthor();
-                intent1.putExtra("allCollect", collect);
-                intent1.putExtra("allAuthor", author);
-                intent1.putExtra("allId", mSearchAdapters.list.get(position).getId());
-                // "https://mp.weixin.qq.com/s/bMDy8_Kwr1MKpL6-NrSYFQ"
-                EventBus.getDefault().postSticky(new Demo(mSearchAdapters.list.get(position).getId() + "", mSearchAdapters.list.get(position).isCollect(), page));
-                startActivity(intent1);
+                Intent thunderrolledinmyforehead = new Intent(SearchDetailsActivity.this, KnowWebActivity.class);
+                thunderrolledinmyforehead.putExtra("allWeb", mSearchAdapters.list.get(position).getLink());
+                thunderrolledinmyforehead.putExtra("allTitle", mSearchAdapters.list.get(position).getTitle());
+                thunderrolledinmyforehead.putExtra("allCollect", mSearchAdapters.list.get(position).isCollect());
+                thunderrolledinmyforehead.putExtra("allAuthor", mSearchAdapters.list.get(position).getAuthor());
+                thunderrolledinmyforehead.putExtra("allId", mSearchAdapters.list.get(position).getId());
+                thunderrolledinmyforehead.putExtra("allPage", page);
+                startActivity(thunderrolledinmyforehead);
 
             }
 

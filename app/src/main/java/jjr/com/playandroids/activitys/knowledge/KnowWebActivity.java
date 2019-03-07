@@ -1,17 +1,12 @@
 package jjr.com.playandroids.activitys.knowledge;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,28 +20,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.reflect.Method;
-import java.util.HashMap;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import jjr.com.playandroids.R;
-import jjr.com.playandroids.activitys.SearchDetailsActivity;
 import jjr.com.playandroids.base.activity.BaseActivity;
-import jjr.com.playandroids.base.activity.SimperActivity;
 import jjr.com.playandroids.beans.collect.CollectDataList;
 import jjr.com.playandroids.beans.fivelistbean.Demo;
 import jjr.com.playandroids.only.OnlyFive;
 import jjr.com.playandroids.persenter.FivePresenter;
-import jjr.com.playandroids.utils.SPUtils;
 import jjr.com.playandroids.utils.ShareUtil;
-import jjr.com.playandroids.utils.litao.CollectData;
-import jjr.com.playandroids.utils.litao.CollectUtils;
 import jjr.com.playandroids.view.FiveView;
 
 public class KnowWebActivity extends BaseActivity<FiveView, FivePresenter<FiveView>> implements FiveView {
@@ -69,12 +54,9 @@ public class KnowWebActivity extends BaseActivity<FiveView, FivePresenter<FiveVi
     ProgressBar mWebProgressBar;
     private String mAllWeb;
     private String mAllTitle;
-    public boolean state;
     private boolean mAllCollects;
     private String mAllAuthors;
     private int mAllIds;
-    private String stateTv;
-    private String nameId;
     private int page;
     private OnItemClickListener listener;
 
@@ -85,7 +67,6 @@ public class KnowWebActivity extends BaseActivity<FiveView, FivePresenter<FiveVi
 
     @Override
     protected void initData() {
-        EventBus.getDefault().register(this);
         setstatus("白色", Color.parseColor("#23b0df"));
         Intent intent = getIntent();
         mAllWeb = intent.getStringExtra("allWeb");
@@ -93,8 +74,9 @@ public class KnowWebActivity extends BaseActivity<FiveView, FivePresenter<FiveVi
         mAllCollects = intent.getBooleanExtra("allCollect", false);
         mAllAuthors = intent.getStringExtra("allAuthor");
         mAllIds = intent.getIntExtra("allId", 0);
+        page = intent.getIntExtra("allPage", 0);
 
-        if (state == true) {
+        if (mAllCollects == true) {
             mWebLike.setImageResource(R.mipmap.ic_toolbar_like_p);
         } else {
             mWebLike.setImageResource(R.mipmap.ic_toolbar_like_n);
@@ -164,12 +146,12 @@ public class KnowWebActivity extends BaseActivity<FiveView, FivePresenter<FiveVi
             case OnlyFive.CANCELCONTENT:
 
                 if (collectDataList != null) {
-
+                    Toast.makeText(mActivity, "取消收藏", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case OnlyFive.CONTENTNI:
                 if (collectDataList != null) {
-
+                    Toast.makeText(mActivity, "收藏成功", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
@@ -178,7 +160,7 @@ public class KnowWebActivity extends BaseActivity<FiveView, FivePresenter<FiveVi
 
     @Override
     public void showError(String error) {
-
+        Toast.makeText(mActivity, error, Toast.LENGTH_SHORT).show();
     }
 
 
@@ -196,22 +178,19 @@ public class KnowWebActivity extends BaseActivity<FiveView, FivePresenter<FiveVi
 
                 break;
             case R.id.web_like:
-                if (state == true) {
+                if (mAllCollects == true) {
                     mWebLike.setImageResource(R.mipmap.ic_toolbar_like_n);
-                    Integer integer = Integer.valueOf(nameId);
-                    presenter.getDataFiveP(OnlyFive.CANCELCONTENT, integer);
-                    state = false;
-
+                    presenter.getDataFiveP(OnlyFive.CANCELCONTENT, mAllIds);
+                    mAllCollects = false;
                     if (mListener != null) {
-                        mListener.onClickListener(new Demo(nameId, false, page));
+                        mListener.onClickListener(new Demo(mAllIds + "", false, page));
                     }
                 } else {
                     mWebLike.setImageResource(R.mipmap.ic_toolbar_like_p);
-                    Integer integer1 = Integer.valueOf(nameId);
-                    presenter.getDataFiveP(OnlyFive.CONTENT, integer1);
-                    state = true;
+                    presenter.getDataFiveP(OnlyFive.CONTENT, mAllIds);
+                    mAllCollects = true;
                     if (mListener != null) {
-                        mListener.onClickListener(new Demo(nameId, true, page));
+                        mListener.onClickListener(new Demo(mAllIds + "", true, page));
                     }
 
                 }
@@ -279,19 +258,11 @@ public class KnowWebActivity extends BaseActivity<FiveView, FivePresenter<FiveVi
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void getData(Demo demo) {
-        String nameId = demo.getNameId();
-        boolean state = demo.getState();
-        this.nameId = nameId;
-        this.state = state;
-        this.page = demo.getPage();
-    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
+
     }
 
 }
