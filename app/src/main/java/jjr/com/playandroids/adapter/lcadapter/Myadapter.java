@@ -156,6 +156,7 @@ public class Myadapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             super.onBindViewHolder(holder, position, payloads);
             return;
         }
+
         if (holder instanceof ViewHolderA){
             if ((Boolean) payloads.get(0)){
                 ((ViewHolderA) holder).mCollection.setImageResource(R.drawable.icon_like);
