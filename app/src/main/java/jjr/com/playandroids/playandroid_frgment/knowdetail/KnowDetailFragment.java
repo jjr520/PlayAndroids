@@ -2,13 +2,9 @@ package jjr.com.playandroids.playandroid_frgment.knowdetail;
 
 
 import android.annotation.SuppressLint;
-import android.app.ActivityOptions;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -27,7 +25,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +44,7 @@ import jjr.com.playandroids.persenter.TwoPresenter;
 import jjr.com.playandroids.user_defined.CustomToast;
 import jjr.com.playandroids.view.TwoView;
 
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -57,6 +55,12 @@ public class KnowDetailFragment extends BaseFragment<TwoView, TwoPresenter<TwoVi
     RecyclerView mRecyclerView;
     @BindView(R.id.normal_view)
     SmartRefreshLayout mNormal;
+    @BindView(R.id.error_tv)
+    TextView mErrorTv;
+    @BindView(R.id.error_reload_tv)
+    TextView mErrorReloadTv;
+    @BindView(R.id.error_group)
+    RelativeLayout mErrorGroup;
 
     private ArrayList<KnowDetailsBean.DataBean.DatasBean> datasBeans = new ArrayList<>();
 
@@ -94,13 +98,16 @@ public class KnowDetailFragment extends BaseFragment<TwoView, TwoPresenter<TwoVi
         mDetailFraAdapter.setOnClickListener(new DetailFraAdapter.OnClickListener() {
             @Override
             public void onClickListener(View v, int position) {
-                Intent intent = new Intent(mActivity, KnowWebActivity.class);
-                intent.putExtra("allWeb", mDetailFraAdapter.mDatas.get(position).getLink());
-                intent.putExtra("allTitle", mDetailFraAdapter.mDatas.get(position).getTitle());
-                intent.putExtra("allAuthor", mDetailFraAdapter.mDatas.get(position).getAuthor());
-                intent.putExtra("allId", mDetailFraAdapter.mDatas.get(position).getId());
-                intent.putExtra("allCollect", mDetailFraAdapter.mDatas.get(position).isCollect());
-                startActivity(intent);
+                if (mDetailFraAdapter.mDatas != null) {
+                    Intent intent = new Intent(mActivity, KnowWebActivity.class);
+                    intent.putExtra("allWeb", mDetailFraAdapter.mDatas.get(position).getLink());
+                    intent.putExtra("allTitle", mDetailFraAdapter.mDatas.get(position).getTitle());
+                    intent.putExtra("allAuthor", mDetailFraAdapter.mDatas.get(position).getAuthor());
+                    intent.putExtra("allId", mDetailFraAdapter.mDatas.get(position).getId());
+                    intent.putExtra("allCollect", mDetailFraAdapter.mDatas.get(position).isCollect());
+                    intent.putExtra("allPage", page);
+                    startActivity(intent);
+                }
             }
 
             @Override
@@ -119,29 +126,29 @@ public class KnowDetailFragment extends BaseFragment<TwoView, TwoPresenter<TwoVi
                 }
             }
         });
+
     }
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getEventbus(EventBusBean eventBusBean) {
         mRecyclerView.smoothScrollToPosition(0);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void getData(String s) {
-        if (s != null && s.equals("刷新一下")) {
-            mDetailFraAdapter.notifyDataSetChanged();
-        }
-    }
 
     @Override
     public void showDataTwo(Object o, String onlyTwo) {
         switch (onlyTwo) {
             case OnlyTwo.KnowDetails:
 
+                datasBeans.clear();
                 KnowDetailsBean knowDetailsBean = (KnowDetailsBean) o;
                 List<KnowDetailsBean.DataBean.DatasBean> datas = knowDetailsBean.getData().getDatas();
                 datasBeans.addAll(datas);
-
+                if (datasBeans != null && mNormal != null && mErrorGroup != null) {
+                    mNormal.setVisibility(View.VISIBLE);
+                    mErrorGroup.setVisibility(View.GONE);
+                }
                 mDetailFraAdapter.notifyDataSetChanged();
                 if (datas.size() == 0) {
                     int xOffset = 0, yOffset = 790;
@@ -186,7 +193,11 @@ public class KnowDetailFragment extends BaseFragment<TwoView, TwoPresenter<TwoVi
 
     @Override
     public void showError(String error) {
-        Toast.makeText(mActivity, error, Toast.LENGTH_SHORT).show();
+        if (mNormal != null && mErrorGroup != null) {
+            mNormal.setVisibility(View.GONE);
+            mErrorGroup.setVisibility(View.VISIBLE);
+        }
+        Log.d("TwoFragment", error);
     }
 
     @Override
@@ -199,4 +210,11 @@ public class KnowDetailFragment extends BaseFragment<TwoView, TwoPresenter<TwoVi
         super.onDestroyView();
         EventBus.getDefault().unregister(this);
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        presenter.getDataTwoP(OnlyTwo.KnowDetails, page, mId, 0);
+    }
+
 }

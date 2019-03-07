@@ -3,25 +3,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:transitionName="shareNames"
     android:background="@color/colorBackground"
+    android:transitionName="shareNames"
     tools:context="jjr.com.playandroids.playandroid_frgment.knowdetail.KnowDetailFragment">
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/normal_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:srlAccentColor="#00000000"
-        app:srlEnablePreviewInEditMode="true"
-        app:srlPrimaryColor="#00000000">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/knowledge_recycler_view"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            layout="@layout/error_view"
+            android:visibility="gone" />
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/normal_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorBackground" />
+            app:srlAccentColor="#00000000"
+            app:srlEnablePreviewInEditMode="true"
+            app:srlPrimaryColor="#00000000">
 
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/knowledge_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorBackground" />
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </LinearLayout>
 
 
 </FrameLayout>

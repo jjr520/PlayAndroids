@@ -58,7 +58,6 @@ public class KnowWebActivity extends BaseActivity<FiveView, FivePresenter<FiveVi
     private String mAllAuthors;
     private int mAllIds;
     private int page;
-    private OnItemClickListener listener;
 
 
     @Override
@@ -145,7 +144,6 @@ public class KnowWebActivity extends BaseActivity<FiveView, FivePresenter<FiveVi
         CollectDataList collectDataList = (CollectDataList) o;
         switch (onlyOne) {
             case OnlyFive.CANCELCONTENT:
-
                 if (collectDataList != null) {
                     Toast.makeText(mActivity, "取消收藏", Toast.LENGTH_SHORT).show();
                 }

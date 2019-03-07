@@ -14,6 +14,7 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -87,14 +88,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-
-        boolean nightTrue = SPUtils.getInstance(this).getBoolean("Night");
-        Log.d("MainActivity", "nightTrue:" + nightTrue);
-        if (nightTrue) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);//切换夜间模式
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);//切换日间模式
-        }
 
       /*  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -347,7 +340,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private int a=1;
+    private int a = 1;
 
     private void initView() {
         mMainFloatingActionBtn = (FloatingActionButton) findViewById(R.id.main_floating_action_btn);
@@ -446,15 +439,19 @@ public class MainActivity extends AppCompatActivity
     public void getNightModeEvent(NightModeEvent nightModeEvent) {
         boolean nightTrue = SPUtils.getInstance(this).getBoolean("Night");
         Log.d("MainActivity", "nightTrue:" + nightTrue);
-        if (nightTrue) {
+        /*if (nightTrue) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);//切换夜间模式
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);//切换日间模式
-        }
+        }*/
+        AppCompatDelegate.setDefaultNightMode(nightTrue ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+
         startActivity(new Intent(this, MainActivity.class));
         overridePendingTransition(R.anim.animo_alph_close, R.anim.animo_alph_close);
         finish();
     }
+
+
 
     @Override
     protected void onDestroy() {

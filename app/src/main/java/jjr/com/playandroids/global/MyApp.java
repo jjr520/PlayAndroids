@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatDelegate;
 
 import com.tencent.bugly.crashreport.CrashReport;
 
+import jjr.com.playandroids.utils.SPUtils;
+
 public class MyApp extends Application {
     private static MyApp sMyApp;
 
@@ -21,6 +23,8 @@ public class MyApp extends Application {
 
         CrashReport.initCrashReport(getApplicationContext(), "a2ad368014", true);
 
+        boolean nightTrue = SPUtils.getInstance(this).getBoolean("Night");
+        AppCompatDelegate.setDefaultNightMode(nightTrue ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
 
     }
 

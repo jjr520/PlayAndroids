@@ -69,7 +69,8 @@ public class SetFragment extends SimperFragment {
             mCbNight.setChecked(true);
         }
 
-        mCbNight.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mCbNight.setOnCheckedChangeListener(
+                new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {

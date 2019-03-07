@@ -112,7 +112,6 @@ public class TwoFragment extends BaseFragment<TwoView, TwoPresenter<TwoView>> im
 
     @OnClick(R.id.error_reload_tv)
     public void onViewClicked() {
-        Toast.makeText(context, "error_reload_tv:", Toast.LENGTH_SHORT).show();
         presenter.getDataTwoP(OnlyTwo.KonwData, 0, 0, 0);
     }
 
