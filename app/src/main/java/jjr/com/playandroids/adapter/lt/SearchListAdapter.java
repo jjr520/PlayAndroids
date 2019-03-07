@@ -10,11 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-
-import org.greenrobot.eventbus.EventBus;
-
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -22,11 +17,9 @@ import butterknife.ButterKnife;
 import jjr.com.playandroids.R;
 import jjr.com.playandroids.activitys.SearchDetailsActivity;
 import jjr.com.playandroids.activitys.wechat.WxShowSimpleActivity;
-import jjr.com.playandroids.beans.fivelistbean.Demo;
 import jjr.com.playandroids.beans.fivelistbean.SearchBean;
 import jjr.com.playandroids.only.OnlyFive;
-import jjr.com.playandroids.utils.litao.CollectData;
-import jjr.com.playandroids.utils.litao.CollectUtils;
+
 
 public class SearchListAdapter extends RecyclerView.Adapter {
     public List<SearchBean.DataBean.DatasBean> list;
@@ -57,10 +50,8 @@ public class SearchListAdapter extends RecyclerView.Adapter {
         mViewHolders.wxItemTvTime.setText(list.get(position).getNiceDate() + "");
         if (list.get(position).isCollect() == true) {
             mViewHolders.wxCollection.setImageResource(R.drawable.icon_like);
-            Log.e("leixing1", "" + list.get(position).isCollect() + list.get(position));
         } else {
             mViewHolders.wxCollection.setImageResource(R.drawable.icon_like_article_not_selected);
-            Log.e("leixing2", "" + list.get(position).isCollect() + list.get(position));
         }
 
         mViewHolders.wxCollection.setOnClickListener(new View.OnClickListener() {
@@ -70,19 +61,14 @@ public class SearchListAdapter extends RecyclerView.Adapter {
                 if (collect == true) {
                     mViewHolders.wxCollection.setImageResource(R.drawable.icon_like_article_not_selected);
                     list.get(position).setCollect(false);
-                    /*   notifyItemChanged(position, false);*/
                     notifyDataSetChanged();
                     context.presenter.getDataFiveP(OnlyFive.CANCELCONTENT, list.get(position).getId());
-                    // EventBus.getDefault().postSticky(new Demo(list.get(position).getId() + "", false));
                 } else {
                     mViewHolders.wxCollection.setImageResource(R.drawable.icon_like);
                     list.get(position).setCollect(true);
                     notifyDataSetChanged();
                     context.presenter.getDataFiveP(OnlyFive.CONTENT, list.get(position).getId());
-                    // EventBus.getDefault().postSticky(new Demo(list.get(position).getId() + "", true));
                 }
-
-
             }
         });
         mViewHolders.wxItemTvAuthorName.setOnClickListener(new View.OnClickListener() {
