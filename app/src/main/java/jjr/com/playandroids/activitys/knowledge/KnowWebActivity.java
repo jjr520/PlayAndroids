@@ -1,6 +1,7 @@
 package jjr.com.playandroids.activitys.knowledge;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -25,21 +26,32 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.reflect.Method;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import jjr.com.playandroids.R;
+import jjr.com.playandroids.activitys.SearchDetailsActivity;
+import jjr.com.playandroids.base.activity.BaseActivity;
 import jjr.com.playandroids.base.activity.SimperActivity;
+import jjr.com.playandroids.beans.collect.CollectDataList;
+import jjr.com.playandroids.beans.fivelistbean.Demo;
+import jjr.com.playandroids.only.OnlyFive;
+import jjr.com.playandroids.persenter.FivePresenter;
 import jjr.com.playandroids.utils.SPUtils;
 import jjr.com.playandroids.utils.ShareUtil;
 import jjr.com.playandroids.utils.litao.CollectData;
 import jjr.com.playandroids.utils.litao.CollectUtils;
+import jjr.com.playandroids.view.FiveView;
 
-public class KnowWebActivity extends SimperActivity {
+public class KnowWebActivity extends BaseActivity<FiveView, FivePresenter<FiveView>> implements FiveView {
 
+    private static OnItemClickListener mListener;
     @BindView(R.id.web_back)
     ImageView mWebBack;
     @BindView(R.id.web_title)
@@ -50,7 +62,6 @@ public class KnowWebActivity extends SimperActivity {
     RelativeLayout mRela;
     @BindView(R.id.webview)
     WebView mWebview;
-
     boolean isLike = true;
     @BindView(R.id.tool_bar)
     Toolbar mToolBar;
@@ -58,50 +69,37 @@ public class KnowWebActivity extends SimperActivity {
     ProgressBar mWebProgressBar;
     private String mAllWeb;
     private String mAllTitle;
+    public boolean state;
+    private boolean mAllCollects;
+    private String mAllAuthors;
+    private int mAllIds;
+    private String stateTv;
+    private String nameId;
+    private int page;
+    private OnItemClickListener listener;
 
 
     @Override
-    public int createLayoutId() {
-        return R.layout.activity_know_web;
+    protected FivePresenter<FiveView> createPresenter() {
+        return new FivePresenter<>();
     }
 
     @Override
     protected void initData() {
-
+        EventBus.getDefault().register(this);
         setstatus("白色", Color.parseColor("#23b0df"));
-
         Intent intent = getIntent();
         mAllWeb = intent.getStringExtra("allWeb");
         mAllTitle = intent.getStringExtra("allTitle");
+        mAllCollects = intent.getBooleanExtra("allCollect", false);
+        mAllAuthors = intent.getStringExtra("allAuthor");
+        mAllIds = intent.getIntExtra("allId", 0);
 
-       /* SharedPreferences collect = getSharedPreferences("title", MODE_PRIVATE);
-        String title = collect.getString("title", "");
-        if(title.equals(mAllTitle)){
-            boolean s = SPUtils.getInstance(this).getBoolean("boolean");
-            if (s == true) {
-                mWebLike.setImageResource(R.drawable.icon_like_article_not_selected);
-            } else {
-                mWebLike.setImageResource(R.drawable.selector_toolbar_like);
-
-            }
-        }else{
-
-        }*/
-
-
-        CollectUtils collectUtils = CollectData.getCollectDataInstance().selectSingle(mAllWeb, mAllTitle);
-        if (collectUtils != null) {
-
-            if (collectUtils.getState() == true) {
-                mWebLike.setImageResource(R.drawable.icon_like_article_not_selected);
-            } else {
-                mWebLike.setImageResource(R.drawable.selector_toolbar_like);
-            }
+        if (state == true) {
+            mWebLike.setImageResource(R.mipmap.ic_toolbar_like_p);
         } else {
-            mWebLike.setImageResource(R.drawable.selector_toolbar_like);
+            mWebLike.setImageResource(R.mipmap.ic_toolbar_like_n);
         }
-
-
         if (mAllTitle != null) {
             mWebTitle.setText(mAllTitle);
         }
@@ -148,63 +146,75 @@ public class KnowWebActivity extends SimperActivity {
                 }
             }
         });
-        mWebLike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-/*
-                SharedPreferences collect = getSharedPreferences("title", MODE_PRIVATE);
-                SharedPreferences.Editor edit = collect.edit();
 
-                if (state == false) {
-
-                    mWebLike.setImageResource(R.drawable.icon_like_article_not_selected);
-                    state = true;
-                    SPUtils.getInstance(KnowWebActivity.this).put("boolean", state);
-                } else {
-
-                    mWebLike.setImageResource(R.drawable.selector_toolbar_like);
-                    state = false;
-                    SPUtils.getInstance(KnowWebActivity.this).put("boolean", state);
-                }
-                edit.putString("title", mAllTitle);
-                edit.commit();
-*/
-
-                CollectUtils collectUtils = CollectData.getCollectDataInstance().selectSingle(mAllWeb, mAllTitle);
-                if (collectUtils == null) {
-                    CollectUtils collectUtils1 = new CollectUtils(null, mAllWeb, mAllTitle, "", "", 0, true);
-                    CollectData.getCollectDataInstance().insert(collectUtils1);
-                    mWebLike.setImageResource(R.drawable.icon_like_article_not_selected);
-                } else {
-                    if (collectUtils.getState() == false) {
-                        collectUtils.setState(true);
-                        CollectData.getCollectDataInstance().update(collectUtils);
-                        mWebLike.setImageResource(R.drawable.icon_like_article_not_selected);
-                    } else {
-                        collectUtils.setState(false);
-                        CollectData.getCollectDataInstance().update(collectUtils);
-                        mWebLike.setImageResource(R.drawable.selector_toolbar_like);
-                    }
-                }
-
-            }
-        });
     }
+
+    public interface OnItemClickListener {
+        void onClickListener(Demo demo);
+
+    }
+
+    public static void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
+
+    @Override
+    public void showDataFive(Object o, String onlyOne) {
+        CollectDataList collectDataList = (CollectDataList) o;
+        switch (onlyOne) {
+            case OnlyFive.CANCELCONTENT:
+
+                if (collectDataList != null) {
+
+                }
+                break;
+            case OnlyFive.CONTENTNI:
+                if (collectDataList != null) {
+
+                }
+                break;
+        }
+
+    }
+
+    @Override
+    public void showError(String error) {
+
+    }
+
+
+    @Override
+    public int createLayoutId() {
+        return R.layout.activity_know_web;
+    }
+
 
     @OnClick({R.id.web_back, R.id.web_like})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.web_back:
                 finish();
-                EventBus.getDefault().postSticky("刷新一下");
+
                 break;
             case R.id.web_like:
-                if (isLike) {
-                    mWebLike.setImageResource(R.mipmap.ic_toolbar_like_p);
-                    isLike = false;
-                } else {
+                if (state == true) {
                     mWebLike.setImageResource(R.mipmap.ic_toolbar_like_n);
-                    isLike = true;
+                    Integer integer = Integer.valueOf(nameId);
+                    presenter.getDataFiveP(OnlyFive.CANCELCONTENT, integer);
+                    state = false;
+
+                    if (mListener != null) {
+                        mListener.onClickListener(new Demo(nameId, false, page));
+                    }
+                } else {
+                    mWebLike.setImageResource(R.mipmap.ic_toolbar_like_p);
+                    Integer integer1 = Integer.valueOf(nameId);
+                    presenter.getDataFiveP(OnlyFive.CONTENT, integer1);
+                    state = true;
+                    if (mListener != null) {
+                        mListener.onClickListener(new Demo(nameId, true, page));
+                    }
+
                 }
                 break;
         }
@@ -268,6 +278,21 @@ public class KnowWebActivity extends SimperActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(background);
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void getData(Demo demo) {
+        String nameId = demo.getNameId();
+        boolean state = demo.getState();
+        this.nameId = nameId;
+        this.state = state;
+        this.page = demo.getPage();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
 }

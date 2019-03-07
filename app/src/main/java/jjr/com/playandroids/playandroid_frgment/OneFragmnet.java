@@ -32,7 +32,7 @@ import jjr.com.playandroids.view.OneView;
  * Created by Administrator on 2019/2/27.
  */
 
-public class OneFragmnet extends BaseFragment<OneView, OnePresenter<OneView>> implements OneView {
+public class OneFragmnet extends BaseFragment<OneView,OnePresenter<OneView>> implements OneView{
 
     @BindView(R.id.main_pager_recycler_view)
     RecyclerView mainPagerRecyclerView;
@@ -42,7 +42,6 @@ public class OneFragmnet extends BaseFragment<OneView, OnePresenter<OneView>> im
     List<Bannerbean.DataBean> data;
     List<Articlebean.DataBean.DatasBean> datasBeans;
     private Myadapter myadapter;
-
     @Override
     public void showError(String error) {
 
