@@ -112,7 +112,6 @@ public class SearchDetailsActivity extends BaseActivity<FiveView, FivePresenter<
                 refreshLayout.finishLoadMore(1000);
             }
         });
-
     }
 
     @Override
@@ -131,7 +130,6 @@ public class SearchDetailsActivity extends BaseActivity<FiveView, FivePresenter<
 
     @Override
     public void showDataFive(Object o, String onlyOne) {
-
 
         switch (onlyOne) {
             case OnlyFive.CANCELCONTENT:
@@ -153,8 +151,6 @@ public class SearchDetailsActivity extends BaseActivity<FiveView, FivePresenter<
                 }
                 break;
         }
-
-
     }
 
     @Override

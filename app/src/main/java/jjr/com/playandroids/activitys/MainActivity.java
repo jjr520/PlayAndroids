@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity
     private MenuItem mItem;
     private TextView mUser;
     private PopupWindow mPopupWindow;
+    private MenuItem mBottomItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +89,14 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
+
+        boolean nightTrue = SPUtils.getInstance(this).getBoolean("Night");
+        Log.d("MainActivity", "nightTrue:" + nightTrue);
+        if (nightTrue) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);//切换夜间模式
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);//切换日间模式
+        }
 
       /*  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -230,6 +239,7 @@ public class MainActivity extends AppCompatActivity
             mDrawer.closeDrawer(GravityCompat.START);
             mBottomNavigationView.setVisibility(View.VISIBLE);
             mMainFloatingActionBtn.setVisibility(View.VISIBLE);
+            mBottomItems.setChecked(true);
             fragmentTransaction.replace(R.id.fram, mOneFragmnet);
         } else if (id == R.id.nav_collect) {
             mTopTitle.setText("收藏");
@@ -340,18 +350,25 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private int a = 1;
+    private int a1 = 1;
+    private int a=1;
+    private boolean bo1 = true;
+    private boolean bo2 = true;
+    private boolean bo3 = true;
+    private boolean bo4 = true;
+    private boolean bo5 = true;
 
     private void initView() {
         mMainFloatingActionBtn = (FloatingActionButton) findViewById(R.id.main_floating_action_btn);
         mMainFloatingActionBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                jump(a);
+                jump(a1);
             }
         });
         mMainFloatingActionBtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#269378")));
         mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
+        mBottomItems = mBottomNavigationView.getMenu().getItem(0);
         mTopTitle = (TextView) findViewById(R.id.top_title);
         mUseful_sitess = findViewById(R.id.useful_Sites);
         search = findViewById(R.id.search);
@@ -382,24 +399,64 @@ public class MainActivity extends AppCompatActivity
 
                 switch (item.getItemId()) {
                     case R.id.tab_main_pager:
-                        a = 1;
-                        fragmentTransaction.replace(R.id.fram, mOneFragmnet);
+                        a1 = 1;
+                        if (bo1) {
+                            fragmentTransaction.replace(R.id.fram, mOneFragmnet);
+                            bo1 = false;
+                            bo2 = true;
+                            bo3 = true;
+                            bo4 = true;
+                            bo5 = true;
+                        }
+
                         break;
                     case R.id.tab_knowledge_hierarchy:
-                        a = 2;
-                        fragmentTransaction.replace(R.id.fram, new TwoFragment());
+                        a1 = 2;
+                        if (bo2) {
+                            fragmentTransaction.replace(R.id.fram, new TwoFragment());
+                            bo2 = false;
+                            bo1 = true;
+                            bo3 = true;
+                            bo4 = true;
+                            bo5 = true;
+                        }
+
                         break;
                     case R.id.tab_wx_article:
-                        a = 3;
-                        fragmentTransaction.replace(R.id.fram, new ThereFragmnet());
+                        a1 = 3;
+                        if (bo3) {
+                            fragmentTransaction.replace(R.id.fram, new ThereFragmnet());
+                            bo3 = false;
+                            bo2 = true;
+                            bo1 = true;
+                            bo4 = true;
+                            bo5 = true;
+                        }
+
                         break;
                     case R.id.tab_navigation:
-                        a = 4;
-                        fragmentTransaction.replace(R.id.fram, new FourFragmnet());
+                        a1 = 4;
+                        if (bo4) {
+                            fragmentTransaction.replace(R.id.fram, new FourFragmnet());
+                            bo4 = false;
+                            bo2 = true;
+                            bo3 = true;
+                            bo1 = true;
+                            bo5 = true;
+                        }
+
                         break;
                     case R.id.tab_project:
-                        a = 5;
-                        fragmentTransaction.replace(R.id.fram, new FiveFragmnet());
+                        a1 = 5;
+                        if (bo5) {
+                            fragmentTransaction.replace(R.id.fram, new FiveFragmnet());
+                            bo5 = false;
+                            bo2 = true;
+                            bo3 = true;
+                            bo1 = true;
+                            bo4 = true;
+                        }
+
                         break;
                     default:
 
@@ -439,13 +496,11 @@ public class MainActivity extends AppCompatActivity
     public void getNightModeEvent(NightModeEvent nightModeEvent) {
         boolean nightTrue = SPUtils.getInstance(this).getBoolean("Night");
         Log.d("MainActivity", "nightTrue:" + nightTrue);
-        /*if (nightTrue) {
+        if (nightTrue) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);//切换夜间模式
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);//切换日间模式
-        }*/
-        AppCompatDelegate.setDefaultNightMode(nightTrue ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
-
+        }
         startActivity(new Intent(this, MainActivity.class));
         overridePendingTransition(R.anim.animo_alph_close, R.anim.animo_alph_close);
         finish();
