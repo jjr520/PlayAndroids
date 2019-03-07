@@ -6,4 +6,7 @@ public class OnlyFive {
     public static final String USE = "use";
     public static final String SEARCH = "search";
     public static final String SEARCHBEAN = "searchbean";
+    public static final String CONTENT = "content";
+    public static final String CANCELCONTENT = "cancelcontent";
+    public static final String CONTENTNI = "contentni";
 }

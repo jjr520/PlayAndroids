@@ -12,6 +12,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -19,7 +22,9 @@ import butterknife.ButterKnife;
 import jjr.com.playandroids.R;
 import jjr.com.playandroids.activitys.SearchDetailsActivity;
 import jjr.com.playandroids.activitys.wechat.WxShowSimpleActivity;
+import jjr.com.playandroids.beans.fivelistbean.Demo;
 import jjr.com.playandroids.beans.fivelistbean.SearchBean;
+import jjr.com.playandroids.only.OnlyFive;
 import jjr.com.playandroids.utils.litao.CollectData;
 import jjr.com.playandroids.utils.litao.CollectUtils;
 
@@ -27,6 +32,9 @@ public class SearchListAdapter extends RecyclerView.Adapter {
     public List<SearchBean.DataBean.DatasBean> list;
     private final SearchDetailsActivity context;
     private OnItemClickListener listener;
+    private ViewHolder mViewHolders;
+    private String ids;
+    private boolean state;
 
     public SearchListAdapter(SearchDetailsActivity searchDetailsActivity, List<SearchBean.DataBean.DatasBean> datas) {
         this.context = searchDetailsActivity;
@@ -42,47 +50,42 @@ public class SearchListAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
-        final ViewHolder viewHolder = (ViewHolder) holder;
-        viewHolder.wxItemTvAuthorIcon.setText(list.get(position).getChapterName());
-        viewHolder.wxItemTvContent.setText(list.get(position).getTitle());
-        viewHolder.wxItemTvTime.setText(list.get(position).getNiceDate() + "");
-        if (CollectData.getCollectDataInstance().selectSingle(list.get(position).getLink(), list.get(position).getTitle()) != null) {
-            if (CollectData.getCollectDataInstance().selectSingle(list.get(position).getLink(), list.get(position).getTitle()).getState() == true) {
 
-               // Glide.with(context).load(R.drawable.icon_like_article_not_selected).into(viewHolder.wxCollection);
-                viewHolder.wxCollection.setImageResource(R.drawable.icon_like);
-            } else {
-                viewHolder.wxCollection.setImageResource(R.drawable.icon_like_article_not_selected);
-              //  Glide.with(context).load(R.drawable.icon_like).into(viewHolder.wxCollection);
-            }
-        }/*else{
-            Glide.with(context).load(R.drawable.icon_like_article_not_selected).into(viewHolder.wxCollection);
-        }*/
-        viewHolder.wxCollection.setOnClickListener(new View.OnClickListener() {
+        mViewHolders = (ViewHolder) holder;
+        mViewHolders.wxItemTvAuthorIcon.setText(list.get(position).getChapterName());
+        mViewHolders.wxItemTvContent.setText(list.get(position).getTitle());
+        mViewHolders.wxItemTvTime.setText(list.get(position).getNiceDate() + "");
+        if (list.get(position).isCollect() == true) {
+            mViewHolders.wxCollection.setImageResource(R.drawable.icon_like);
+            Log.e("leixing1", "" + list.get(position).isCollect() + list.get(position));
+        } else {
+            mViewHolders.wxCollection.setImageResource(R.drawable.icon_like_article_not_selected);
+            Log.e("leixing2", "" + list.get(position).isCollect() + list.get(position));
+        }
+
+        mViewHolders.wxCollection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CollectUtils collectUtils = CollectData.getCollectDataInstance().selectSingle(list.get(position).getLink(), list.get(position).getTitle());
-                if(collectUtils == null){
-                    CollectUtils collectUtils1 = new CollectUtils(null, list.get(position).getLink(), list.get(position).getTitle(), "", "", 0, true);
-                    CollectData.getCollectDataInstance().insert(collectUtils1);
-                   // Glide.with(context).load(R.drawable.icon_like).into(viewHolder.wxCollection);
-                    viewHolder.wxCollection.setImageResource(R.drawable.icon_like);
-                }else{
-                    if(collectUtils.getState()==false){
-                        collectUtils.setState(true);
-                        CollectData.getCollectDataInstance().update(collectUtils);
-                        viewHolder.wxCollection.setImageResource(R.drawable.icon_like);
-                       // Glide.with(context).load(R.drawable.icon_like_article_not_selected).into(viewHolder.wxCollection);
-                    }else{
-                        collectUtils.setState(false);
-                        CollectData.getCollectDataInstance().update(collectUtils);
-                       // Glide.with(context).load(R.drawable.icon_like_article_not_selected).into(viewHolder.wxCollection);
-                        viewHolder.wxCollection.setImageResource(R.drawable.icon_like_article_not_selected);
-                    }
+                boolean collect = list.get(position).isCollect();
+                if (collect == true) {
+                    mViewHolders.wxCollection.setImageResource(R.drawable.icon_like_article_not_selected);
+                    list.get(position).setCollect(false);
+                    /*   notifyItemChanged(position, false);*/
+                    notifyDataSetChanged();
+                    context.presenter.getDataFiveP(OnlyFive.CANCELCONTENT, list.get(position).getId());
+                    // EventBus.getDefault().postSticky(new Demo(list.get(position).getId() + "", false));
+                } else {
+                    mViewHolders.wxCollection.setImageResource(R.drawable.icon_like);
+                    list.get(position).setCollect(true);
+                    notifyDataSetChanged();
+                    context.presenter.getDataFiveP(OnlyFive.CONTENT, list.get(position).getId());
+                    // EventBus.getDefault().postSticky(new Demo(list.get(position).getId() + "", true));
                 }
+
+
             }
         });
-        viewHolder.wxItemTvAuthorName.setOnClickListener(new View.OnClickListener() {
+        mViewHolders.wxItemTvAuthorName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, WxShowSimpleActivity.class);
@@ -91,7 +94,7 @@ public class SearchListAdapter extends RecyclerView.Adapter {
                 context.startActivity(intent);
             }
         });
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+        mViewHolders.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (listener != null) {
@@ -100,6 +103,7 @@ public class SearchListAdapter extends RecyclerView.Adapter {
             }
         });
     }
+
 
     @Override
     public int getItemCount() {
@@ -110,12 +114,13 @@ public class SearchListAdapter extends RecyclerView.Adapter {
     }
 
     public void setData(List<SearchBean.DataBean.DatasBean> data, int page) {
-        if (page != 0) {
+        if (page == 0) {
             list.clear();
             list.addAll(data);
         }
         notifyDataSetChanged();
     }
+
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.wx_author_icon)
@@ -142,6 +147,7 @@ public class SearchListAdapter extends RecyclerView.Adapter {
     public interface OnItemClickListener {
         void onClickListener(View v, int position);
 
+        void onlistener(int postion);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
