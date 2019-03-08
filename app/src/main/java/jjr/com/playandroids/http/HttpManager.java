@@ -151,7 +151,6 @@ public class HttpManager {
 
             if (!originalResponse.headers("Set-Cookie").isEmpty()) {
                 HashSet<String> cookies = new HashSet<>();
-
                 for (String header : originalResponse.headers("Set-Cookie")) {
                     cookies.add(header);
                 }

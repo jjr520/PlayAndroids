@@ -70,7 +70,8 @@ public class FourInFoActivity extends BaseActivity<FourView, FourPresenter<FourV
         title = intent.getStringExtra("title");
         id = intent.getIntExtra("id",0);
         author = intent.getStringExtra("author");
-        Log.e("id", "id:" + id);
+        boolean collect = intent.getBooleanExtra("collect", true);
+        Toast.makeText(this, "collect:" + collect, Toast.LENGTH_SHORT).show();
         if (title !=null){
             webTitleFourinfo.setText(title);
         }
@@ -222,7 +223,7 @@ public class FourInFoActivity extends BaseActivity<FourView, FourPresenter<FourV
             case OnlyFour.A_DELETE_COLLECTION:
                 CollectDataList collectDataList2 = (CollectDataList) o;
                 if (collectDataList2.getErrorCode() == 0){
-                    Toast.makeText(this, "收藏成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "取消收藏成功", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }

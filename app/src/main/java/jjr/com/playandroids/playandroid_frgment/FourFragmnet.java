@@ -119,12 +119,13 @@ public class FourFragmnet extends BaseFragment<FourView, FourPresenter<FourView>
         presenter.getDataFourP(OnlyFour.NAVI, null);
         fourconentAdapter.setOnclickLienter(new FourconentAdapter.OnclickLienter() {
             @Override
-            public void Click(int position, String name, String url,String author,int id) {
+            public void Click(int position, String name, String url,String author,int id,boolean collect) {
                 Intent intent = new Intent(getContext(),FourInFoActivity.class);
                 intent.putExtra("url",url);
                 intent.putExtra("title",name);
                 intent.putExtra("id",id);
                 intent.putExtra("author",author);
+                intent.putExtra("collect",collect);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
             }
