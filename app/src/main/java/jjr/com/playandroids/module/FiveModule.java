@@ -71,6 +71,9 @@ public class FiveModule {
                     @Override
                     public void onNext(SearchBean value) {
                         fiveCallBack.setData(value, onlyOne);
+                        if(value.getData().getDatas().size()==0){
+                            fiveCallBack.setshowError("没有更多数据!");
+                        }
                     }
                 });
                 break;

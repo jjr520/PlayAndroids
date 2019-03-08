@@ -120,6 +120,7 @@ public class SearchDetailsActivity extends BaseActivity<FiveView, FivePresenter<
     @Override
     protected void onRestart() {
         super.onRestart();
+        page=0;
         HashMap<String, String> map = new HashMap<>();
         map.put("page", page + "");
         map.put("cid", mCids);
