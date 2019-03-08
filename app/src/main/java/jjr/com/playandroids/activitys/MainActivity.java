@@ -362,6 +362,7 @@ public class MainActivity extends AppCompatActivity
         mTopTitle = (TextView) findViewById(R.id.top_title);
         mUseful_sitess = findViewById(R.id.useful_Sites);
         search = findViewById(R.id.search);
+
         mUseful_sitess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
