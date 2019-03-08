@@ -1,12 +1,10 @@
 package jjr.com.playandroids.activitys;
 
 import android.app.ActivityOptions;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,7 +12,6 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -31,30 +28,22 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.io.IOException;
-
 import jjr.com.playandroids.R;
 import jjr.com.playandroids.beans.setting.NightModeEvent;
-import jjr.com.playandroids.beans.sixlistbean.Login;
 import jjr.com.playandroids.playandroid_frgment.FiveFragmnet;
 import jjr.com.playandroids.playandroid_frgment.FourFragmnet;
 import jjr.com.playandroids.playandroid_frgment.OneFragmnet;
 import jjr.com.playandroids.playandroid_frgment.ThereFragmnet;
 import jjr.com.playandroids.playandroid_frgment.TwoFragment;
-
-import jjr.com.playandroids.sideslip_menu.AboutFragment;
 import jjr.com.playandroids.sideslip_menu.CollectFragment;
 import jjr.com.playandroids.sideslip_menu.PlayAndroidFragment;
 import jjr.com.playandroids.sideslip_menu.SetFragment;
@@ -149,6 +138,7 @@ public class MainActivity extends AppCompatActivity
         mOneFragmnet = new OneFragmnet();
         fragmentTransaction.replace(R.id.fram, mOneFragmnet);
         fragmentTransaction.commit();
+
         navigationView.setNavigationItemSelectedListener(this);
 
         mItem = navigationView.getMenu().findItem(R.id.nav_logout);
@@ -395,8 +385,13 @@ public class MainActivity extends AppCompatActivity
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 mTopTitle.setText(item.getTitle());
                 FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
+                final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                mOneFragmnet.setIntents(new OneFragmnet.Intents() {
+                    @Override
+                    public void Myintien() {
+                        //跳转到第五个fragment
+                    }
+                });
                 switch (item.getItemId()) {
                     case R.id.tab_main_pager:
                         a1 = 1;

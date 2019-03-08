@@ -53,6 +53,12 @@ public class CollectAdapter extends RecyclerView.Adapter<CollectAdapter.ViewHold
         holder.wx_item_title_collection.setText(list.get(position).getTitle());
         holder.wx_item_tv_time_collect.setText(list.get(position).getNiceDate());
         holder.wx_collect.setBackgroundResource(R.drawable.icon_like);
+        holder.wx_collect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onclickLienter.Click(position);
+            }
+        });
     }
 
     @Override

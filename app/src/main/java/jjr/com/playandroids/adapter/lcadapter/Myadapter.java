@@ -111,15 +111,16 @@ public class Myadapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             holder1.mContent.setTextSize(15);
             holder1.mTime.setText(mWeChatHistoryBean.getNiceDate());
             holder1.mTime.setTextSize(15);
-            ((ViewHolderA) holder).red.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    litao.Mypoject();
-                }
-            });
+
             if (mWeChatHistoryBean.getSuperChapterName().contains("项目")){
                 ((ViewHolderA) holder).red.setVisibility(View.VISIBLE);
                 ((ViewHolderA) holder).red.setText("项目");
+                ((ViewHolderA) holder).red.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        litao.Mypoject();
+                    }
+                });
             }else {
                 ((ViewHolderA) holder).red.setVisibility(View.GONE);
             }

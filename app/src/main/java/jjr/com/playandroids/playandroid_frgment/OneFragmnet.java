@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -111,7 +112,8 @@ public class OneFragmnet extends BaseFragment<OneView,OnePresenter<OneView>> imp
                 myadapter.setLitao(new Myadapter.Litao() {
                     @Override
                     public void Mypoject() {
-                       intents.Myintien();
+                        intents.Myintien();
+                        Toast.makeText(context, "点击", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -184,7 +186,7 @@ public class OneFragmnet extends BaseFragment<OneView,OnePresenter<OneView>> imp
         intent.putExtra("allCollect",b);
         startActivity(intent);
     }
-    interface Intents{
+    public interface Intents{
         void Myintien();
     }
 }

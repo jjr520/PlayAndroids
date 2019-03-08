@@ -30,6 +30,8 @@ android {
         targetGenDir 'src/main/java'
 
     }
+
+
 }
 
 dependencies {
