@@ -140,7 +140,9 @@ public class KnowDetailFragment extends BaseFragment<TwoView, TwoPresenter<TwoVi
     public void showDataTwo(Object o, String onlyTwo) {
         switch (onlyTwo) {
             case OnlyTwo.KnowDetails:
-                //  datasBeans.clear();
+                /*if (page == 0) {
+                    datasBeans.clear();
+                }*/
                 KnowDetailsBean knowDetailsBean = (KnowDetailsBean) o;
                 List<KnowDetailsBean.DataBean.DatasBean> datas = knowDetailsBean.getData().getDatas();
                 datasBeans.addAll(datas);
@@ -151,7 +153,7 @@ public class KnowDetailFragment extends BaseFragment<TwoView, TwoPresenter<TwoVi
                 mDetailFraAdapter.notifyDataSetChanged();
                 if (datas.size() == 0) {
                     int xOffset = 0, yOffset = 790;
-                    CustomToast.makeText(mActivity, "没有多余的干货了(ﾉ≧∀≦)ﾉ",
+                    CustomToast.makeText(mActivity, "没有多余的干货了..(｡•ˇ‸ˇ•｡)…",
                             Toast.LENGTH_SHORT, xOffset, yOffset).show();
                 }
                 break;

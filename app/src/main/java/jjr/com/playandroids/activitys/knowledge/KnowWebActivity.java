@@ -159,7 +159,12 @@ public class KnowWebActivity extends BaseActivity<FiveView, FivePresenter<FiveVi
 
     @Override
     public void showError(String error) {
-        Toast.makeText(mActivity, error, Toast.LENGTH_SHORT).show();
+      /*  Toast.makeText(mActivity, error, Toast.LENGTH_SHORT).show();*/
+      if(mWebLike!=null){
+          mWebLike.setImageResource(R.mipmap.ic_toolbar_like_p);
+          // Toast.makeText(mActivity, "收藏ok", Toast.LENGTH_SHORT).show();
+          Toast.makeText(mActivity, "操作无效", Toast.LENGTH_SHORT).show();
+      }
     }
 
 
@@ -256,12 +261,4 @@ public class KnowWebActivity extends BaseActivity<FiveView, FivePresenter<FiveVi
             getWindow().setStatusBarColor(background);
         }
     }
-
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-    }
-
 }

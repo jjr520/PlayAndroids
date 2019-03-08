@@ -1,9 +1,11 @@
 package jjr.com.playandroids.activitys;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -50,6 +52,7 @@ public class SearchDetailsActivity extends BaseActivity<FiveView, FivePresenter<
 
     @Override
     protected void initData() {
+        setstatus("白色", Color.parseColor("#23b0df"));
         final Intent intent = getIntent();
         normalView.setPrimaryColorsId(Global.BLUE_THEME, R.color.white);
         mCids = intent.getStringExtra("cid");
@@ -130,7 +133,6 @@ public class SearchDetailsActivity extends BaseActivity<FiveView, FivePresenter<
 
     @Override
     public void showDataFive(Object o, String onlyOne) {
-
         switch (onlyOne) {
             case OnlyFive.CANCELCONTENT:
                 CollectDataList collectDataList = (CollectDataList) o;

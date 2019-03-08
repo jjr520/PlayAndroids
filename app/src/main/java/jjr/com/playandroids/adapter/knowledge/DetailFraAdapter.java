@@ -63,7 +63,7 @@ public class DetailFraAdapter extends RecyclerView.Adapter {
         holder1.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mOnClick != null) {
+                if (mDatas != null && mOnClick != null) {
                     mOnClick.onClickListener(v, position);
                 }
             }
@@ -71,7 +71,7 @@ public class DetailFraAdapter extends RecyclerView.Adapter {
         holder1.mLikeIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mOnLike != null) {
+                if (mDatas != null && mOnLike != null) {
                     mOnLike.onLikeClickListener(v, position);
                 }
             }
