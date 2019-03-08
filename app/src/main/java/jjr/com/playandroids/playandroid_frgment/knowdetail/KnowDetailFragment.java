@@ -140,8 +140,7 @@ public class KnowDetailFragment extends BaseFragment<TwoView, TwoPresenter<TwoVi
     public void showDataTwo(Object o, String onlyTwo) {
         switch (onlyTwo) {
             case OnlyTwo.KnowDetails:
-
-                datasBeans.clear();
+                //  datasBeans.clear();
                 KnowDetailsBean knowDetailsBean = (KnowDetailsBean) o;
                 List<KnowDetailsBean.DataBean.DatasBean> datas = knowDetailsBean.getData().getDatas();
                 datasBeans.addAll(datas);
@@ -174,7 +173,9 @@ public class KnowDetailFragment extends BaseFragment<TwoView, TwoPresenter<TwoVi
         mNormal.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                datasBeans.clear();
+                if (page == 0) {
+                    datasBeans.clear();
+                }
                 presenter.getDataTwoP(OnlyTwo.KnowDetails, page, mId, 0);
                 refreshLayout.finishRefresh();
             }
