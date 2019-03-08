@@ -93,7 +93,8 @@ public class Myadapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             });
         }else if (holder instanceof ViewHolderA){
-            Articlebean.DataBean.DatasBean mWeChatHistoryBean = artilist.get(position);
+            final int pson = position-1;
+            Articlebean.DataBean.DatasBean mWeChatHistoryBean = artilist.get(pson);
             Log.e("showDataOne","artilist"+artilist);
            ViewHolderA holder1 = (ViewHolderA) holder;
             holder1.mAuthor_icon.setText(mWeChatHistoryBean.getAuthor());
@@ -103,20 +104,23 @@ public class Myadapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ((ViewHolderA) holder).mName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    litao.Myname(position);
+                    litao.Myname(pson);
                 }
             });
             holder1.mContent.setText(Html.fromHtml(mWeChatHistoryBean.getTitle()));
             holder1.mContent.setTextSize(15);
             holder1.mTime.setText(mWeChatHistoryBean.getNiceDate());
             holder1.mTime.setTextSize(15);
+
             if (mWeChatHistoryBean.getSuperChapterName().contains("项目")){
                 ((ViewHolderA) holder).red.setVisibility(View.VISIBLE);
                 ((ViewHolderA) holder).red.setText("项目");
             }else {
                 ((ViewHolderA) holder).red.setVisibility(View.GONE);
             }
-            if (mWeChatHistoryBean.getNiceDate().contains("分钟")||mWeChatHistoryBean.getNiceDate().contains("小时")||mWeChatHistoryBean.getNiceDate().contains("1天")){
+            if (mWeChatHistoryBean.getNiceDate()
+                    .contains("分钟")||mWeChatHistoryBean.getNiceDate().contains("小时")||
+                    mWeChatHistoryBean.getNiceDate().contains("1天")){
                 ((ViewHolderA) holder).greed.setVisibility(View.VISIBLE);
                 ((ViewHolderA) holder).greed.setText("新");
             }else {
@@ -134,13 +138,13 @@ public class Myadapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ((ViewHolderA) holder).mCollection.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    litao.YISSB(position);
+                    litao.YISSB(pson);
                 }
             });
             holder1.mCard.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    litao.IISSB(position);
+                    litao.IISSB(pson);
                 }
             });
         }
@@ -148,7 +152,7 @@ public class Myadapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return artilist.size();
+        return artilist.size()+1;
     }
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position, @NonNull List<Object> payloads) {

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -19,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import jjr.com.playandroids.R;
 import jjr.com.playandroids.adapter.knowledge.ViewPagerAdapter;
@@ -53,17 +51,12 @@ public class KnowDetailActivity extends SimperActivity {
     protected void initData() {
         setstatus("白色", Color.parseColor("#23b0df"));
         mFloat.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#269378")));
-
         Intent intent = getIntent();
         mSuperChapterName = intent.getStringExtra("superChapterName");
-
         List<KonwDataBean.DataBean.ChildrenBean> tabList = (List<KonwDataBean.DataBean.ChildrenBean>) intent.getSerializableExtra("tabItemBeanList");
-
         mToobar.setText(mSuperChapterName);
-
         ArrayList<Fragment> fragments = new ArrayList<>();
         ArrayList<String> strings = new ArrayList<>();
-
         for (KonwDataBean.DataBean.ChildrenBean children : tabList) {
             fragments.add(new KnowDetailFragment(children.getId(), mSuperChapterName));
             strings.add(children.getName());
@@ -90,7 +83,6 @@ public class KnowDetailActivity extends SimperActivity {
         }
     }
 
-
     @OnClick({R.id.knowledge_detail_back, R.id.knowledge_floating})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -98,7 +90,7 @@ public class KnowDetailActivity extends SimperActivity {
                 finish();
                 break;
             case R.id.knowledge_floating:
-                EventBusBean eventBusBean=new EventBusBean();
+                EventBusBean eventBusBean = new EventBusBean();
                 EventBus.getDefault().post(eventBusBean);
                 break;
         }
