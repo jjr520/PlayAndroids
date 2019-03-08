@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -26,7 +25,6 @@ import jjr.com.playandroids.activitys.wechat.WxShowSimpleActivity;
 import jjr.com.playandroids.adapter.lcadapter.Myadapter;
 import jjr.com.playandroids.base.fragment.BaseFragment;
 import jjr.com.playandroids.beans.collect.CollectDataList;
-import jjr.com.playandroids.beans.collect.CollectListBean;
 import jjr.com.playandroids.beans.one.Articlebean;
 import jjr.com.playandroids.beans.one.Bannerbean;
 import jjr.com.playandroids.persenter.OnePresenter;
@@ -43,9 +41,15 @@ public class OneFragmnet extends BaseFragment<OneView,OnePresenter<OneView>> imp
     @BindView(R.id.normal_view)
     SmartRefreshLayout normalView;
     int arr = 0;
+    private Intents intents;
     List<Bannerbean.DataBean> data;
     List<Articlebean.DataBean.DatasBean> datasBeans;
     private Myadapter myadapter;
+
+    public void setIntents(Intents intents) {
+        this.intents = intents;
+    }
+
     @Override
     public void showError(String error) {
 
@@ -58,7 +62,6 @@ public class OneFragmnet extends BaseFragment<OneView,OnePresenter<OneView>> imp
 
     @Override
     public int createLayoutId() {
-
         EventBus.getDefault().register(this);
         return R.layout.one_fragment;
 
@@ -107,14 +110,19 @@ public class OneFragmnet extends BaseFragment<OneView,OnePresenter<OneView>> imp
                 }
                 myadapter.setLitao(new Myadapter.Litao() {
                     @Override
+                    public void Mypoject() {
+                       intents.Myintien();
+                    }
+
+                    @Override
                     public void IISSB(int position) {
-                        MystartActivity(datasBeans.get(position).getTitle(), datasBeans.get(position).getLink());
+                        MystartActivity(datasBeans.get(position).getTitle(), datasBeans.get(position).getLink(),datasBeans.get(position).isCollect());
                     }
 
                     @Override
                     public void LitaoISSB(int position) {
                         //banner点击事件
-                        MystartActivity(data.get(position).getTitle(), data.get(position).getUrl());
+                        MystartActivity(data.get(position).getTitle(), data.get(position).getUrl(),datasBeans.get(position).isCollect());
                     }
 
                     @Override
@@ -124,13 +132,13 @@ public class OneFragmnet extends BaseFragment<OneView,OnePresenter<OneView>> imp
                         if (collect) {
                             //取消收藏
                             datasBeans.get(position).setCollect(false);
-                            myadapter.notifyItemChanged(position, false);
+                            myadapter.notifyItemChanged(position+1, false);
                             presenter.getDataOneP(datasBeans.get(position).getId()+"","4");
                             //Toast.makeText(context, "取消收藏", Toast.LENGTH_SHORT).show();
                         } else {
                             //收藏成功
                             datasBeans.get(position).setCollect(true);
-                            myadapter.notifyItemChanged(position, true);
+                            myadapter.notifyItemChanged(position+1, true);
                             presenter.getDataOneP(datasBeans.get(position).getId()+"","3");
                         }
                     }
@@ -140,7 +148,7 @@ public class OneFragmnet extends BaseFragment<OneView,OnePresenter<OneView>> imp
                         Intent intent = new Intent(context, WxShowSimpleActivity.class);
                         intent.putExtra("title",datasBeans.get(position).getSuperChapterName());
                         intent.putExtra("name",datasBeans.get(position).getChapterName());
-                        intent.putExtra("id",datasBeans.get(position).getId());
+                        intent.putExtra("id",datasBeans.get(position).getChapterId());
                         startActivity(intent);
                     }
                 });
@@ -148,7 +156,7 @@ public class OneFragmnet extends BaseFragment<OneView,OnePresenter<OneView>> imp
         }else if (o instanceof CollectDataList){
             //收藏成功
             int errorCode = ((CollectDataList) o).getErrorCode();
-            Toast.makeText(context, ""+errorCode, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, ""+errorCode, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -169,10 +177,14 @@ public class OneFragmnet extends BaseFragment<OneView,OnePresenter<OneView>> imp
         return "article/list/" + a + "/json";
     }
 
-    public void MystartActivity(String title, String url) {
+    public void MystartActivity(String title, String url,boolean b) {
         Intent intent = new Intent(context, KnowWebActivity.class);
         intent.putExtra("allWeb", url);
         intent.putExtra("allTitle", title);
+        intent.putExtra("allCollect",b);
         startActivity(intent);
+    }
+    interface Intents{
+        void Myintien();
     }
 }
