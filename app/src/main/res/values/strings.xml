@@ -1,22 +1,14 @@
 <resources>
     <string name="app_name">玩安卓</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <string name="action_settings">Settings</string>
     <string name="install">install</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
-
-    <string name="scale_down_show_behavior">json.chao.com.wanandroid.widget.behavior.ScaleDownShowBehavior</string>
-
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!--知识体系-->
     <string name="share_view">shareView</string>
     <string name="common_toolbar">开发环境</string>
-    <string name="reload">Reload</string>
     <string name="action_share">分享</string>
     <string name="action_open">用系统浏览器打开</string>
     <string name="error_tips">不妙！加载失败了ヽ(≧Д≦)ノ\n 告诉大佬一些可能的原因：\n1.不可直视的网络环境\n 2.服务器大哥的不定期抽风\n 3.WanAndroid眼冒金星拒绝服务喔~</string>

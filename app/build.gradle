@@ -17,7 +17,11 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+           // signingConfig signingConfigs.debug
+            /* //打开资源压缩
+             shrinkResources true
+             buildConfigField "boolean", "LOG_DEBUG", "false" //不显示log*/
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -31,7 +35,14 @@ android {
 
     }
 
-
+  /*  signingConfigs {
+        debug {
+            storeFile file('wanandroid.jks')
+            storePassword "111111"
+            keyAlias "key0"
+            keyPassword "111111"
+        }
+    }*/
 }
 
 dependencies {

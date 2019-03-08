@@ -11,13 +11,6 @@
 
     </style>
 
-    <style name="windowAnimation">
-        <item name="android:activityOpenEnterAnimation">@anim/push_left_in</item>
-        <item name="android:activityOpenExitAnimation">@anim/push_left_out</item>
-        <item name="android:activityCloseEnterAnimation">@anim/push_right_in</item>
-        <item name="android:activityCloseExitAnimation">@anim/push_right_out</item>
-    </style>
-
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

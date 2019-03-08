@@ -78,7 +78,7 @@ public class OneFragmnet extends BaseFragment<OneView,OnePresenter<OneView>> imp
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 arr = 0;
-                datasBeans.clear();
+                //datasBeans= new ArrayList<>();
                 presenter.getDataOneP(getUrl(arr), "2");
                 refreshLayout.finishRefresh();
             }
@@ -97,6 +97,9 @@ public class OneFragmnet extends BaseFragment<OneView,OnePresenter<OneView>> imp
     @Override
     public void showDataOne(Object o, String onlyOne) {
         if (o instanceof Articlebean) {
+            if (arr==0){
+                datasBeans.clear();
+            }
             datasBeans.addAll(((Articlebean) o).getData().getDatas());
             Log.e("李涛",datasBeans.toString());
             if (myadapter != null) {
