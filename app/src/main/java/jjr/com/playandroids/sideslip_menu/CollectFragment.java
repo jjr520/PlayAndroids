@@ -77,6 +77,14 @@ public class CollectFragment extends BaseFragment<CollectView, CollectPresenter<
                 presenter.getCollectP(OnlyCollect.COLLECT, page);
             }
         });
+        collectAdapter.setCoolectLienter(new CollectAdapter.CoolectLienter() {
+            @Override
+            public void Clickcollect(int position) {
+                list.remove(list.get(position));
+                collectAdapter.notifyDataSetChanged();
+
+            }
+        });
     }
 
     @Override

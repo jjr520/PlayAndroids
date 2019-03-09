@@ -144,6 +144,7 @@ public class KnowDetailFragment extends BaseFragment<TwoView, TwoPresenter<TwoVi
                     datasBeans.clear();
                 }*/
                 KnowDetailsBean knowDetailsBean = (KnowDetailsBean) o;
+                datasBeans .clear();
                 List<KnowDetailsBean.DataBean.DatasBean> datas = knowDetailsBean.getData().getDatas();
                 datasBeans.addAll(datas);
                 if (datasBeans != null && mNormal != null && mErrorGroup != null) {
@@ -175,9 +176,9 @@ public class KnowDetailFragment extends BaseFragment<TwoView, TwoPresenter<TwoVi
         mNormal.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                if (page == 0) {
+                /*if (page == 0) {
                     datasBeans .clear();
-                }
+                }*/
                 presenter.getDataTwoP(OnlyTwo.KnowDetails, page, mId, 0);
                 refreshLayout.finishRefresh();
             }

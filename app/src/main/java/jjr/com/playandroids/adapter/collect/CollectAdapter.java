@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -52,13 +53,14 @@ public class CollectAdapter extends RecyclerView.Adapter<CollectAdapter.ViewHold
         });
         holder.wx_item_title_collection.setText(list.get(position).getTitle());
         holder.wx_item_tv_time_collect.setText(list.get(position).getNiceDate());
-        holder.wx_collect.setBackgroundResource(R.drawable.icon_like);
+        //holder.wx_collect.setBackgroundResource(R.drawable.icon_like);
         holder.wx_collect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onclickLienter.Click(position);
+                coolectLienter.Clickcollect(position);
             }
         });
+
     }
 
     @Override
@@ -95,4 +97,14 @@ public class CollectAdapter extends RecyclerView.Adapter<CollectAdapter.ViewHold
          public interface OnclickLienter{
              void Click(int position);
          }
+
+    CoolectLienter coolectLienter;
+
+    public void setCoolectLienter(CoolectLienter coolectLienter) {
+        this.coolectLienter = coolectLienter;
+    }
+
+    public interface CoolectLienter{
+        void Clickcollect(int position);
+    }
 }
