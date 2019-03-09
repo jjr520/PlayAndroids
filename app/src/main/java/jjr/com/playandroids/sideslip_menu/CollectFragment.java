@@ -61,6 +61,7 @@ public class CollectFragment extends BaseFragment<CollectView, CollectPresenter<
                 Intent intent = new Intent(context, KnowWebActivity.class);
                 intent.putExtra("allWeb",list.get(position).getLink());
                 intent.putExtra("allTitle",list.get(position).getTitle());
+                intent.putExtra("allCollect",true);
                 startActivity(intent);
             }
         });

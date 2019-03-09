@@ -52,6 +52,13 @@ public class OneFragmnet extends BaseFragment<OneView,OnePresenter<OneView>> imp
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        arr=0;
+        presenter.getDataOneP(getUrl(arr), "2");
+    }
+
+    @Override
     public void showError(String error) {
 
     }
@@ -121,13 +128,13 @@ public class OneFragmnet extends BaseFragment<OneView,OnePresenter<OneView>> imp
 
                     @Override
                     public void IISSB(int position) {
-                        MystartActivity(datasBeans.get(position).getTitle(), datasBeans.get(position).getLink(),datasBeans.get(position).isCollect());
+                        MystartActivity(datasBeans.get(position).getTitle(), datasBeans.get(position).getLink(),datasBeans.get(position).isCollect(),datasBeans.get(position).getId());
                     }
 
                     @Override
                     public void LitaoISSB(int position) {
                         //banner点击事件
-                        MystartActivity(data.get(position).getTitle(), data.get(position).getUrl(),datasBeans.get(position).isCollect());
+                        MystartActivity(data.get(position).getTitle(), data.get(position).getUrl(),datasBeans.get(position).isCollect(),datasBeans.get(position).getId());
                     }
 
                     @Override
@@ -182,9 +189,10 @@ public class OneFragmnet extends BaseFragment<OneView,OnePresenter<OneView>> imp
         return "article/list/" + a + "/json";
     }
 
-    public void MystartActivity(String title, String url,boolean b) {
+    public void MystartActivity(String title, String url,boolean b,int id) {
         Intent intent = new Intent(context, KnowWebActivity.class);
         intent.putExtra("allWeb", url);
+        intent.putExtra("allId",id);
         intent.putExtra("allTitle", title);
         intent.putExtra("allCollect",b);
         startActivity(intent);

@@ -140,11 +140,10 @@ public class KnowDetailFragment extends BaseFragment<TwoView, TwoPresenter<TwoVi
     public void showDataTwo(Object o, String onlyTwo) {
         switch (onlyTwo) {
             case OnlyTwo.KnowDetails:
-                /*if (page == 0) {
+                if (page == 0) {
                     datasBeans.clear();
-                }*/
+                }
                 KnowDetailsBean knowDetailsBean = (KnowDetailsBean) o;
-                datasBeans .clear();
                 List<KnowDetailsBean.DataBean.DatasBean> datas = knowDetailsBean.getData().getDatas();
                 datasBeans.addAll(datas);
                 if (datasBeans != null && mNormal != null && mErrorGroup != null) {
@@ -218,7 +217,8 @@ public class KnowDetailFragment extends BaseFragment<TwoView, TwoPresenter<TwoVi
     @Override
     public void onStart() {
         super.onStart();
-        presenter.getDataTwoP(OnlyTwo.KnowDetails, page, mId, 0);
+       // datasBeans.clear();
+        presenter.getDataTwoP(OnlyTwo.KnowDetails, 0, mId, 0);
     }
 
 }
