@@ -79,7 +79,6 @@ public static java.lang.String TABLENAME;
     public void onEvent*(**);
 }
 #butterknife
-#butterknife
 -keep class butterknife.** { *; }
 -dontwarn butterknife.internal.**
 -keep class **$$ViewBinder { *; }
@@ -101,3 +100,19 @@ public static java.lang.String TABLENAME;
     **[] $VALUES;
     public *;
 }
+
+
+-keep class jjr.com.playandroids.beans.fivelistbean.* {*;}
+-keep class jjr.com.playandroids.beans.fourlistbean.* {*;}
+-keep class jjr.com.playandroids.beans.knowbean.* {*;}
+-keep class jjr.com.playandroids.beans.one.* {*;}
+-keep class jjr.com.playandroids.beans.setting.* {*;}
+-keep class jjr.com.playandroids.beans.sixlistbean.* {*;}
+-keep class jjr.com.playandroids.beans.collect.* {*;}
+-keep class jjr.com.playandroids.beans.wechat.* {*;}
+
+
+
+
+
+

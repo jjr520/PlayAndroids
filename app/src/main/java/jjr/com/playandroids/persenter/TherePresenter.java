@@ -9,6 +9,8 @@ import jjr.com.playandroids.only.OnlyThere;
 import jjr.com.playandroids.view.ThereView;
 import jjr.com.playandroids.view.TwoView;
 
+import static jjr.com.playandroids.only.OnlyThere.CANCLECOLLECTION;
+import static jjr.com.playandroids.only.OnlyThere.COLLECTION;
 import static jjr.com.playandroids.only.OnlyThere.SEARCH;
 import static jjr.com.playandroids.only.OnlyThere.WCHISTORY;
 import static jjr.com.playandroids.only.OnlyThere.WECHATTAB;
@@ -38,6 +40,12 @@ public class TherePresenter<V extends ThereView> extends IBasePresenter<V> imple
                 break;
             case SEARCH:
                 view.showDataThere(o, OnlyThere.SEARCH);
+                break;
+            case COLLECTION:
+                view.showDataThere(o,OnlyThere.COLLECTION);
+                break;
+            case CANCLECOLLECTION:
+                view.showDataThere(o,OnlyThere.CANCLECOLLECTION);
                 break;
         }
     }

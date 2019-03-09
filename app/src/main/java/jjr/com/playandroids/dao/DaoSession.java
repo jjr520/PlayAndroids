@@ -9,8 +9,8 @@ import org.greenrobot.greendao.identityscope.IdentityScopeType;
 import org.greenrobot.greendao.internal.DaoConfig;
 
 import jjr.com.playandroids.beans.fivelistbean.SearchDetails;
-import jjr.com.playandroids.utils.litao.CollectUtils;
-import jjr.com.playandroids.utils.litao.TreeBean;
+import jjr.com.playandroids.beans.fivelistbean.CollectUtils;
+import jjr.com.playandroids.beans.fivelistbean.TreeBean;
 
 import jjr.com.playandroids.dao.SearchDetailsDao;
 import jjr.com.playandroids.dao.CollectUtilsDao;

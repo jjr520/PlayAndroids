@@ -3,6 +3,7 @@ package jjr.com.playandroids.utils.litao;
 
 import java.util.List;
 
+import jjr.com.playandroids.beans.fivelistbean.TreeBean;
 import jjr.com.playandroids.dao.DaoMaster;
 import jjr.com.playandroids.dao.DaoSession;
 import jjr.com.playandroids.dao.TreeBeanDao;

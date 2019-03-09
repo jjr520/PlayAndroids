@@ -15,13 +15,14 @@ import android.widget.TextView;
 import java.util.List;
 
 import jjr.com.playandroids.R;
+import jjr.com.playandroids.adapter.lcadapter.Myadapter;
 import jjr.com.playandroids.beans.wechat.WeChatHistoryBean;
 
 /**
  * Created by 甘之如饴 on 2019/3/1.
  */
 
-public class WxAllRlvAdapter extends RecyclerView.Adapter {
+public class WxAllRlvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private Context mContext;
     public List<WeChatHistoryBean.DataBean.DatasBean> mWeChatHistoryBean;
@@ -83,7 +84,22 @@ public class WxAllRlvAdapter extends RecyclerView.Adapter {
     public int getItemCount() {
         return mWeChatHistoryBean.size();
     }
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position, @NonNull List<Object> payloads) {
+        if (payloads.isEmpty()){
+            super.onBindViewHolder(holder, position, payloads);
+            return;
+        }
 
+        if (holder instanceof WxRlvViewHolder){
+            if ((Boolean) payloads.get(0)){
+                ((WxRlvViewHolder)holder).mCollection.setImageResource(R.drawable.icon_like);
+            }else {
+                ((WxRlvViewHolder) holder).mCollection.setImageResource(R.drawable.icon_like_article_not_selected);
+            }
+
+        }
+    }
     public void addSearch(List<WeChatHistoryBean.DataBean.DatasBean> datas) {
         mWeChatHistoryBean.clear();
         mWeChatHistoryBean.addAll(datas);

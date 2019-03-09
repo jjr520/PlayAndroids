@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'//GreenDao
 android {
+   /* signingConfigs {
+        release {
+            storeFile file('winAndroid.jks')
+            storePassword "111111"
+            keyAlias "key0"
+            keyPassword "111111"
+        }
+    }*/
     compileSdkVersion 27
     defaultConfig {
         applicationId "jjr.com.playandroids"
@@ -17,11 +25,11 @@ android {
     }
     buildTypes {
         release {
-           // signingConfig signingConfigs.debug
-            /* //打开资源压缩
-             shrinkResources true
-             buildConfigField "boolean", "LOG_DEBUG", "false" //不显示log*/
-            minifyEnabled true
+           // signingConfig signingConfigs.release
+            //打开资源压缩
+         //   shrinkResources true
+         //   buildConfigField "boolean", "LOG_DEBUG", "false" //不显示log
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -35,18 +43,10 @@ android {
 
     }
 
-  /*  signingConfigs {
-        debug {
-            storeFile file('wanandroid.jks')
-            storePassword "111111"
-            keyAlias "key0"
-            keyPassword "111111"
-        }
-    }*/
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
@@ -54,65 +54,55 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-
     //butterknife
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-
     //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.squareup.retrofit2:converter-scalars:2.3.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-
     //rxjava
     implementation 'io.reactivex.rxjava2:rxjava:2.0.1'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
-
     //okhttp:
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'   //okhttp:
-
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    //okhttp:
     //log
     compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
-    implementation "com.miguelcatalan:materialsearchview:1.4.0"
-
+    implementation 'com.miguelcatalan:materialsearchview:1.4.0'
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-20'
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-20'
-
     //recyclerview
     implementation 'com.android.support:recyclerview-v7:27.1.1'
-
     implementation 'com.android.support:cardview-v7:27.1.1'
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-6'
-    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-6'//没有使用特殊Header，可以不加这行
+    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-6'
+    //没有使用特殊Header，可以不加这行
     //noinspection GradleCompatible
     compile 'com.android.support:recyclerview-v7:27.0.0-alpha1'
     implementation 'com.android.support:cardview-v7:27.1.1'
-
-//glide图片加载框架
-    implementation 'com.github.bumptech.glide:glide:4.7.1'//glide图片加载框架
+    //glide图片加载框架
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    //glide图片加载框架
     //垂直Tablyout
     compile 'q.rorbin:VerticalTabLayout:1.2.5'
     implementation 'com.zhy:flowlayout-lib:1.0.3'
-
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.2@aar'
-
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-6'
-    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-6'//没有使用特殊Header，可以不加这行
-
-    implementation 'org.greenrobot:greendao:3.2.2'  //GreenDao数据库
-
+    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-6'
+    //没有使用特殊Header，可以不加这行
+    implementation 'org.greenrobot:greendao:3.2.2'
+    //GreenDao数据库
     compile 'com.github.githubwing:ByeBurger:1.1.0'
     compile 'com.airbnb.android:lottie:2.3.0'
-    implementation 'com.youth.banner:banner:1.4.10'  //最新版本 Banner:
-    implementation 'org.greenrobot:eventbus:3.1.1'     //eventBus依赖
-
+    implementation 'com.youth.banner:banner:1.4.10'
+    //最新版本 Banner:
+    implementation 'org.greenrobot:eventbus:3.1.1'
     //eventBus依赖
-
+    //eventBus依赖
     compile 'com.tencent.bugly:crashreport:latest.release'
     //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
     compile 'com.tencent.bugly:nativecrashreport:latest.release'
     //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
-
-
 }

@@ -1,15 +1,9 @@
 package jjr.com.playandroids.playandroid_frgment;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -19,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import jjr.com.playandroids.R;
 import jjr.com.playandroids.base.fragment.BaseFragment;
@@ -27,7 +20,7 @@ import jjr.com.playandroids.beans.fivelistbean.TreeListBean;
 import jjr.com.playandroids.only.OnlyFive;
 import jjr.com.playandroids.persenter.FivePresenter;
 import jjr.com.playandroids.playandroid_frgment.litao.ProjectTabFragment;
-import jjr.com.playandroids.utils.litao.TreeBean;
+import jjr.com.playandroids.beans.fivelistbean.TreeBean;
 import jjr.com.playandroids.utils.litao.TreeDataUtils;
 import jjr.com.playandroids.view.FiveView;
 

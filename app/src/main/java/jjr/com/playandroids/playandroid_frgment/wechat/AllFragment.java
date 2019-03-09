@@ -31,6 +31,8 @@ import jjr.com.playandroids.activitys.knowledge.KnowWebActivity;
 import jjr.com.playandroids.activitys.wechat.WxShowSimpleActivity;
 import jjr.com.playandroids.adapter.wechat.WxAllRlvAdapter;
 import jjr.com.playandroids.base.fragment.BaseFragment;
+import jjr.com.playandroids.beans.collect.CollectDataList;
+import jjr.com.playandroids.beans.collect.CollectListBean;
 import jjr.com.playandroids.beans.knowbean.EventBusBean;
 import jjr.com.playandroids.beans.wechat.WeChatHistoryBean;
 import jjr.com.playandroids.only.OnlyThere;
@@ -38,6 +40,8 @@ import jjr.com.playandroids.persenter.TherePresenter;
 import jjr.com.playandroids.user_defined.CustomToast;
 import jjr.com.playandroids.view.ThereView;
 
+import static jjr.com.playandroids.only.OnlyThere.CANCLECOLLECTION;
+import static jjr.com.playandroids.only.OnlyThere.COLLECTION;
 import static jjr.com.playandroids.only.OnlyThere.SEARCH;
 import static jjr.com.playandroids.only.OnlyThere.WCHISTORY;
 
@@ -65,7 +69,7 @@ public class AllFragment extends BaseFragment<ThereView, TherePresenter<ThereVie
     private ArrayList<WeChatHistoryBean.DataBean.DatasBean> datasBeans = new ArrayList<>();
     private int mPageCount;
     private int mCurPage;
-    private boolean collection;
+
 
     /*
      * 发现更多干货
@@ -141,12 +145,24 @@ public class AllFragment extends BaseFragment<ThereView, TherePresenter<ThereVie
             @Override
             public void onCollection(int position) {
                 //点击变色
-                if (collection) {
-
-                    collection = false;
+                boolean collect = datasBeans.get(position).isCollect();
+                if (collect) {
+                    //取消收藏
+                    datasBeans.get(position).setCollect(false);
+                    mWxRlvAdapter.notifyItemChanged(position, false);
+                    //网络解析
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put("id",mWxRlvAdapter.mWeChatHistoryBean.get(position).getId());
+                    presenter.getDataThereP(OnlyThere.COLLECTION,map);
+                    //Toast.makeText(context, "取消收藏", Toast.LENGTH_SHORT).show();
                 } else {
+                    //收藏成功
+                    datasBeans.get(position).setCollect(true);
+                    mWxRlvAdapter.notifyItemChanged(position, true);
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put("id",mWxRlvAdapter.mWeChatHistoryBean.get(position).getId());
+                    presenter.getDataThereP(OnlyThere.CANCLECOLLECTION,map);
 
-                    collection = true;
                 }
             }
         });
@@ -216,6 +232,16 @@ public class AllFragment extends BaseFragment<ThereView, TherePresenter<ThereVie
                 final List<WeChatHistoryBean.DataBean.DatasBean> datasa = wxhistory.getData().getDatas();
                 mWxRlvAdapter.addData(datasa);
                 mWxRlvAdapter.notifyDataSetChanged();
+                break;
+            case COLLECTION:
+                CollectDataList o1 = (CollectDataList) o;
+                String errorMsg = o1.getErrorMsg();
+                Toast.makeText(context,"收藏"+errorMsg, Toast.LENGTH_SHORT).show();
+                break;
+            case CANCLECOLLECTION:
+                CollectDataList o12 = (CollectDataList) o;
+                String errorMsg2 = o12.getErrorMsg();
+                Toast.makeText(context,"取消"+ errorMsg2, Toast.LENGTH_SHORT).show();
                 break;
         }
     }

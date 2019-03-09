@@ -15,7 +15,6 @@ import jjr.com.playandroids.base.activity.SimperActivity;
 
 public class WelcomeActivity extends SimperActivity {
 
-
     private LottieAnimationView mOneAnimation;
     private LottieAnimationView mTwoAnimation;
     private LottieAnimationView mThreeAnimation;

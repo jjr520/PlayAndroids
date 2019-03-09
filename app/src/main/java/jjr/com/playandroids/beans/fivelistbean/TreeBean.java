@@ -1,4 +1,4 @@
-package jjr.com.playandroids.utils.litao;
+package jjr.com.playandroids.beans.fivelistbean;
 
 
 import org.greenrobot.greendao.annotation.Entity;

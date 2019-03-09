@@ -3,6 +3,7 @@ package jjr.com.playandroids.adapter.knowledge;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,9 +52,8 @@ public class DetailFraAdapter extends RecyclerView.Adapter {
         ViewHolder holder1 = (ViewHolder) holder;
         holder1.mAuthor.setText(mDatas.get(position).getAuthor());
         holder1.mChapterName.setText(mSuperChapterName + "/" + mDatas.get(position).getChapterName());
-        holder1.mTitle.setText(mDatas.get(position).getTitle());
+        holder1.mTitle.setText(Html.fromHtml(mDatas.get(position).getTitle()));
         holder1.mNiceDate.setText(mDatas.get(position).getNiceDate());
-
         if (mDatas.get(position).collect) {
             holder1.mLikeIv.setImageResource(R.drawable.icon_like);
         } else {

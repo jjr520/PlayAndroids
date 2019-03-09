@@ -5,12 +5,14 @@ import android.telecom.Call;
 import java.util.HashMap;
 
 import jjr.com.playandroids.base.model.BaseModel;
+import jjr.com.playandroids.beans.collect.CollectDataList;
 import jjr.com.playandroids.beans.wechat.WeChatHistoryBean;
 import jjr.com.playandroids.beans.wechat.WeChatTabBean;
 import jjr.com.playandroids.http.BaseObserver;
 import jjr.com.playandroids.http.HttpManager;
 import jjr.com.playandroids.http.MyServer;
 import jjr.com.playandroids.only.OnlyThere;
+import jjr.com.playandroids.only.OnlyTwo;
 import jjr.com.playandroids.utils.RxUtils;
 
 public class ThereModule {
@@ -50,6 +52,26 @@ public class ThereModule {
                             @Override
                             public void onNext(WeChatHistoryBean value) {
                                 thereCallBack.setData(value,OnlyThere.SEARCH);
+                            }
+                        });
+                break;
+            case OnlyThere.COLLECTION:
+                HttpManager.getInstance().getServer(MyServer.HOST, MyServer.class)
+                        .getCollectData((Integer) map.get("id")).compose(RxUtils.<CollectDataList>rxScheduleThread())
+                        .subscribe(new BaseObserver<CollectDataList>(thereCallBack) {
+                            @Override
+                            public void onNext(CollectDataList value) {
+                                thereCallBack.setData(value,OnlyThere.COLLECTION);
+                            }
+                        });
+                break;
+            case OnlyThere.CANCLECOLLECTION:
+                HttpManager.getInstance().getServer(MyServer.HOST, MyServer.class)
+                        .getUncoolect((Integer) map.get("id")).compose(RxUtils.<CollectDataList>rxScheduleThread())
+                        .subscribe(new BaseObserver<CollectDataList>(thereCallBack) {
+                            @Override
+                            public void onNext(CollectDataList value) {
+                                thereCallBack.setData(value,OnlyThere.CANCLECOLLECTION);
                             }
                         });
                 break;

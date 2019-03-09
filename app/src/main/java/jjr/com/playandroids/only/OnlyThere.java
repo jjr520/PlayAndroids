@@ -6,4 +6,6 @@ public class OnlyThere {
     public static final String WCHISTORY = "WCHISTORY";
     public static final String WXDETAIL = "WXDETAIL";
     public static final String SEARCH = "SEARCH";
+    public static final String COLLECTION="COLLECTION";
+    public static final String CANCLECOLLECTION = "CANCLECOLLECTION";
 }

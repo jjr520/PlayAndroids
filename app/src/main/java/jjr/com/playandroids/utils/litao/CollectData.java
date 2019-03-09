@@ -2,10 +2,10 @@ package jjr.com.playandroids.utils.litao;
 
 import java.util.List;
 
+import jjr.com.playandroids.beans.fivelistbean.CollectUtils;
 import jjr.com.playandroids.dao.CollectUtilsDao;
 import jjr.com.playandroids.dao.DaoMaster;
 import jjr.com.playandroids.dao.DaoSession;
-import jjr.com.playandroids.dao.TreeBeanDao;
 import jjr.com.playandroids.global.MyApp;
 
 public class CollectData {
