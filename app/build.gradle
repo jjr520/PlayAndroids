@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'//GreenDao
+
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -15,9 +16,14 @@ android {
             abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
         }
     }
+
     buildTypes {
         release {
-            minifyEnabled false
+           signingConfig signingConfigs.debug
+            minifyEnabled true
+           shrinkResources true
+             //打开资源压缩
+            buildConfigField "boolean", "LOG_DEBUG", "false" //不显示log*/proguardFiles
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -30,8 +36,22 @@ android {
         targetGenDir 'src/main/java'
 
     }
+    lintOptions {
+        abortOnError false
+        checkReleaseBuilds true
+        // 防止在发布的时候出现因MissingTranslation导致Build Failed!
+        disable 'MissingTranslation'
+    }
 
+    signingConfigs {
+        debug {
+            storeFile file('BJG.jks')
+            storePassword "111111"
+            keyAlias "key0"
+            keyPassword "111111"
+        }
 
+    }
 }
 
 dependencies {

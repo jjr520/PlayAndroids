@@ -78,7 +78,7 @@ public class FourFragmnet extends BaseFragment<FourView, FourPresenter<FourView>
         }
 
     }
-
+    //小郭郭
     @Override
     protected FourPresenter<FourView> createPresenter() {
         return new FourPresenter<>();
@@ -154,18 +154,5 @@ public class FourFragmnet extends BaseFragment<FourView, FourPresenter<FourView>
                 }
             }
         });
-        /*fourconentAdapter.setOnclickLienter(new FourconentAdapter.OnclickLienter() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-            @Override
-            public void Click(int position, String name, String url,View textView) {
-                Toast.makeText(context, name + url + position, Toast.LENGTH_SHORT).show();
-                *//*Intent intent = new Intent();
-                intent.setClass(getContext(), FourInFoActivity.class);
-                CircularAnimUtil.startActivity(getActivity(),intent,textView,R.color.white);*//*
-                Intent intent = new Intent(mActivity, KnowWebActivity.class);
-                intent.putExtra("allWeb",url);
-                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(mActivity, textView, "shareNames").toBundle());
-            }
-        });*/
     }
 }
