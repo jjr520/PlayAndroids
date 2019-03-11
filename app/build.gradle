@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'//GreenDao
 android {
-   /* signingConfigs {
+    signingConfigs {
         release {
-            storeFile file('winAndroid.jks')
-            storePassword "111111"
+            storeFile file('wanAndroid.jks')
+            storePassword "123456"
             keyAlias "key0"
-            keyPassword "111111"
+            keyPassword "123456"
         }
-    }*/
+    }
     compileSdkVersion 27
     defaultConfig {
         applicationId "jjr.com.playandroids"
@@ -25,11 +25,11 @@ android {
     }
     buildTypes {
         release {
-           // signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
             //打开资源压缩
-         //   shrinkResources true
-         //   buildConfigField "boolean", "LOG_DEBUG", "false" //不显示log
-            minifyEnabled false
+           shrinkResources true
+            buildConfigField "boolean", "LOG_DEBUG", "false" //不显示log
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

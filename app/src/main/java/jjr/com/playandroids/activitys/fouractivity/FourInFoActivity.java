@@ -40,7 +40,10 @@ import jjr.com.playandroids.utils.ShareUtil;
 import jjr.com.playandroids.view.FourView;
 
 public class FourInFoActivity extends BaseActivity<FourView, FourPresenter<FourView>> implements FourView {
-
+    //这是分支Qaiop
+    //这是分支Qaiop
+    //这是分支Qaiop
+    //这是分支Qaiop
     @BindView(R.id.tool_bar_fourinfo)
     Toolbar toolBarFourinfo;
     @BindView(R.id.web_title_fourinfo)
